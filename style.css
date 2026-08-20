@@ -882,18 +882,18 @@ nav {
 .social-link {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     color: var(--text-white);
     text-decoration: none;
     font-size: 1.05rem;
     font-weight: 600;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     transition: all 0.3s ease;
 }
 
 .social-link .icon {
-    width: 100px;
-    height: 100px;
+    width: 36px;
+    height: 36px;
     object-fit: contain;
     transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
@@ -905,7 +905,7 @@ nav {
 }
 
 .social-link:hover .icon {
-    transform: scale(1.15);
+    transform: scale(1.12);
 }
 
 .footer-copyright {
