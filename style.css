@@ -450,6 +450,55 @@ nav {
     background: linear-gradient(135deg, #B179F2 0%, #9139E5 100%);
 }
 
+/* SWIPER GENERAL CONTROLS & PAGINATION */
+.mySwiper {
+    padding: 10px 10px 55px 10px !important;
+    position: relative;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--purple-accent) !important;
+    background: rgba(20, 8, 39, 0.85);
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50%;
+    border: 1px solid rgba(177, 121, 242, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: var(--purple-primary);
+    color: #ffffff !important;
+    border-color: var(--purple-accent);
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(145, 57, 229, 0.6);
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 1.2rem !important;
+    font-weight: 900;
+}
+
+.swiper-pagination-bullet {
+    background: rgba(177, 121, 242, 0.35) !important;
+    opacity: 1 !important;
+    width: 10px !important;
+    height: 10px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: linear-gradient(135deg, #B179F2 0%, #9139E5 100%) !important;
+    width: 28px !important;
+    border-radius: 6px !important;
+    box-shadow: 0 0 10px rgba(177, 121, 242, 0.6);
+}
+
 /* DIFERENCIAIS SECTION */
 .diferenciais-section {
     padding: 100px 0;
@@ -800,12 +849,28 @@ nav {
     margin-bottom: 40px;
 }
 
+.mySwiperReviews {
+    padding: 10px 5px 55px 5px !important;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 .review-box {
     background: var(--dark-bg);
     padding: 30px 25px;
     border-radius: 14px;
     border: 1px solid rgba(145, 57, 229, 0.2);
     text-align: left;
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.review-box:hover {
+    transform: translateY(-4px);
+    border-color: var(--purple-accent);
 }
 
 .review-stars {
@@ -819,6 +884,7 @@ nav {
     font-size: 0.95rem;
     color: var(--text-muted);
     margin-bottom: 15px;
+    line-height: 1.6;
 }
 
 .review-author {
@@ -828,7 +894,7 @@ nav {
 }
 
 .btn-avalie {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 /* CTA FINAL SECTION */
@@ -1040,39 +1106,79 @@ nav {
     width: 100%;
 }
 
-/* SCROLL TO TOP BUTTON */
+/* ==========================================================================
+   BOTÃO FLUTUANTE WHATSAPP PULSANTE (ESTILO DRA. ALINE) & SCROLL TO TOP
+   ========================================================================== */
+
+.float-whatsapp {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    z-index: 1050;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+    animation: pulse-whatsapp 2s infinite;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+    text-decoration: none;
+}
+
+.float-whatsapp:hover {
+    transform: scale(1.12);
+    color: #ffffff;
+    box-shadow: 0 6px 22px rgba(37, 211, 102, 0.5);
+}
+
+.float-whatsapp svg {
+    width: 34px;
+    height: 34px;
+    fill: #ffffff;
+}
+
+@keyframes pulse-whatsapp {
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 16px rgba(37, 211, 102, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+/* SCROLL TO TOP BUTTON (ESTILO DRA. ALINE / PRIME RANK) */
 #scrollToTopBtn {
     position: fixed;
-    bottom: -60px;
+    bottom: 30px;
     right: 30px;
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     background: linear-gradient(135deg, #9139E5 0%, #32096D 100%);
     color: var(--text-white);
-    border: none;
+    border: 1px solid rgba(177, 121, 242, 0.4);
     border-radius: 50%;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(145, 57, 229, 0.4);
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     z-index: 1000;
-    display: flex;
-    justify-content: center;
+    display: none; /* JS controla exibição */
     align-items: center;
-    opacity: 0;
-    visibility: hidden;
-}
-
-#scrollToTopBtn.show {
-    bottom: 30px;
-    opacity: 1;
-    visibility: visible;
+    justify-content: center;
 }
 
 #scrollToTopBtn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(145, 57, 229, 0.6);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(145, 57, 229, 0.7);
     background: linear-gradient(135deg, #B179F2 0%, #9139E5 100%);
+    color: #ffffff;
 }
 
 /* ==========================================================================
@@ -1086,7 +1192,7 @@ nav {
     .hero-content h1 {
         font-size: 3rem;
     }
-    .servicos-grid, .diferenciais-grid, .processo-steps {
+    .diferenciais-grid, .processo-steps {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -1132,7 +1238,7 @@ nav {
         text-align: center;
     }
     .nav-buttons {
-        display: none; /* Hide default desktop buttons */
+        display: none;
     }
     .whatsapp-btn {
         order: 1;
@@ -1160,8 +1266,8 @@ nav {
         gap: 8px;
     }
     
-    /* GRIDS */
-    .servicos-grid, .diferenciais-grid, .processo-steps {
+    /* GRIDS & SWIPERS */
+    .diferenciais-grid, .processo-steps {
         grid-template-columns: 1fr;
     }
     .footer-top-row {
@@ -1175,7 +1281,7 @@ nav {
     }
 
     /* TYPOGRAPHY */
-    .section-header h2 {
+    .section-header h2, .title-section {
         font-size: 2rem;
     }
     
@@ -1186,6 +1292,30 @@ nav {
     }
     .modal-content h3 {
         font-size: 1.25rem;
+    }
+
+    /* FLOATING BUTTONS MOBILE */
+    .float-whatsapp {
+        bottom: 20px;
+        left: 20px;
+        width: 52px;
+        height: 52px;
+    }
+    .float-whatsapp svg {
+        width: 28px;
+        height: 28px;
+    }
+    #scrollToTopBtn {
+        bottom: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none !important; /* Em mobile navega com swipe */
     }
 }
 

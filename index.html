@@ -189,6 +189,7 @@
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
             </div>
         </div>
     </section>
@@ -305,24 +306,33 @@
                 <p>Empresas de diversos segmentos da Região Metropolitana do Recife escalando suas vendas com a Prime Rank.</p>
             </div>
 
-            <div class="reviews-grid">
-                <div class="review-box">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"A equipe da Prime Rank reestruturou toda a nossa estratégia de tráfego pago e SEO. Em menos de 60 dias, dobramos o número de orçamentos pelo WhatsApp!"</p>
-                    <span class="review-author">— Cliente Satisfeito | Recife - PE</span>
-                </div>
+            <div class="swiper mySwiperReviews">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide review-box">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"A equipe da Prime Rank reestruturou toda a nossa estratégia de tráfego pago e SEO. Em menos de 60 dias, dobramos o número de orçamentos pelo WhatsApp!"</p>
+                        <span class="review-author">— Cliente Satisfeito | Recife - PE</span>
+                    </div>
 
-                <div class="review-box">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Nosso site antigo não vendia nada. A Prime Rank criou uma landing page impecável e veloz. O resultado foi imediato no primeiro mês de anúncios."</p>
-                    <span class="review-author">— Empresa Parceira | Olinda - PE</span>
-                </div>
+                    <div class="swiper-slide review-box">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Nosso site antigo não vendia nada. A Prime Rank criou uma landing page impecável e veloz. O resultado foi imediato no primeiro mês de anúncios."</p>
+                        <span class="review-author">— Empresa Parceira | Olinda - PE</span>
+                    </div>
 
-                <div class="review-box">
-                    <div class="review-stars">★★★★★</div>
-                    <p class="review-text">"Atendimento fantástico e direto ao ponto! Acompanhamos o retorno do investimento em cada relatório. Recomendo de olhos fechados na RMR."</p>
-                    <span class="review-author">— Gestor Comercial | Jaboatão - PE</span>
+                    <div class="swiper-slide review-box">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Atendimento fantástico e direto ao ponto! Acompanhamos o retorno do investimento em cada relatório. Recomendo de olhos fechados na RMR."</p>
+                        <span class="review-author">— Gestor Comercial | Jaboatão - PE</span>
+                    </div>
+
+                    <div class="swiper-slide review-box">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Excelente gestão dos nossos anúncios no Google e Meta. O suporte é rápido e os leads chegam qualificados para o nosso time de vendas."</p>
+                        <span class="review-author">— Diretor Comercial | Paulista - PE</span>
+                    </div>
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
 
             <a href="whatsapp.html" target="_self" class="btn btn-primario btn-avalie">
@@ -371,7 +381,15 @@
         </div>
     </footer>
 
-    <button id="scrollToTopBtn" title="Voltar ao Topo">
+    <!-- BOTÃO FLUTUANTE WHATSAPP PULSANTE (ESTILO DRA. ALINE) -->
+    <a href="whatsapp.html" target="_self" class="float-whatsapp" aria-label="Fale Conosco pelo WhatsApp" title="Fale Conosco pelo WhatsApp">
+        <svg viewBox="0 0 32 32" class="whatsapp-icon-svg" width="34" height="34" fill="currentColor">
+            <path d="M16.002 2C8.27 2 2 8.27 2 16c0 2.52.668 4.887 1.83 6.945L2 30l7.25-1.902A13.93 13.93 0 0016.002 30C23.73 30 30 23.73 30 16s-6.27-14-13.998-14zm8.217 19.815c-.347.98-1.724 1.798-2.825 2.036-.75.16-1.73.29-5.027-1.077-4.217-1.748-6.938-6.043-7.15-6.323-.207-.28-1.713-2.28-1.713-4.35 0-2.07 1.085-3.088 1.47-3.486.386-.4.84-.5 1.12-.5.28 0 .56.002.805.014.26.012.607-.098.95.725.353.847 1.205 2.94 1.31 3.155.106.216.177.47.036.75-.142.28-.213.455-.424.706-.212.25-.446.56-.637.75-.213.212-.435.443-.19.866.248.423 1.102 1.82 2.366 2.946 1.625 1.448 2.995 1.897 3.42 2.11.423.212.67.177.92-.107.247-.282 1.06-1.235 1.342-1.66.282-.423.565-.353.953-.212.388.142 2.47 1.165 2.894 1.377.424.212.706.318.812.494.106.177.106 1.024-.241 2.004z"/>
+        </svg>
+    </a>
+
+    <!-- BOTÃO VOLTAR AO TOPO -->
+    <button id="scrollToTopBtn" title="Voltar ao Topo" aria-label="Voltar ao Topo">
         &#9650;
     </button>
 
