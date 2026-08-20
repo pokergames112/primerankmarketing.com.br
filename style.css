@@ -1039,3 +1039,168 @@ nav {
     margin-top: 25px;
     width: 100%;
 }
+
+/* SCROLL TO TOP BUTTON */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: -60px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #9139E5 0%, #32096D 100%);
+    color: var(--text-white);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(145, 57, 229, 0.4);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#scrollToTopBtn.show {
+    bottom: 30px;
+    opacity: 1;
+    visibility: visible;
+}
+
+#scrollToTopBtn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(145, 57, 229, 0.6);
+    background: linear-gradient(135deg, #B179F2 0%, #9139E5 100%);
+}
+
+/* ==========================================================================
+   RESPONSIVO / MOBILE (MEDIA QUERIES)
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    .container {
+        padding: 0 25px;
+    }
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    .servicos-grid, .diferenciais-grid, .processo-steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    /* HEADER & NAV */
+    .navbar {
+        justify-content: space-between;
+    }
+    .logo-img {
+        height: 40px;
+    }
+    
+    /* MOBILE MENU LOGIC */
+    .hamburger-btn {
+        display: block;
+        order: 2;
+    }
+    .menu-mobile {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: rgba(11, 4, 21, 0.98);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(145, 57, 229, 0.2);
+        border-bottom: 1px solid rgba(145, 57, 229, 0.2);
+        padding: 20px 0;
+        z-index: 999;
+    }
+    .menu-mobile.active {
+        display: flex;
+    }
+    .menu-mobile a.btn {
+        width: 90%;
+        margin: 10px auto;
+        text-align: center;
+    }
+    .nav-buttons {
+        display: none; /* Hide default desktop buttons */
+    }
+    .whatsapp-btn {
+        order: 1;
+        margin-left: auto;
+        margin-right: 15px;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+        padding: 120px 0 60px 0;
+    }
+    .hero-content h1 {
+        font-size: 2.3rem;
+        line-height: 1.1;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+    .location-badge {
+        font-size: 0.85rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    /* GRIDS */
+    .servicos-grid, .diferenciais-grid, .processo-steps {
+        grid-template-columns: 1fr;
+    }
+    .footer-top-row {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    /* PADDING */
+    .servicos-section, .diferenciais-section, .processo-section, .reviews-section, .cta-final-section {
+        padding: 60px 0;
+    }
+
+    /* TYPOGRAPHY */
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    /* MODAL */
+    .modal-content {
+        max-width: 90%;
+        padding: 25px;
+    }
+    .modal-content h3 {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 1.9rem;
+    }
+    .cta-final-section h2 {
+        font-size: 1.8rem;
+    }
+    .footer-logo {
+        height: 40px;
+    }
+    .card-badge {
+        font-size: 0.7rem;
+        padding: 3px 10px;
+    }
+}

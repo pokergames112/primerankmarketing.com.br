@@ -190,6 +190,41 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === modalContainer) closeModal();
     });
 
+    // --- BOTÃO SCROLL TO TOP ---
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    if (scrollToTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // --- MENU MOBILE ---
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const menuMobile = document.getElementById('menuMobile');
+    
+    if (hamburgerBtn && menuMobile) {
+        hamburgerBtn.addEventListener('click', () => {
+            menuMobile.classList.toggle('active');
+        });
+        
+        menuMobile.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuMobile.classList.remove('active');
+            });
+        });
+    }
+
     // --- RASTREAMENTO DE CONVERSÃO ---
     const whatsappButtons = document.querySelectorAll('a[href*="whatsapp"]');
     whatsappButtons.forEach(btn => {
