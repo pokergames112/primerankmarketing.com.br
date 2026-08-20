@@ -75,14 +75,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 4. CARROSSEL DE SERVIÇOS (NOSSAS SOLUÇÕES DIGITAIS) ---
+    // --- 4. CARROSSEL DE SERVIÇOS (NOSSAS SOLUÇÕES DIGITAIS) - AUTOMÁTICO ---
     new Swiper(".mySwiper", {
         loop: true, 
         autoplay: {
-            delay: 4500,
+            delay: 3000, // Passa automaticamente a cada 3 segundos
             disableOnInteraction: false, 
+            pauseOnMouseEnter: false,
         },
         speed: 800, 
+        observer: true,
+        observeParents: true,
         navigation: {
             nextEl: ".mySwiper .swiper-button-next",
             prevEl: ".mySwiper .swiper-button-prev",
@@ -109,10 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     });
 
-    // --- 5. CARROSSEL DE FERRAMENTAS / MARCAS (ESTEIRA INFINITA) ---
+    // --- 5. CARROSSEL DE FERRAMENTAS / MARCAS (ESTEIRA INFINITA AUTOMÁTICA) ---
     new Swiper(".mySwiperMarcas", {
         loop: true,
-        speed: 5000, 
+        speed: 4000, 
         autoplay: {
             delay: 0,
             disableOnInteraction: false, 
@@ -120,6 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         allowTouchMove: false, 
         freeMode: true,
+        observer: true,
+        observeParents: true,
         slidesPerView: 2, 
         spaceBetween: 25,
         breakpoints: {
@@ -138,14 +143,17 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     });
 
-    // --- 6. CARROSSEL DE AVALIAÇÕES & DEPOIMENTOS ---
+    // --- 6. CARROSSEL DE AVALIAÇÕES & DEPOIMENTOS - AUTOMÁTICO ---
     new Swiper(".mySwiperReviews", {
         loop: true, 
         autoplay: { 
-            delay: 5000,
-            disableOnInteraction: false
+            delay: 3500, // Passa automaticamente a cada 3.5 segundos
+            disableOnInteraction: false,
+            pauseOnMouseEnter: false,
         },
         speed: 800, 
+        observer: true,
+        observeParents: true,
         slidesPerView: 1, 
         spaceBetween: 25, 
         pagination: {
