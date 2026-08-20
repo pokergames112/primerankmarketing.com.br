@@ -43,6 +43,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -185,6 +186,20 @@ nav {
     display: flex;
     align-items: center;
     gap: 12px;
+}
+
+.menu-whatsapp-btn {
+    display: none;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.hamburger-btn {
+    display: none;
 }
 
 .whatsapp-btn {
@@ -804,8 +819,8 @@ nav {
     color: rgba(255, 255, 255, 0.7);
 }
 
-.developer-info a {
-    display: flex !important;
+.logo-slide {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -849,28 +864,12 @@ nav {
     margin-bottom: 40px;
 }
 
-.mySwiperReviews {
-    padding: 10px 5px 55px 5px !important;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
 .review-box {
     background: var(--dark-bg);
     padding: 30px 25px;
     border-radius: 14px;
     border: 1px solid rgba(145, 57, 229, 0.2);
     text-align: left;
-    height: auto !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.review-box:hover {
-    transform: translateY(-4px);
-    border-color: var(--purple-accent);
 }
 
 .review-stars {
@@ -884,7 +883,6 @@ nav {
     font-size: 0.95rem;
     color: var(--text-muted);
     margin-bottom: 15px;
-    line-height: 1.6;
 }
 
 .review-author {
@@ -894,7 +892,7 @@ nav {
 }
 
 .btn-avalie {
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 /* CTA FINAL SECTION */
@@ -1212,58 +1210,176 @@ nav {
     
     /* MOBILE MENU LOGIC */
     .hamburger-btn {
-        display: block;
-        order: 2;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 38px;
+        height: 38px;
+        background: rgba(145, 57, 229, 0.15);
+        border: 1px solid rgba(177, 121, 242, 0.35);
+        border-radius: 8px;
+        cursor: pointer;
+        padding: 8px 7px;
+        z-index: 1100;
+        transition: all 0.3s ease;
     }
+
+    .hamburger-btn:hover {
+        background: rgba(145, 57, 229, 0.3);
+        border-color: var(--purple-accent);
+    }
+
+    .hamburger-btn .bar {
+        width: 100%;
+        height: 2.5px;
+        background: #ffffff !important;
+        border-radius: 4px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: block;
+    }
+
+    .hamburger-btn .bar:nth-child(2) {
+        width: 75%;
+        align-self: flex-end;
+    }
+
+    /* Animação para X */
+    .hamburger-btn.is-open .bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+        background: var(--purple-accent) !important;
+    }
+
+    .hamburger-btn.is-open .bar:nth-child(2) {
+        opacity: 0;
+        width: 0;
+    }
+
+    .hamburger-btn.is-open .bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+        background: var(--purple-accent) !important;
+    }
+
     .menu-mobile {
         display: none;
         flex-direction: column;
-        position: absolute;
-        top: 80px;
+        position: fixed;
+        top: 75px;
         left: 0;
-        width: 100%;
+        width: 100vw;
+        height: calc(100vh - 75px);
         background: rgba(11, 4, 21, 0.98);
-        backdrop-filter: blur(10px);
-        border-top: 1px solid rgba(145, 57, 229, 0.2);
-        border-bottom: 1px solid rgba(145, 57, 229, 0.2);
-        padding: 20px 0;
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border-top: 1px solid rgba(145, 57, 229, 0.3);
+        padding: 40px 20px;
+        gap: 16px;
+        align-items: center;
+        justify-content: flex-start;
         z-index: 999;
+        overflow-y: auto;
     }
+
     .menu-mobile.active {
         display: flex;
+        animation: fadeInMenu 0.3s ease forwards;
     }
+
+    @keyframes fadeInMenu {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
     .menu-mobile a.btn {
-        width: 90%;
-        margin: 10px auto;
+        width: 100%;
+        max-width: 320px;
+        padding: 16px 20px;
+        font-size: 1.05rem;
+        margin: 0 auto;
         text-align: center;
+        border-radius: 12px;
     }
-    .nav-buttons {
+
+    .menu-whatsapp-btn {
+        display: flex !important;
+        margin-top: 10px !important;
+        background: linear-gradient(135deg, #9139E5 0%, #32096D 100%) !important;
+    }
+
+    .nav-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-actions .whatsapp-btn {
         display: none;
     }
+
     .whatsapp-btn {
-        order: 1;
-        margin-left: auto;
-        margin-right: 15px;
-        padding: 8px 16px;
-        font-size: 0.85rem;
+        display: none;
     }
 
     /* HERO SECTION */
     .hero-section {
-        padding: 120px 0 60px 0;
+        padding: 100px 0 45px 0;
+        overflow: hidden;
+    }
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+    .hero-badge {
+        margin: 0 auto 15px auto;
+        font-size: 0.78rem;
+        text-align: center;
+        white-space: normal;
+        line-height: 1.3;
+        padding: 6px 14px;
+        max-width: 100%;
+        display: inline-flex;
     }
     .hero-content h1 {
-        font-size: 2.3rem;
-        line-height: 1.1;
+        font-size: 1.55rem;
+        line-height: 1.15;
+        letter-spacing: -0.5px;
+        word-break: break-word;
     }
-    .hero-content p {
-        font-size: 1rem;
+    .hero-subtitle {
+        font-size: 0.92rem;
+        margin-bottom: 20px;
     }
-    .location-badge {
-        font-size: 0.85rem;
-        flex-direction: column;
-        text-align: center;
-        gap: 8px;
+    .hero-features-list {
+        align-items: flex-start;
+        display: inline-flex;
+        text-align: left;
+        margin: 0 auto 25px auto;
+    }
+    .hero-cta-group {
+        justify-content: center;
+    }
+    .hero-cta-group .btn {
+        width: 100%;
+        max-width: 320px;
+    }
+    .hero-visual {
+        margin-top: 20px;
+    }
+    .hero-glass-card {
+        padding: 8px 12px;
+    }
+    .hero-card-1 {
+        top: 10px;
+        left: -5px;
+    }
+    .hero-card-2 {
+        bottom: 10px;
+        right: -5px;
     }
     
     /* GRIDS & SWIPERS */
