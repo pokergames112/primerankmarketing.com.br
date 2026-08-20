@@ -162,14 +162,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if(modalTitle && modalDescription && modalContainer) {
             modalTitle.innerHTML = titulo;
             modalDescription.innerHTML = descricao;
-            modalContainer.style.display = 'flex'; 
+            modalContainer.style.display = 'flex';
+            modalContainer.classList.add('active');
+            modalContainer.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
         }
     };
 
     const closeModal = () => {
         if(modalContainer) {
+            modalContainer.classList.remove('active');
             modalContainer.style.display = 'none';
+            modalContainer.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = 'auto';
         }
     };
