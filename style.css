@@ -663,10 +663,10 @@ nav {
     font-size: 1.05rem;
 }
 
-/* FOOTER (ESTILO DRA. ALINE MARQUES) */
+/* FOOTER */
 .footer-section {
     background: #07020d;
-    padding: 70px 0 30px 0;
+    padding: 70px 0 35px 0;
     border-top: 1px solid rgba(145, 57, 229, 0.2);
 }
 
@@ -678,40 +678,20 @@ nav {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.footer-logo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.footer-img-logo {
-    height: 85px;
+.footer-logo {
+    height: 48px;
     width: auto;
     object-fit: contain;
+    margin-bottom: 20px;
     display: block;
-    filter: drop-shadow(0 4px 15px rgba(145, 57, 229, 0.4));
-    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.footer-img-logo:hover {
-    transform: translateY(-2px) scale(1.04);
-}
-
-.footer-seo-tagline {
-    font-family: var(--font-heading);
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--purple-accent);
-    letter-spacing: 0.5px;
 }
 
 .footer-brand-desc {
-    font-size: 0.92rem;
+    font-size: 0.93rem;
     color: var(--text-muted);
     margin-bottom: 20px;
     max-width: 450px;
+    line-height: 1.6;
 }
 
 .footer-location-badge {
@@ -755,8 +735,8 @@ nav {
 .footer-copyright {
     text-align: center;
     padding-top: 30px;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .copyright-content {
@@ -788,4 +768,3 @@ nav {
     filter: drop-shadow(0 2px 8px rgba(145, 57, 229, 0.4));
     transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), filter 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 }
-
