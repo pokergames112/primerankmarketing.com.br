@@ -973,22 +973,30 @@ nav {
 .social-link {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     color: var(--text-white);
     text-decoration: none;
-    font-size: 1rem;
-    margin-bottom: 15px;
-    transition: color 0.3s;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
 }
 
 .social-link .icon {
-    width: 28px;
-    height: 28px;
+    width: 38px;
+    height: 38px;
     object-fit: contain;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
 }
 
 .social-link:hover {
     color: var(--purple-accent);
+    transform: translateX(4px);
+}
+
+.social-link:hover .icon {
+    transform: scale(1.15);
 }
 
 .footer-copyright {
