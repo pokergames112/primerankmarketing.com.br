@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // --- 3. HEADER INTELIGENTE & BOTÃO VOLTAR AO TOPO (ESTILO DRA. ALINE) ---
+    // --- 3. HEADER INTELIGENTE & BOTÃO VOLTAR AO TOPO ---
     let lastScrollTop = 0;
     const header = document.querySelector('.header');
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
@@ -61,11 +61,21 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         const currentScroll = window.scrollY || document.documentElement.scrollTop;
 
-        // Header Show/Hide
+        // Se o menu mobile estiver aberto, NUNCA esconde o header
+        if (menuMobile && menuMobile.classList.contains('active')) {
+            if (header) header.classList.remove('hidden');
+            return;
+        }
+
+        // Header Show/Hide suave apenas em telas maiores
         if (header) {
-            if (currentScroll > 80) {
-                if (currentScroll > lastScrollTop) {
-                    header.classList.add('hidden');
+            if (window.innerWidth > 768) {
+                if (currentScroll > 120) {
+                    if (currentScroll > lastScrollTop + 10) {
+                        header.classList.add('hidden');
+                    } else if (currentScroll < lastScrollTop - 10) {
+                        header.classList.remove('hidden');
+                    }
                 } else {
                     header.classList.remove('hidden');
                 }
