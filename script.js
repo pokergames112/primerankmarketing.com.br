@@ -223,79 +223,83 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 9. CURSOR TECNOLÓGICO FUTURISTA COM MIRA/TARGET (DESKTOP) ---
-    const cursorDot = document.getElementById('cursorDot');
-    const cursorTarget = document.getElementById('cursorTarget');
-    
-    if (cursorDot && cursorTarget && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let targetX = mouseX;
-        let targetY = mouseY;
-        let isCursorActive = false;
-        const targetBadge = cursorTarget.querySelector('.target-badge');
+    // --- 9. CURSOR CUSTOMIZADO (DOT & CIRCLE TRAILING - ESTILO OCEAN MARINE SERVICES) ---
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorCircle = document.getElementById('cursor-circle');
 
-        window.addEventListener('mousemove', (e) => {
+    if (cursorDot && cursorCircle && window.innerWidth > 992) {
+        let mouseX = -100, mouseY = -100;
+        let circleX = -100, circleY = -100;
+        const smoothingFactor = 0.18;
+        let hasMoved = false;
+
+        document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            
-            // O ponto segue instantaneamente sem atraso
-            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
 
-            if (!isCursorActive) {
-                isCursorActive = true;
-                cursorDot.classList.add('is-active');
-                cursorTarget.classList.add('is-active');
+            if (!hasMoved) {
+                hasMoved = true;
+                circleX = mouseX;
+                circleY = mouseY;
+                cursorDot.style.opacity = '1';
+                cursorCircle.style.opacity = '1';
             }
-        }, { passive: true });
+
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
 
         document.addEventListener('mouseleave', () => {
-            cursorDot.classList.remove('is-active');
-            cursorTarget.classList.remove('is-active');
-            isCursorActive = false;
+            cursorDot.style.opacity = '0';
+            cursorCircle.style.opacity = '0';
         });
 
         document.addEventListener('mouseenter', () => {
-            cursorDot.classList.add('is-active');
-            cursorTarget.classList.add('is-active');
-            isCursorActive = true;
+            if (hasMoved) {
+                cursorDot.style.opacity = '1';
+                cursorCircle.style.opacity = '1';
+            }
         });
 
-        // Efeito de trava de mira (Target Lock) em elementos clicáveis
-        const interactiveElements = 'a, button, input, select, textarea, .btn, .servico-card, .diferencial-card, .step-card, .review-box, .platform-pill, .btn-leia-mais, .hamburger-btn, .modal-close';
-        
+        // Reação a elementos clicáveis (hover expand)
+        const clickables = 'a, button, input, select, textarea, .btn, .servico-card, .diferencial-card, .step-card, .review-box, .platform-pill, .btn-leia-mais, .hamburger-btn, .modal-close, #scrollToTopBtn';
+
         document.addEventListener('mouseover', (e) => {
-            if (e.target.closest(interactiveElements)) {
-                cursorTarget.classList.add('cursor-hover');
-                if (targetBadge) targetBadge.textContent = '[ TARGET LOCKED ]';
+            if (e.target.closest(clickables)) {
+                cursorCircle.classList.add('hover');
+                cursorDot.classList.add('hover');
             }
         });
 
         document.addEventListener('mouseout', (e) => {
-            if (e.target.closest(interactiveElements)) {
-                cursorTarget.classList.remove('cursor-hover');
-                if (targetBadge) targetBadge.textContent = 'PRIME // AIM';
+            if (e.target.closest(clickables)) {
+                cursorCircle.classList.remove('hover');
+                cursorDot.classList.remove('hover');
             }
         });
 
         document.addEventListener('mousedown', () => {
-            cursorTarget.classList.add('cursor-click');
+            cursorCircle.classList.add('click');
         });
 
         document.addEventListener('mouseup', () => {
-            cursorTarget.classList.remove('cursor-click');
+            cursorCircle.classList.remove('click');
         });
 
-        // Loop de interpolação fluida (Lerp 60/120fps) para a mira externa
-        const renderCursor = () => {
-            targetX += (mouseX - targetX) * 0.22;
-            targetY += (mouseY - targetY) * 0.22;
+        // Loop de animação contínua e suave para o círculo que persegue o cursor
+        function animateCircle() {
+            const deltaX = mouseX - circleX;
+            const deltaY = mouseY - circleY;
 
-            cursorTarget.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) translate(-50%, -50%)`;
+            circleX += deltaX * smoothingFactor;
+            circleY += deltaY * smoothingFactor;
 
-            requestAnimationFrame(renderCursor);
-        };
-        renderCursor();
+            cursorCircle.style.left = `${circleX}px`;
+            cursorCircle.style.top = `${circleY}px`;
+
+            requestAnimationFrame(animateCircle);
+        }
+        animateCircle();
     }
 
     // --- 10. FUNDO TECNOLÓGICO INTERATIVO COM SCROLL (CYBER MESH MATRIX) ---
@@ -316,32 +320,28 @@ document.addEventListener('DOMContentLoaded', () => {
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas, { passive: true });
 
-        // Gerador de partículas e símbolos flutuantes de marketing/tecnologia
-        const particleCount = width < 768 ? 32 : 68;
+        // Gerador de partículas cibernéticas e nós de dados
+        const particleCount = width < 768 ? 30 : 65;
         const particles = [];
         const colors = [
             'rgba(145, 57, 229, ', // Neon Violet (#9139E5)
             'rgba(177, 121, 242, ', // Purple Soft (#B179F2)
-            'rgba(0, 255, 136, ',   // Neon Cyber Emerald (#00ff88)
+            'rgba(0, 255, 136, ',   // Neon Emerald (#00ff88)
             'rgba(0, 229, 255, ',   // Cyan Cyber (#00e5ff)
             'rgba(237, 229, 249, '  // Light Lavender (#EDE5F9)
         ];
-
-        const symbols = ['ROI', 'SEO', 'AI', 'ADS', '⚡', '▲', '01', 'GROWTH', 'PRIME', '10X'];
 
         for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                z: Math.random() * 0.85 + 0.15, // Profundidade 3D
-                radius: Math.random() * 2.2 + 1.2,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
+                z: Math.random() * 0.85 + 0.15,
+                radius: Math.random() * 2 + 1.2,
+                vx: (Math.random() - 0.5) * 0.45,
+                vy: (Math.random() - 0.5) * 0.45,
                 colorPrefix: colors[Math.floor(Math.random() * colors.length)],
                 pulse: Math.random() * Math.PI * 2,
-                pulseSpeed: 0.02 + Math.random() * 0.03,
-                isSymbol: i % 8 === 0, // Alguns nós viram dados flutuantes
-                symbolText: symbols[i % symbols.length]
+                pulseSpeed: 0.02 + Math.random() * 0.03
             });
         }
 
@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.addEventListener('scroll', () => {
             const currentScroll = window.scrollY || window.pageYOffset;
-            scrollVelocity = (currentScroll - lastScrollY) * 0.6;
+            scrollVelocity = (currentScroll - lastScrollY) * 0.5;
             lastScrollY = currentScroll;
         }, { passive: true });
 
@@ -360,13 +360,12 @@ document.addEventListener('DOMContentLoaded', () => {
             currentMouse.y = e.clientY;
         }, { passive: true });
 
-        // Loop de Renderização e Animação Cibernética
         let isTabActive = true;
         document.addEventListener('visibilitychange', () => {
             isTabActive = !document.hidden;
         });
 
-        const maxConnectionDist = width < 768 ? 110 : 150;
+        const maxConnectionDist = width < 768 ? 100 : 140;
 
         const animateTechCanvas = () => {
             if (!isTabActive) {
@@ -376,11 +375,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             ctx.clearRect(0, 0, width, height);
 
-            // Suaviza velocidade de scroll
-            scrollVelocity *= 0.93;
+            scrollVelocity *= 0.92;
             const absSpeed = Math.abs(scrollVelocity);
 
-            // Desenha conexões cibernéticas (Neural Cyber Grid)
+            // Conexões neurais entre nós próximos
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -388,10 +386,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
                     if (dist < maxConnectionDist) {
-                        const alpha = (1 - dist / maxConnectionDist) * (0.2 + Math.min(absSpeed * 0.02, 0.3)) * particles[i].z;
+                        const alpha = (1 - dist / maxConnectionDist) * (0.18 + Math.min(absSpeed * 0.02, 0.25)) * particles[i].z;
                         ctx.beginPath();
                         ctx.strokeStyle = `rgba(177, 121, 242, ${alpha})`;
-                        ctx.lineWidth = 0.9 * particles[i].z;
+                        ctx.lineWidth = 0.8 * particles[i].z;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
@@ -399,59 +397,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Atualiza e desenha partículas e linhas de warp no scroll
+            // Atualiza e desenha partículas com reação ao scroll e mouse
             for (let i = 0; i < particles.length; i++) {
                 const p = particles[i];
 
-                // Movimento orgânico base + warp no scroll
                 p.x += p.vx;
-                const scrollOffset = scrollVelocity * p.z * 0.8;
+                const scrollOffset = scrollVelocity * p.z * 0.7;
                 p.y += p.vy - scrollOffset;
 
                 // Interação com o mouse
                 const mdx = currentMouse.x - p.x;
                 const mdy = currentMouse.y - p.y;
                 const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-                if (mDist < 130) {
-                    const force = (1 - mDist / 130) * 2;
+                if (mDist < 120) {
+                    const force = (1 - mDist / 120) * 1.6;
                     p.x -= (mdx / mDist) * force;
                     p.y -= (mdy / mDist) * force;
                 }
 
-                // Loop infinito nas bordas
-                if (p.x < -30) p.x = width + 30;
-                if (p.x > width + 30) p.x = -30;
-                if (p.y < -30) p.y = height + 30;
-                if (p.y > height + 30) p.y = -30;
+                if (p.x < -20) p.x = width + 20;
+                if (p.x > width + 20) p.x = -20;
+                if (p.y < -20) p.y = height + 20;
+                if (p.y > height + 20) p.y = -20;
 
-                // Pulso de brilho
                 p.pulse += p.pulseSpeed;
-                const currentAlpha = 0.45 + Math.sin(p.pulse) * 0.35;
+                const currentAlpha = 0.4 + Math.sin(p.pulse) * 0.3;
 
-                // Se houver scroll rápido, desenha rastro de luz cibernético (Light Speed Streak)
-                if (absSpeed > 2) {
+                // Rastro de dobra espacial no scroll rápido
+                if (absSpeed > 1.5) {
                     ctx.beginPath();
-                    ctx.strokeStyle = `${p.colorPrefix}${Math.min(currentAlpha, 0.7)})`;
-                    ctx.lineWidth = p.radius * p.z * 0.8;
+                    ctx.strokeStyle = `${p.colorPrefix}${Math.min(currentAlpha, 0.6)})`;
+                    ctx.lineWidth = p.radius * p.z * 0.7;
                     ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p.x, p.y + scrollOffset * 2.5);
+                    ctx.lineTo(p.x, p.y + scrollOffset * 2);
                     ctx.stroke();
                 }
 
-                // Desenha símbolo tech ou ponto de luz
-                if (p.isSymbol && width > 768) {
-                    ctx.font = `700 ${Math.floor(9 * p.z)}px 'Montserrat', monospace`;
-                    ctx.fillStyle = `${p.colorPrefix}${currentAlpha * 0.85})`;
-                    ctx.fillText(p.symbolText, p.x, p.y);
-                } else {
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius * p.z, 0, Math.PI * 2);
-                    ctx.fillStyle = `${p.colorPrefix}${currentAlpha})`;
-                    ctx.shadowBlur = 10 * p.z;
-                    ctx.shadowColor = 'rgba(145, 57, 229, 0.8)';
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
-                }
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius * p.z, 0, Math.PI * 2);
+                ctx.fillStyle = `${p.colorPrefix}${currentAlpha})`;
+                ctx.shadowBlur = 8 * p.z;
+                ctx.shadowColor = 'rgba(145, 57, 229, 0.7)';
+                ctx.fill();
+                ctx.shadowBlur = 0;
             }
 
             requestAnimationFrame(animateTechCanvas);
