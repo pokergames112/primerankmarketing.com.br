@@ -646,4 +646,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
         requestAnimationFrame(animateNeuralGraph);
     }
+
+    // --- 11. CARREGADOR DINÂMICO DE ARTIGOS DO BLOG VIA API ---
+    async function carregarArtigosBlog() {
+        const feedContainer = document.getElementById('blog-posts-feed');
+        if (!feedContainer) return;
+
+        const API_URL = 'https://performing-submitting-debian-phase.trycloudflare.com';
+
+        const fallbackPosts = [
+            {
+                title: 'Como Dominar a 1ª Página do Google com SEO e Tráfego Pago em 2025',
+                excerpt: 'Descubra a metodologia validada pela Prime Rank para posicionar sua empresa no topo das buscas e converter tráfego qualificado em vendas.',
+                category: 'SEO & Performance',
+                imageUrl: 'img/service_seo.jpg',
+                date: 'Atualizado Recentemente',
+                readTime: '8 min de leitura',
+                url: `${API_URL}/blog`
+            },
+            {
+                title: 'Estratégias Avançadas de Escala no Meta Ads e Google Ads na RMR',
+                excerpt: 'O passo a passo para reduzir o CPA (Custo por Aquisição), qualificar os leads e acelerar o retorno sobre investimento dos seus anúncios.',
+                category: 'Tráfego Pago',
+                imageUrl: 'img/service_trafego.jpg',
+                date: 'Destaque da Semana',
+                readTime: '6 min de leitura',
+                url: `${API_URL}/blog`
+            },
+            {
+                title: 'Como a Inteligência Artificial Está Revolucionando a Conversão de Vendas',
+                excerpt: 'Entenda como automações inteligentes e análise de dados aceleram o fechamento de contratos pelo WhatsApp e canais digitais.',
+                category: 'Inovação & IA',
+                imageUrl: 'img/service_ia.jpg',
+                date: 'Tendências Tech',
+                readTime: '7 min de leitura',
+                url: `${API_URL}/blog`
+            }
+        ];
+
+        const renderPosts = (postsList) => {
+            feedContainer.innerHTML = postsList.map(post => `
+                <article class="blog-card-site">
+                    <div class="blog-card-img-wrap">
+                        <img src="${post.imageUrl || post.featuredImageUrl || 'img/service_blog.jpg'}" alt="${post.title}" class="blog-card-img" loading="lazy">
+                        <span class="blog-card-badge">${post.category || 'Estratégia'}</span>
+                    </div>
+                    <div class="blog-card-body">
+                        <div class="blog-card-meta">
+                            <span>📅 ${post.date || (post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('pt-BR') : 'Recente')}</span>
+                            <span>⏱️ ${post.readTime || (post.readingTimeMinutes ? `${post.readingTimeMinutes} min de leitura` : '7 min')}</span>
+                        </div>
+                        <h3>${post.title}</h3>
+                        <p>${post.excerpt}</p>
+                        <a href="${post.url || (post.slug ? `${API_URL}/blog/post.html?slug=${post.slug}` : `${API_URL}/blog`)}" target="_blank" rel="noopener noreferrer" class="btn-blog-ler">
+                            LER ARTIGO COMPLETO ↗
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+        };
+
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 3500);
+
+            const res = await fetch(`${API_URL}/api/blog/posts?limit=3`, { signal: controller.signal });
+            clearTimeout(timeoutId);
+
+            if (res.ok) {
+                const data = await res.json();
+                const posts = data.posts || [];
+                if (posts.length >= 1) {
+                    renderPosts(posts);
+                    return;
+                }
+            }
+            renderPosts(fallbackPosts);
+        } catch (e) {
+            renderPosts(fallbackPosts);
+        }
+    }
+
+    carregarArtigosBlog();
 });
