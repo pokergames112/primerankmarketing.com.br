@@ -116,58 +116,92 @@
 
     <script src="script.js"></script>
     <script>
+        var catalogFallbackPosts = [
+            {
+                slug: 'como-dominar-primeira-pagina-do-google-seo-trafego-pago',
+                title: 'Como Dominar a 1ª Página do Google com SEO e Tráfego Pago em 2025',
+                excerpt: 'Descubra a metodologia validada pela Prime Rank para posicionar sua empresa no topo das buscas e converter tráfego qualificado em vendas.',
+                category: 'SEO & Performance',
+                imageUrl: 'img/service_seo.jpg',
+                date: '20/02/2026',
+                readingTime: '8 min de leitura'
+            },
+            {
+                slug: 'estrategias-avancadas-escala-meta-ads-google-ads',
+                title: 'Estratégias Avançadas de Escala no Meta Ads e Google Ads na RMR',
+                excerpt: 'O passo a passo para reduzir o CPA (Custo por Aquisição), qualificar os leads e acelerar o retorno sobre investimento dos seus anúncios.',
+                category: 'Tráfego Pago',
+                imageUrl: 'img/service_trafego.jpg',
+                date: '18/02/2026',
+                readingTime: '6 min de leitura'
+            },
+            {
+                slug: 'como-inteligencia-artificial-revoluciona-vendas',
+                title: 'Como a Inteligência Artificial Está Revolucionando a Conversão de Vendas',
+                excerpt: 'Entenda como automações inteligentes e análise de dados aceleram o fechamento de contratos pelo WhatsApp e canais digitais.',
+                category: 'Inovação & IA',
+                imageUrl: 'img/service_ia.jpg',
+                date: '15/02/2026',
+                readingTime: '7 min de leitura'
+            }
+        ];
+
+        function renderCatalogHTML(posts) {
+            var container = document.getElementById('blog-catalog-grid');
+            if (!container) return;
+
+            var html = '';
+            for (var i = 0; i < posts.length; i++) {
+                var post = posts[i];
+                var img = post.featuredImageUrl || post.imageUrl || 'img/service_blog.jpg';
+                var cat = post.category || 'Estratégia';
+                var date = post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('pt-BR') : (post.date || 'Recente');
+                var time = post.readingTimeMinutes ? post.readingTimeMinutes + ' min de leitura' : (post.readingTime || '8 min de leitura');
+                var postSlug = post.slug || 'como-dominar-primeira-pagina-do-google-seo-trafego-pago';
+                var postUrl = 'post.html?slug=' + encodeURIComponent(postSlug);
+
+                html += '<div class="blog-card-site">';
+                html += '  <div class="blog-card-img-wrap">';
+                html += '    <img src="' + img + '" alt="' + post.title + '" class="blog-card-img" loading="lazy">';
+                html += '    <span class="blog-card-badge">' + cat + '</span>';
+                html += '  </div>';
+                html += '  <div class="blog-card-body">';
+                html += '    <div class="blog-card-meta">';
+                html += '      <span>📅 ' + date + '</span>';
+                html += '      <span>⏱️ ' + time + '</span>';
+                html += '    </div>';
+                html += '    <h3>' + post.title + '</h3>';
+                html += '    <p>' + post.excerpt + '</p>';
+                html += '    <a href="' + postUrl + '" target="_blank" rel="noopener noreferrer" class="btn btn-primario" style="margin-top: auto; text-align: center;">';
+                html += '      LER ARTIGO COMPLETO ↗';
+                html += '    </a>';
+                html += '  </div>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
+        }
+
         async function renderBlogCatalog() {
-            const container = document.getElementById('blog-catalog-grid');
-            const API_URL = 'https://primerank-blog-agent.onrender.com';
+            // 1. Renderiza catálogo local imediatamente
+            renderCatalogHTML(catalogFallbackPosts);
 
+            // 2. Enriquecimento opcional via API
+            var API_URL = 'https://primerank-blog-agent.onrender.com';
             try {
-                const res = await fetch(${API_URL}/api/blog/posts);
-                const data = await res.json();
-                const posts = data.posts || [];
+                var controller = new AbortController();
+                var timeoutId = setTimeout(function() { controller.abort(); }, 3500);
 
-                if (posts.length > 0) {
-                    container.innerHTML = posts.map(post => 
-                        <div class="blog-card-site">
-                            <div class="blog-card-img-wrap">
-                                <img src="${post.featuredImageUrl || 'img/service_blog.jpg'}" alt="${post.title}" class="blog-card-img" loading="lazy">
-                                <span class="blog-card-badge">${post.category || 'SEO & Tráfego'}</span>
-                            </div>
-                            <div class="blog-card-body">
-                                <div class="blog-card-meta">
-                                    <span>📅 ${new Date(post.publishedAt).toLocaleDateString('pt-BR')}</span>
-                                    <span>⏱️ ${post.readingTimeMinutes || 8} min de leitura</span>
-                                </div>
-                                <h3>${post.title}</h3>
-                                <p>${post.excerpt}</p>
-                                <a href="post.html?slug=${post.slug}" target="_blank" rel="noopener noreferrer" class="btn btn-primario" style="margin-top: auto; text-align: center;">
-                                    LER ARTIGO COMPLETO ↗
-                                </a>
-                            </div>
-                        </div>
-                    `).join('');
-                } else {
-                    container.innerHTML = `
-                        <div class="blog-card-site" style="grid-column: 1 / -1; max-width: 540px; margin: 0 auto;">
-                            <div class="blog-card-img-wrap">
-                                <img src="img/service_blog.jpg" alt="Artigo Prime Rank" class="blog-card-img">
-                                <span class="blog-card-badge">Inteligência & SEO</span>
-                            </div>
-                            <div class="blog-card-body">
-                                <div class="blog-card-meta">
-                                    <span>📅 Atualizado Hoje</span>
-                                    <span>⏱️ 8 min</span>
-                                </div>
-                                <h3>Como Dominar a Primeira Página do Google com SEO e Tráfego Pago</h3>
-                                <p>Descubra as metodologias de alta performance da Prime Rank Marketing para transformar buscas em clientes recorrentes.</p>
-                                <a href="post.html" target="_blank" rel="noopener noreferrer" class="btn btn-primario" style="margin-top: auto; text-align: center;">
-                                    LER ARTIGO COMPLETO ↗
-                                </a>
-                            </div>
-                        </div>
-                    `;
+                var res = await fetch(API_URL + '/api/blog/posts', { signal: controller.signal });
+                clearTimeout(timeoutId);
+
+                if (res.ok) {
+                    var data = await res.json();
+                    if (data && data.posts && data.posts.length > 0) {
+                        renderCatalogHTML(data.posts);
+                    }
                 }
             } catch (err) {
-                console.warn('API temporariamente offline, usando card nativo:', err);
+                console.log('Catálogo local ativo e funcional.');
             }
         }
         renderBlogCatalog();
