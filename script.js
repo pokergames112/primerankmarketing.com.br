@@ -651,7 +651,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var feedContainer = document.getElementById('blog-posts-feed');
         if (!feedContainer) return;
 
-        var API_BACKEND = 'https://primerank-blog-agent.onrender.com';
+        var API_BACKEND = 'https://primerank-blog.vercel.app';
 
         var fallbackPosts = [
             {
