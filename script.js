@@ -646,44 +646,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         requestAnimationFrame(animateNeuralGraph);
     }
-    // --- 11. CARREGADOR DINÂMICO DE ARTIGOS DO BLOG VIA API (LINKS 100% LOCAIS NO SITE) ---
+    // --- 11. CARREGADOR DINÂMICO DE ARTIGOS DO BLOG VIA API (VERCEL SERVERLESS) ---
     async function carregarArtigosBlog() {
         var feedContainer = document.getElementById('blog-posts-feed');
         if (!feedContainer) return;
 
         var API_BACKEND = 'https://primerank-blog.vercel.app';
 
-        var fallbackPosts = [
-            {
-                title: 'Como Dominar a 1ª Página do Google com SEO e Tráfego Pago em 2025',
-                excerpt: 'Descubra a metodologia validada pela Prime Rank para posicionar sua empresa no topo das buscas e converter tráfego qualificado em vendas.',
-                category: 'SEO & Performance',
-                imageUrl: 'img/service_seo.jpg',
-                date: 'Atualizado Recentemente',
-                readTime: '8 min de leitura',
-                slug: 'como-dominar-primeira-pagina-do-google-seo-trafego-pago'
-            },
-            {
-                title: 'Estratégias Avançadas de Escala no Meta Ads e Google Ads na RMR',
-                excerpt: 'O passo a passo para reduzir o CPA (Custo por Aquisição), qualificar os leads e acelerar o retorno sobre investimento dos seus anúncios.',
-                category: 'Tráfego Pago',
-                imageUrl: 'img/service_trafego.jpg',
-                date: 'Destaque da Semana',
-                readTime: '6 min de leitura',
-                slug: 'estrategias-avancadas-escala-meta-ads-google-ads'
-            },
-            {
-                title: 'Como a Inteligência Artificial Está Revolucionando a Conversão de Vendas',
-                excerpt: 'Entenda como automações inteligentes e análise de dados aceleram o fechamento de contratos pelo WhatsApp e canais digitais.',
-                category: 'Inovação & IA',
-                imageUrl: 'img/service_ia.jpg',
-                date: 'Tendências Tech',
-                readTime: '7 min de leitura',
-                slug: 'como-inteligencia-artificial-revoluciona-vendas'
-            }
-        ];
-
         function renderPosts(postsList) {
+            if (!postsList || postsList.length === 0) return;
             var html = '';
             for (var i = 0; i < postsList.length; i++) {
                 var post = postsList[i];
@@ -723,12 +694,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 var posts = data.posts || [];
                 if (posts.length >= 1) {
                     renderPosts(posts);
-                    return;
                 }
             }
-            renderPosts(fallbackPosts);
         } catch (e) {
-            renderPosts(fallbackPosts);
+            // Mantém estado amigável nativo da página
         }
     }
 

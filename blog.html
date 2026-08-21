@@ -116,39 +116,21 @@
 
     <script src="script.js"></script>
     <script>
-        var catalogFallbackPosts = [
-            {
-                slug: 'como-dominar-primeira-pagina-do-google-seo-trafego-pago',
-                title: 'Como Dominar a 1ª Página do Google com SEO e Tráfego Pago em 2025',
-                excerpt: 'Descubra a metodologia validada pela Prime Rank para posicionar sua empresa no topo das buscas e converter tráfego qualificado em vendas.',
-                category: 'SEO & Performance',
-                imageUrl: 'img/service_seo.jpg',
-                date: '20/02/2026',
-                readingTime: '8 min de leitura'
-            },
-            {
-                slug: 'estrategias-avancadas-escala-meta-ads-google-ads',
-                title: 'Estratégias Avançadas de Escala no Meta Ads e Google Ads na RMR',
-                excerpt: 'O passo a passo para reduzir o CPA (Custo por Aquisição), qualificar os leads e acelerar o retorno sobre investimento dos seus anúncios.',
-                category: 'Tráfego Pago',
-                imageUrl: 'img/service_trafego.jpg',
-                date: '18/02/2026',
-                readingTime: '6 min de leitura'
-            },
-            {
-                slug: 'como-inteligencia-artificial-revoluciona-vendas',
-                title: 'Como a Inteligência Artificial Está Revolucionando a Conversão de Vendas',
-                excerpt: 'Entenda como automações inteligentes e análise de dados aceleram o fechamento de contratos pelo WhatsApp e canais digitais.',
-                category: 'Inovação & IA',
-                imageUrl: 'img/service_ia.jpg',
-                date: '15/02/2026',
-                readingTime: '7 min de leitura'
-            }
-        ];
-
         function renderCatalogHTML(posts) {
             var container = document.getElementById('blog-catalog-grid');
             if (!container) return;
+
+            if (!posts || posts.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 70px 24px; color: var(--text-muted); background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border-glow); max-width: 680px; margin: 20px auto;">
+                        <i class="fa-solid fa-pen-nib" style="font-size: 2.4rem; color: var(--purple-accent); margin-bottom: 16px; display: block;"></i>
+                        <h3 style="color: #fff; font-size: 1.3rem; margin-bottom: 10px;">Novos Artigos em Produção</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.7; margin-bottom: 24px;">Nossos especialistas estão finalizando análises aprofundadas sobre SEO, Tráfego Pago e IA aplicada a vendas. Em breve disponíveis aqui.</p>
+                        <a href="whatsapp.html" class="btn btn-primario" style="display: inline-flex; align-items: center; justify-content: center;">SOLICITAR DIAGNÓSTICO NO WHATSAPP</a>
+                    </div>
+                `;
+                return;
+            }
 
             var html = '';
             for (var i = 0; i < posts.length; i++) {
@@ -157,8 +139,8 @@
                 var cat = post.category || 'Estratégia';
                 var date = post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('pt-BR') : (post.date || 'Recente');
                 var time = post.readingTimeMinutes ? post.readingTimeMinutes + ' min de leitura' : (post.readingTime || '8 min de leitura');
-                var postSlug = post.slug || 'como-dominar-primeira-pagina-do-google-seo-trafego-pago';
-                var postUrl = 'post.html?slug=' + encodeURIComponent(postSlug);
+                var postSlug = post.slug || '';
+                var postUrl = postSlug ? 'post.html?slug=' + encodeURIComponent(postSlug) : 'post.html';
 
                 html += '<div class="blog-card-site">';
                 html += '  <div class="blog-card-img-wrap">';
@@ -182,10 +164,6 @@
         }
 
         async function renderBlogCatalog() {
-            // 1. Renderiza catálogo local imediatamente
-            renderCatalogHTML(catalogFallbackPosts);
-
-            // 2. Enriquecimento opcional via API
             var API_URL = 'https://primerank-blog.vercel.app';
             try {
                 var controller = new AbortController();
@@ -198,10 +176,12 @@
                     var data = await res.json();
                     if (data && data.posts && data.posts.length > 0) {
                         renderCatalogHTML(data.posts);
+                        return;
                     }
                 }
+                renderCatalogHTML([]);
             } catch (err) {
-                console.log('Catálogo local ativo e funcional.');
+                renderCatalogHTML([]);
             }
         }
         renderBlogCatalog();
