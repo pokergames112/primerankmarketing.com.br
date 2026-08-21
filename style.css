@@ -1493,17 +1493,30 @@ nav {
 
     /* ARTIGO / POST PAGE MOBILE */
     .post-article-layout {
-        grid-template-columns: 1fr !important;
-        padding: 95px 16px 50px 16px !important;
-        gap: 32px !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        padding: 90px 16px 50px 16px !important;
+        gap: 28px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .post-article-layout > article {
+        min-width: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .post-h1 {
-        font-size: 1.55rem !important;
-        line-height: 1.28 !important;
+        font-size: clamp(1.15rem, 4.5vw, 1.45rem) !important;
+        line-height: 1.3 !important;
         margin-bottom: 16px !important;
-        text-wrap: balance;
-        overflow-wrap: break-word;
+        text-wrap: pretty !important;
+        overflow-wrap: break-word !important;
+        word-wrap: break-word !important;
+        word-break: normal !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .post-meta-row {
