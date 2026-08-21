@@ -646,15 +646,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         requestAnimationFrame(animateNeuralGraph);
     }
-
-    // --- 11. CARREGADOR DINÂMICO DE ARTIGOS DO BLOG VIA API ---
+    // --- 11. CARREGADOR DINÂMICO DE ARTIGOS DO BLOG VIA API (LINKS 100% LOCAIS NO SITE) ---
     async function carregarArtigosBlog() {
-        const feedContainer = document.getElementById('blog-posts-feed');
+        var feedContainer = document.getElementById('blog-posts-feed');
         if (!feedContainer) return;
 
-        const API_URL = 'https://performing-submitting-debian-phase.trycloudflare.com';
+        var API_BACKEND = 'https://primerank-blog-agent.onrender.com';
 
-        const fallbackPosts = [
+        var fallbackPosts = [
             {
                 title: 'Como Dominar a 1ª Página do Google com SEO e Tráfego Pago em 2025',
                 excerpt: 'Descubra a metodologia validada pela Prime Rank para posicionar sua empresa no topo das buscas e converter tráfego qualificado em vendas.',
@@ -662,7 +661,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 imageUrl: 'img/service_seo.jpg',
                 date: 'Atualizado Recentemente',
                 readTime: '8 min de leitura',
-                url: `${API_URL}/blog`
+                slug: 'como-dominar-primeira-pagina-do-google-seo-trafego-pago'
             },
             {
                 title: 'Estratégias Avançadas de Escala no Meta Ads e Google Ads na RMR',
@@ -671,7 +670,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 imageUrl: 'img/service_trafego.jpg',
                 date: 'Destaque da Semana',
                 readTime: '6 min de leitura',
-                url: `${API_URL}/blog`
+                slug: 'estrategias-avancadas-escala-meta-ads-google-ads'
             },
             {
                 title: 'Como a Inteligência Artificial Está Revolucionando a Conversão de Vendas',
@@ -680,42 +679,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 imageUrl: 'img/service_ia.jpg',
                 date: 'Tendências Tech',
                 readTime: '7 min de leitura',
-                url: `${API_URL}/blog`
+                slug: 'como-inteligencia-artificial-revoluciona-vendas'
             }
         ];
 
-        const renderPosts = (postsList) => {
-            feedContainer.innerHTML = postsList.map(post => `
-                <article class="blog-card-site">
-                    <div class="blog-card-img-wrap">
-                        <img src="${post.imageUrl || post.featuredImageUrl || 'img/service_blog.jpg'}" alt="${post.title}" class="blog-card-img" loading="lazy">
-                        <span class="blog-card-badge">${post.category || 'Estratégia'}</span>
-                    </div>
-                    <div class="blog-card-body">
-                        <div class="blog-card-meta">
-                            <span>📅 ${post.date || (post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('pt-BR') : 'Recente')}</span>
-                            <span>⏱️ ${post.readTime || (post.readingTimeMinutes ? `${post.readingTimeMinutes} min de leitura` : '7 min')}</span>
-                        </div>
-                        <h3>${post.title}</h3>
-                        <p>${post.excerpt}</p>
-                        <a href="${post.url || (post.slug ? `${API_URL}/blog/post.html?slug=${post.slug}` : `${API_URL}/blog`)}" target="_blank" rel="noopener noreferrer" class="btn-blog-ler">
-                            LER ARTIGO COMPLETO ↗
-                        </a>
-                    </div>
-                </article>
-            `).join('');
-        };
+        function renderPosts(postsList) {
+            var html = '';
+            for (var i = 0; i < postsList.length; i++) {
+                var post = postsList[i];
+                var internalUrl = post.slug ? 'post.html?slug=' + encodeURIComponent(post.slug) : 'post.html';
+                var postImg = post.featuredImageUrl || post.imageUrl || 'img/service_blog.jpg';
+                var postDate = post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('pt-BR') : (post.date || 'Recente');
+                var postReadTime = post.readingTimeMinutes ? post.readingTimeMinutes + ' min de leitura' : (post.readTime || '8 min de leitura');
+
+                html += '<article class="blog-card-site">';
+                html += '  <div class="blog-card-img-wrap">';
+                html += '    <img src="' + postImg + '" alt="' + post.title + '" class="blog-card-img" loading="lazy">';
+                html += '    <span class="blog-card-badge">' + (post.category || 'Estratégia') + '</span>';
+                html += '  </div>';
+                html += '  <div class="blog-card-body">';
+                html += '    <div class="blog-card-meta">';
+                html += '      <span>📅 ' + postDate + '</span>';
+                html += '      <span>⏱️ ' + postReadTime + '</span>';
+                html += '    </div>';
+                html += '    <h3>' + post.title + '</h3>';
+                html += '    <p>' + post.excerpt + '</p>';
+                html += '    <a href="' + internalUrl + '" target="_blank" rel="noopener noreferrer" class="btn-blog-ler">LER ARTIGO COMPLETO ↗</a>';
+                html += '  </div>';
+                html += '</article>';
+            }
+            feedContainer.innerHTML = html;
+        }
 
         try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 3500);
+            var controller = new AbortController();
+            var timeoutId = setTimeout(function() { controller.abort(); }, 3500);
 
-            const res = await fetch(`${API_URL}/api/blog/posts?limit=3`, { signal: controller.signal });
+            var res = await fetch(API_BACKEND + '/api/blog/posts?limit=3', { signal: controller.signal });
             clearTimeout(timeoutId);
 
             if (res.ok) {
-                const data = await res.json();
-                const posts = data.posts || [];
+                var data = await res.json();
+                var posts = data.posts || [];
                 if (posts.length >= 1) {
                     renderPosts(posts);
                     return;

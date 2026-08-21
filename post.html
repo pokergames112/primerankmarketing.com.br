@@ -1,0 +1,321 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title id="page-title">Artigo | Prime Rank Marketing Digital</title>
+    <meta id="page-desc" name="description" content="">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Syne:wght@700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .reading-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--purple-primary), var(--purple-accent));
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s ease-out;
+        }
+
+        .post-article-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 20px 80px 20px;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 48px;
+            align-items: start;
+        }
+
+        @media (max-width: 960px) {
+            .post-article-layout {
+                grid-template-columns: 1fr;
+                padding-top: 110px;
+            }
+        }
+
+        .post-h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+
+        .post-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-glow);
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .post-banner-img {
+            width: 100%;
+            max-height: 440px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1px solid var(--border-glow);
+            margin-bottom: 30px;
+        }
+
+        .post-body-content {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #e2e8f0;
+        }
+
+        .post-body-content h1, .post-body-content h2, .post-body-content h3 {
+            font-family: var(--font-heading);
+            color: #fff;
+            margin-top: 1.8em;
+            margin-bottom: 0.6em;
+        }
+
+        .post-body-content h2 {
+            font-size: 1.6rem;
+            border-top: 1px solid rgba(145, 57, 229, 0.2);
+            padding-top: 0.8em;
+        }
+
+        .post-body-content p {
+            margin-bottom: 1.3em;
+        }
+
+        .post-body-content ul, .post-body-content ol {
+            margin-left: 24px;
+            margin-bottom: 1.4em;
+        }
+
+        .post-body-content li {
+            margin-bottom: 0.5em;
+        }
+
+        .post-body-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 28px 0;
+            font-size: 0.92rem;
+            background: var(--dark-surface);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-glow);
+        }
+
+        .post-body-content th, .post-body-content td {
+            padding: 12px 16px;
+            border: 1px solid rgba(145, 57, 229, 0.2);
+            text-align: left;
+        }
+
+        .post-body-content th {
+            background: rgba(145, 57, 229, 0.15);
+            color: var(--purple-accent);
+            font-weight: 700;
+        }
+
+        .post-sidebar-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 28px;
+            position: sticky;
+            top: 100px;
+            box-shadow: var(--shadow-glow);
+            text-align: center;
+        }
+
+        .post-sidebar-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--purple-primary), var(--purple-accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.4rem;
+            margin: 0 auto 16px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="reading-progress" class="reading-progress-bar"></div>
+    <canvas id="tech-bg-canvas" class="tech-bg-canvas" aria-hidden="true"></canvas>
+
+    <div id="cursor-dot" aria-hidden="true"></div>
+    <div id="cursor-circle" aria-hidden="true"></div>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo-link" title="Prime Rank Marketing Digital">
+                <img src="img/logo-horizontal.png" alt="Prime Rank Logo" class="logo-img">
+            </a>
+            
+            <nav class="menu-mobile" id="menuMobile">
+                <a href="blog.html" class="btn btn-secundario"><i class="fa-solid fa-arrow-left"></i> Voltar ao Blog</a>
+                <a href="whatsapp.html" class="btn btn-primario menu-whatsapp-btn">SOLICITAR PROPOSTA NO WHATSAPP</a>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="whatsapp.html" class="btn btn-primario whatsapp-btn">FALAR NO WHATSAPP</a>
+                
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="post-article-layout">
+        <article>
+            <div class="hero-badge" id="article-badge">
+                <span class="pulse-dot"></span> Marketing & SEO
+            </div>
+            <h1 class="post-h1" id="article-title">Carregando artigo...</h1>
+
+            <div class="post-meta-row">
+                <span><i class="fa-solid fa-crown" style="color: var(--purple-accent);"></i> <strong id="article-author">Prime Rank Marketing</strong></span>
+                <span>•</span>
+                <span>📅 <span id="article-date">--/--/----</span></span>
+                <span>•</span>
+                <span>⏱️ <span id="article-time">--</span> min de leitura</span>
+                <span>•</span>
+                <span>📝 <span id="article-words">--</span> palavras</span>
+            </div>
+
+            <img id="article-img" src="" alt="" class="post-banner-img">
+
+            <div id="article-content-body" class="post-body-content">
+                <!-- Conteúdo do artigo -->
+            </div>
+        </article>
+
+        <aside>
+            <div class="post-sidebar-card">
+                <div class="post-sidebar-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.2rem; color: #fff; margin-bottom: 12px;">Quer Dominar a 1ª Página do Google?</h3>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 22px; line-height: 1.6;">
+                    Nossos especialistas em Tráfego Pago e SEO desenvolvem estratégias sob medida com foco implacável em ROI.
+                </p>
+                <a href="whatsapp.html" class="btn btn-primario" style="width: 100%; text-align: center;">
+                    SOLICITAR DIAGNÓSTICO GRATUITO
+                </a>
+
+                <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-glow); text-align: left;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: #fff; display: block; margin-bottom: 10px;">Compartilhar Artigo:</span>
+                    <button onclick="shareWhatsApp()" class="btn btn-secundario" style="width: 100%; margin-bottom: 8px; font-size: 0.82rem;">
+                        <i class="fa-brands fa-whatsapp" style="color: #25D366; margin-right: 6px;"></i> WhatsApp
+                    </button>
+                    <button onclick="copyLink()" class="btn btn-secundario" style="width: 100%; font-size: 0.82rem;">
+                        <i class="fa-solid fa-link" style="margin-right: 6px;"></i> Copiar Link
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="footer-section">
+        <div class="container footer-principal">
+            <div class="footer-top-row">
+                <div class="footer-brand-col">
+                    <img src="img/logo-horizontal.png" alt="Prime Rank Logo" class="footer-logo">
+                    <p class="footer-brand-desc">Estratégias de Marketing Digital de Alta Performance, Tráfego Pago e SEO.</p>
+                </div>
+            </div>
+            <div class="footer-bottom-bar">
+                <p>© 2026 Prime Rank Marketing Digital. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('reading-progress').style.width = scrolled + '%';
+        });
+
+        async function loadArticle() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const slug = urlParams.get('slug');
+            const API_URL = 'https://primerank-blog-agent.onrender.com';
+
+            try {
+                let post = null;
+                if (slug) {
+                    const res = await fetch(${API_URL}/api/blog/posts/${slug});
+                    const data = await res.json();
+                    if (data.success) post = data.post;
+                }
+
+                if (!post) {
+                    const resAll = await fetch(${API_URL}/api/blog/posts?limit=1);
+                    const dataAll = await resAll.json();
+                    if (dataAll.posts && dataAll.posts.length > 0) {
+                        const resFirst = await fetch(${API_URL}/api/blog/posts/${dataAll.posts[0].slug});
+                        const dataFirst = await resFirst.json();
+                        if (dataFirst.success) post = dataFirst.post;
+                    }
+                }
+
+                if (post) {
+                    document.title = (post.seo?.metaTitle || post.title) + ' | Prime Rank Marketing';
+                    document.getElementById('page-title').innerText = post.title;
+                    document.getElementById('article-title').innerText = post.title;
+                    document.getElementById('article-date').innerText = new Date(post.publishedAt || post.createdAt).toLocaleDateString('pt-BR');
+                    document.getElementById('article-time').innerText = post.seo?.readingTimeMinutes || 8;
+                    document.getElementById('article-words').innerText = post.seo?.wordCount || 1500;
+                    document.getElementById('article-author').innerText = post.author?.name || 'Prime Rank Marketing';
+
+                    const img = document.getElementById('article-img');
+                    img.src = post.featuredImageUrl || 'img/service_blog.jpg';
+                    img.alt = post.title;
+
+                    document.getElementById('article-content-body').innerHTML = marked.parse(post.contentMarkdown);
+
+                    if (post.seo?.faqSchemaJson) {
+                        const script = document.createElement('script');
+                        script.type = 'application/ld+json';
+                        script.text = post.seo.faqSchemaJson;
+                        document.head.appendChild(script);
+                    }
+                }
+            } catch (err) {
+                document.getElementById('article-title').innerText = 'Como Dominar a Primeira Página do Google com SEO e Tráfego Pago';
+                document.getElementById('article-content-body').innerHTML = '<p>Conheça os métodos validados da Prime Rank Marketing para transformar tráfego em vendas previsíveis.</p>';
+            }
+        }
+
+        function shareWhatsApp() {
+            window.open(https://api.whatsapp.com/send?text= + encodeURIComponent(document.title + ' ' + window.location.href), '_blank');
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link do artigo copiado!');
+        }
+
+        loadArticle();
+    </script>
+</body>
+</html>

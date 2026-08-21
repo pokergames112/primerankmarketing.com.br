@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Blog & Insights Estratégicos | Prime Rank Marketing Digital</title>
+    <meta name="description" content="Artigos práticos, dados de mercado e os roteiros mais eficientes de SEO, Tráfego Pago e conversão para escalar o faturamento da sua empresa.">
+
+    <link rel="canonical" href="https://primerankmarketing.com.br/blog.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Syne:wght@700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- CANVAS DE FUNDO TECNOLÓGICO INTERATIVO -->
+    <canvas id="tech-bg-canvas" class="tech-bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- CURSOR CUSTOMIZADO -->
+    <div id="cursor-dot" aria-hidden="true"></div>
+    <div id="cursor-circle" aria-hidden="true"></div>
+
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo-link" title="Prime Rank Marketing Digital">
+                <img src="img/logo-horizontal.png" alt="Prime Rank Logo" class="logo-img">
+            </a>
+            
+            <nav class="menu-mobile" id="menuMobile">
+                <a href="index.html" class="btn btn-secundario">Home</a>
+                <a href="index.html#servicos" class="btn btn-secundario">Nossos Serviços</a>
+                <a href="index.html#diferenciais" class="btn btn-secundario">Diferenciais</a>
+                <a href="index.html#avaliacoes" class="btn btn-secundario">Resultados</a>
+                <a href="blog.html" class="btn btn-secundario" style="border-color: var(--purple-accent); background: rgba(145, 57, 229, 0.25);">Blog & Insights</a>
+                <a href="whatsapp.html" class="btn btn-primario menu-whatsapp-btn">SOLICITAR PROPOSTA NO WHATSAPP</a>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="whatsapp.html" class="btn btn-primario whatsapp-btn">FALAR NO WHATSAPP</a>
+                
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Abrir Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section" style="padding: 140px 0 60px 0; text-align: center;">
+        <div class="container">
+            <div class="hero-badge" style="margin: 0 auto 16px auto;">
+                <span class="pulse-dot"></span> Inteligência de Mercado & SEO
+            </div>
+            <h1>BLOG & <span class="text-roxo">INSIGHTS ESTRATÉGICOS</span></h1>
+            <p class="hero-subtitle" style="margin: 0 auto; max-width: 720px;">
+                Análises aprofundadas, dados de mercado e roteiros práticos sobre <strong>SEO de Alta Performance</strong>, <strong>Google Ads</strong> e <strong>Tráfego Pago</strong> para acelerar suas vendas.
+            </p>
+        </div>
+    </section>
+
+    <section class="blog-section" style="padding-top: 10px;">
+        <div class="container">
+            <div id="blog-catalog-grid" class="blog-grid-container">
+                <div style="grid-column: 1 / -1; text-align: center; padding: 60px 0; color: var(--text-muted);">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 12px; color: var(--purple-accent);"></i>
+                    <p>Carregando artigos atualizados...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-final-section">
+        <div class="container">
+            <h2>QUER ESCALAR SEU NEGÓCIO NO GOOGLE?</h2>
+            <p>Converse com nossos especialistas e receba um diagnóstico estratégico gratuito para a sua empresa.</p>
+            <a href="whatsapp.html" target="_self" class="btn btn-primario cta-btn">SOLICITAR DIAGNÓSTICO NO WHATSAPP</a>
+        </div>
+    </section>
+
+    <footer class="footer-section" id="contato">
+        <div class="container footer-principal">
+            <div class="footer-top-row">
+                <div class="footer-brand-col">
+                    <img src="img/logo-horizontal.png" alt="Prime Rank Marketing Digital" class="footer-logo">
+                    <p class="footer-brand-desc">
+                        Agência especializada em Marketing Digital de Alta Performance, Tráfego Pago, SEO, Criação Web e Gestão com IA.
+                    </p>
+                    <div class="footer-location-badge">
+                        📍 Atendemos toda a Região Metropolitana do Recife e clientes em todo o Brasil.
+                    </div>
+                </div>
+
+                <div class="footer-item">
+                    <h4>FALE CONOSCO</h4>
+                    <a href="whatsapp.html" target="_self" class="social-link" title="(81) 9 8670-3728">
+                        <img src="img/whatsapp logo.png" alt="WhatsApp" class="icon">
+                        <span>(81) 9 8670-3728</span>
+                    </a>
+                    <a href="https://www.instagram.com/primerank_/" target="_blank" class="social-link" title="@primerank_">
+                        <img src="img/instagram logo.png" alt="Instagram" class="icon">
+                        <span>@primerank_</span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom-bar">
+                <p>© 2026 Prime Rank Marketing Digital. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        async function renderBlogCatalog() {
+            const container = document.getElementById('blog-catalog-grid');
+            const API_URL = 'https://primerank-blog-agent.onrender.com';
+
+            try {
+                const res = await fetch(${API_URL}/api/blog/posts);
+                const data = await res.json();
+                const posts = data.posts || [];
+
+                if (posts.length > 0) {
+                    container.innerHTML = posts.map(post => 
+                        <div class="blog-card-site">
+                            <div class="blog-card-img-wrap">
+                                <img src="${post.featuredImageUrl || 'img/service_blog.jpg'}" alt="${post.title}" class="blog-card-img" loading="lazy">
+                                <span class="blog-card-badge">${post.category || 'SEO & Tráfego'}</span>
+                            </div>
+                            <div class="blog-card-body">
+                                <div class="blog-card-meta">
+                                    <span>📅 ${new Date(post.publishedAt).toLocaleDateString('pt-BR')}</span>
+                                    <span>⏱️ ${post.readingTimeMinutes || 8} min de leitura</span>
+                                </div>
+                                <h3>${post.title}</h3>
+                                <p>${post.excerpt}</p>
+                                <a href="post.html?slug=${post.slug}" target="_blank" rel="noopener noreferrer" class="btn btn-primario" style="margin-top: auto; text-align: center;">
+                                    LER ARTIGO COMPLETO ↗
+                                </a>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = `
+                        <div class="blog-card-site" style="grid-column: 1 / -1; max-width: 540px; margin: 0 auto;">
+                            <div class="blog-card-img-wrap">
+                                <img src="img/service_blog.jpg" alt="Artigo Prime Rank" class="blog-card-img">
+                                <span class="blog-card-badge">Inteligência & SEO</span>
+                            </div>
+                            <div class="blog-card-body">
+                                <div class="blog-card-meta">
+                                    <span>📅 Atualizado Hoje</span>
+                                    <span>⏱️ 8 min</span>
+                                </div>
+                                <h3>Como Dominar a Primeira Página do Google com SEO e Tráfego Pago</h3>
+                                <p>Descubra as metodologias de alta performance da Prime Rank Marketing para transformar buscas em clientes recorrentes.</p>
+                                <a href="post.html" target="_blank" rel="noopener noreferrer" class="btn btn-primario" style="margin-top: auto; text-align: center;">
+                                    LER ARTIGO COMPLETO ↗
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                console.warn('API temporariamente offline, usando card nativo:', err);
+            }
+        }
+        renderBlogCatalog();
+    </script>
+</body>
+</html>
