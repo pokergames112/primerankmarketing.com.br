@@ -224,63 +224,74 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 9. CURSOR TECNOLÓGICO FUTURISTA COM MIRA/TARGET (DESKTOP) ---
-    const customCursor = document.getElementById('customCursor');
-    if (customCursor && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorTarget = document.getElementById('cursorTarget');
+    
+    if (cursorDot && cursorTarget && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
         let mouseX = window.innerWidth / 2;
         let mouseY = window.innerHeight / 2;
-        let ringX = mouseX;
-        let ringY = mouseY;
+        let targetX = mouseX;
+        let targetY = mouseY;
         let isCursorActive = false;
+        const targetBadge = cursorTarget.querySelector('.target-badge');
 
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
+            
+            // O ponto segue instantaneamente sem atraso
+            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+
             if (!isCursorActive) {
                 isCursorActive = true;
-                customCursor.classList.add('is-active');
+                cursorDot.classList.add('is-active');
+                cursorTarget.classList.add('is-active');
             }
         }, { passive: true });
 
         document.addEventListener('mouseleave', () => {
-            customCursor.classList.remove('is-active');
+            cursorDot.classList.remove('is-active');
+            cursorTarget.classList.remove('is-active');
             isCursorActive = false;
         });
 
         document.addEventListener('mouseenter', () => {
-            customCursor.classList.add('is-active');
+            cursorDot.classList.add('is-active');
+            cursorTarget.classList.add('is-active');
             isCursorActive = true;
         });
 
-        // Efeito de trava de mira (Target Lock) em elementos interativos
+        // Efeito de trava de mira (Target Lock) em elementos clicáveis
         const interactiveElements = 'a, button, input, select, textarea, .btn, .servico-card, .diferencial-card, .step-card, .review-box, .platform-pill, .btn-leia-mais, .hamburger-btn, .modal-close';
         
         document.addEventListener('mouseover', (e) => {
             if (e.target.closest(interactiveElements)) {
-                customCursor.classList.add('cursor-hover');
+                cursorTarget.classList.add('cursor-hover');
+                if (targetBadge) targetBadge.textContent = '[ TARGET LOCKED ]';
             }
         });
 
         document.addEventListener('mouseout', (e) => {
             if (e.target.closest(interactiveElements)) {
-                customCursor.classList.remove('cursor-hover');
+                cursorTarget.classList.remove('cursor-hover');
+                if (targetBadge) targetBadge.textContent = 'PRIME // AIM';
             }
         });
 
         document.addEventListener('mousedown', () => {
-            customCursor.classList.add('cursor-click');
+            cursorTarget.classList.add('cursor-click');
         });
 
         document.addEventListener('mouseup', () => {
-            customCursor.classList.remove('cursor-click');
+            cursorTarget.classList.remove('cursor-click');
         });
 
-        // Loop de interpolação suave (Lerp) para a mira acompanhar com precisão e fluidez
+        // Loop de interpolação fluida (Lerp 60/120fps) para a mira externa
         const renderCursor = () => {
-            // Suavização do anel externo (retículo)
-            ringX += (mouseX - ringX) * 0.18;
-            ringY += (mouseY - ringY) * 0.18;
+            targetX += (mouseX - targetX) * 0.22;
+            targetY += (mouseY - targetY) * 0.22;
 
-            customCursor.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+            cursorTarget.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) translate(-50%, -50%)`;
 
             requestAnimationFrame(renderCursor);
         };
@@ -305,27 +316,32 @@ document.addEventListener('DOMContentLoaded', () => {
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas, { passive: true });
 
-        // Gerador de partículas cibernéticas
-        const particleCount = width < 768 ? 28 : 55;
+        // Gerador de partículas e símbolos flutuantes de marketing/tecnologia
+        const particleCount = width < 768 ? 32 : 68;
         const particles = [];
         const colors = [
             'rgba(145, 57, 229, ', // Neon Violet (#9139E5)
             'rgba(177, 121, 242, ', // Purple Soft (#B179F2)
-            'rgba(0, 255, 136, ',   // Neon Cyber Accent (#00ff88)
+            'rgba(0, 255, 136, ',   // Neon Cyber Emerald (#00ff88)
+            'rgba(0, 229, 255, ',   // Cyan Cyber (#00e5ff)
             'rgba(237, 229, 249, '  // Light Lavender (#EDE5F9)
         ];
+
+        const symbols = ['ROI', 'SEO', 'AI', 'ADS', '⚡', '▲', '01', 'GROWTH', 'PRIME', '10X'];
 
         for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                z: Math.random() * 0.8 + 0.2, // Profundidade 3D
-                radius: Math.random() * 2 + 1,
-                vx: (Math.random() - 0.5) * 0.4,
-                vy: (Math.random() - 0.5) * 0.4,
+                z: Math.random() * 0.85 + 0.15, // Profundidade 3D
+                radius: Math.random() * 2.2 + 1.2,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
                 colorPrefix: colors[Math.floor(Math.random() * colors.length)],
                 pulse: Math.random() * Math.PI * 2,
-                pulseSpeed: 0.02 + Math.random() * 0.03
+                pulseSpeed: 0.02 + Math.random() * 0.03,
+                isSymbol: i % 8 === 0, // Alguns nós viram dados flutuantes
+                symbolText: symbols[i % symbols.length]
             });
         }
 
@@ -335,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.addEventListener('scroll', () => {
             const currentScroll = window.scrollY || window.pageYOffset;
-            scrollVelocity = (currentScroll - lastScrollY) * 0.4;
+            scrollVelocity = (currentScroll - lastScrollY) * 0.6;
             lastScrollY = currentScroll;
         }, { passive: true });
 
@@ -350,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
             isTabActive = !document.hidden;
         });
 
-        const maxConnectionDist = width < 768 ? 100 : 140;
+        const maxConnectionDist = width < 768 ? 110 : 150;
 
         const animateTechCanvas = () => {
             if (!isTabActive) {
@@ -361,7 +377,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.clearRect(0, 0, width, height);
 
             // Suaviza velocidade de scroll
-            scrollVelocity *= 0.92;
+            scrollVelocity *= 0.93;
+            const absSpeed = Math.abs(scrollVelocity);
 
             // Desenha conexões cibernéticas (Neural Cyber Grid)
             for (let i = 0; i < particles.length; i++) {
@@ -371,10 +388,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
                     if (dist < maxConnectionDist) {
-                        const alpha = (1 - dist / maxConnectionDist) * 0.18 * particles[i].z;
+                        const alpha = (1 - dist / maxConnectionDist) * (0.2 + Math.min(absSpeed * 0.02, 0.3)) * particles[i].z;
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(145, 57, 229, ${alpha})`;
-                        ctx.lineWidth = 0.8 * particles[i].z;
+                        ctx.strokeStyle = `rgba(177, 121, 242, ${alpha})`;
+                        ctx.lineWidth = 0.9 * particles[i].z;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
@@ -382,42 +399,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Atualiza e desenha partículas com Parallax de Scroll
+            // Atualiza e desenha partículas e linhas de warp no scroll
             for (let i = 0; i < particles.length; i++) {
                 const p = particles[i];
 
-                // Movimento orgânico base + distorção com a velocidade do scroll (profundidade 3D)
+                // Movimento orgânico base + warp no scroll
                 p.x += p.vx;
-                p.y += p.vy - (scrollVelocity * p.z * 0.6);
+                const scrollOffset = scrollVelocity * p.z * 0.8;
+                p.y += p.vy - scrollOffset;
 
-                // Interação sutil de proximidade com o cursor do mouse
+                // Interação com o mouse
                 const mdx = currentMouse.x - p.x;
                 const mdy = currentMouse.y - p.y;
                 const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-                if (mDist < 120) {
-                    const force = (1 - mDist / 120) * 1.5;
+                if (mDist < 130) {
+                    const force = (1 - mDist / 130) * 2;
                     p.x -= (mdx / mDist) * force;
                     p.y -= (mdy / mDist) * force;
                 }
 
-                // Loop infinito nas bordas da tela
-                if (p.x < -20) p.x = width + 20;
-                if (p.x > width + 20) p.x = -20;
-                if (p.y < -20) p.y = height + 20;
-                if (p.y > height + 20) p.y = -20;
+                // Loop infinito nas bordas
+                if (p.x < -30) p.x = width + 30;
+                if (p.x > width + 30) p.x = -30;
+                if (p.y < -30) p.y = height + 30;
+                if (p.y > height + 30) p.y = -30;
 
-                // Pulso de brilho tecnológico
+                // Pulso de brilho
                 p.pulse += p.pulseSpeed;
-                const currentAlpha = 0.35 + Math.sin(p.pulse) * 0.25;
+                const currentAlpha = 0.45 + Math.sin(p.pulse) * 0.35;
 
-                // Desenho do nó / partícula
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius * p.z, 0, Math.PI * 2);
-                ctx.fillStyle = `${p.colorPrefix}${currentAlpha})`;
-                ctx.shadowBlur = 8 * p.z;
-                ctx.shadowColor = 'rgba(145, 57, 229, 0.6)';
-                ctx.fill();
-                ctx.shadowBlur = 0;
+                // Se houver scroll rápido, desenha rastro de luz cibernético (Light Speed Streak)
+                if (absSpeed > 2) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `${p.colorPrefix}${Math.min(currentAlpha, 0.7)})`;
+                    ctx.lineWidth = p.radius * p.z * 0.8;
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p.x, p.y + scrollOffset * 2.5);
+                    ctx.stroke();
+                }
+
+                // Desenha símbolo tech ou ponto de luz
+                if (p.isSymbol && width > 768) {
+                    ctx.font = `700 ${Math.floor(9 * p.z)}px 'Montserrat', monospace`;
+                    ctx.fillStyle = `${p.colorPrefix}${currentAlpha * 0.85})`;
+                    ctx.fillText(p.symbolText, p.x, p.y);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius * p.z, 0, Math.PI * 2);
+                    ctx.fillStyle = `${p.colorPrefix}${currentAlpha})`;
+                    ctx.shadowBlur = 10 * p.z;
+                    ctx.shadowColor = 'rgba(145, 57, 229, 0.8)';
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
             }
 
             requestAnimationFrame(animateTechCanvas);

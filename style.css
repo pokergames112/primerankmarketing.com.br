@@ -28,9 +28,9 @@
     --purple-primary: #9139E5;
     --purple-accent: #B179F2;
     --purple-light: #EDE5F9;
-    --dark-bg: #0b0415;
-    --dark-surface: #140827;
-    --card-bg: #1a0b33;
+    --dark-bg: rgba(11, 4, 21, 0.82);
+    --dark-surface: rgba(20, 8, 39, 0.82);
+    --card-bg: rgba(26, 11, 51, 0.78);
     --text-white: #ffffff;
     --text-muted: #d4cbe8;
     --font-heading: 'Integral CF', 'Syne', 'Montserrat', sans-serif;
@@ -53,11 +53,30 @@ html {
 
 body {
     font-family: var(--font-body);
-    background-color: var(--dark-bg);
+    background-color: #0b0415;
     color: var(--text-white);
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
+}
+
+.hero-section,
+.servicos-section,
+.diferenciais-section,
+.processo-section,
+.marcas-section,
+.reviews-section,
+.cta-final-section,
+.footer-section {
+    position: relative;
+    z-index: 2;
+}
+
+/* DESKTOP CUSTOM CURSOR (HIDE NATIVE ARROW FOR HIGH-TECH HUD FEEL) */
+@media (hover: hover) and (pointer: fine) {
+    html, body, a, button, input, select, textarea, .btn, .servico-card, .diferencial-card, .step-card, .review-box, .platform-pill, .btn-leia-mais, .hamburger-btn, .modal-close {
+        cursor: none !important;
+    }
 }
 
 /* CANVAS DE FUNDO TECNOLÓGICO INTERATIVO */
@@ -68,119 +87,161 @@ body {
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    z-index: 0;
-    opacity: 0.8;
+    z-index: 1;
+    opacity: 0.9;
 }
 
-/* CURSOR TECNOLÓGICO FUTURISTA (CROSSHAIR TARGET) */
-.custom-cursor {
+/* CURSOR TECNOLÓGICO FUTURISTA (HUD CROSSHAIR TARGET) */
+.custom-cursor-dot {
     position: fixed;
     top: 0;
     left: 0;
+    width: 6px;
+    height: 6px;
+    background: #00ff88;
+    border-radius: 50%;
     pointer-events: none;
     z-index: 99999999;
+    box-shadow: 0 0 10px #00ff88, 0 0 4px #ffffff;
+    transform: translate3d(-50%, -50%, 0);
     opacity: 0;
-    transform: translate(-50%, -50%);
+    transition: opacity 0.2s ease, transform 0.12s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-cursor-target {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 44px;
+    height: 44px;
+    pointer-events: none;
+    z-index: 99999998;
+    transform: translate3d(-50%, -50%, 0);
+    opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.custom-cursor.is-active {
+.custom-cursor-dot.is-active,
+.custom-cursor-target.is-active {
     opacity: 1;
 }
 
-.cursor-dot {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 6px;
-    height: 6px;
-    background: #B179F2;
+.target-circle {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px dashed rgba(177, 121, 242, 0.65);
     border-radius: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px #9139E5, 0 0 4px #ffffff;
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 0 16px rgba(145, 57, 229, 0.35);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.cursor-ring {
+/* 4 Linhas Crosshair (+) */
+.target-cross {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 38px;
-    height: 38px;
-    border: 1px dashed rgba(177, 121, 242, 0.45);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) rotate(0deg);
-    box-shadow: 0 0 18px rgba(145, 57, 229, 0.2);
-    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
-}
-
-/* Retículos / Cantos da mira futurista */
-.crosshair-bracket {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-color: #B179F2;
-    border-style: solid;
-    pointer-events: none;
+    background: rgba(177, 121, 242, 0.85);
     transition: all 0.3s ease;
 }
 
-.cross-tl {
-    top: -3px;
-    left: -3px;
-    border-width: 1.5px 0 0 1.5px;
+.cross-top {
+    top: -6px;
+    left: 50%;
+    width: 1.5px;
+    height: 6px;
+    transform: translateX(-50%);
 }
 
-.cross-tr {
-    top: -3px;
-    right: -3px;
-    border-width: 1.5px 1.5px 0 0;
+.cross-bottom {
+    bottom: -6px;
+    left: 50%;
+    width: 1.5px;
+    height: 6px;
+    transform: translateX(-50%);
 }
 
-.cross-bl {
-    bottom: -3px;
-    left: -3px;
-    border-width: 0 0 1.5px 1.5px;
+.cross-left {
+    top: 50%;
+    left: -6px;
+    width: 6px;
+    height: 1.5px;
+    transform: translateY(-50%);
 }
 
-.cross-br {
-    bottom: -3px;
-    right: -3px;
-    border-width: 0 1.5px 1.5px 0;
+.cross-right {
+    top: 50%;
+    right: -6px;
+    width: 6px;
+    height: 1.5px;
+    transform: translateY(-50%);
 }
 
-/* Estado de Hover (Target Locked / Interação) */
-.custom-cursor.cursor-hover .cursor-dot {
-    background: #00ff88;
-    transform: translate(-50%, -50%) scale(1.6);
-    box-shadow: 0 0 12px #00ff88, 0 0 20px rgba(0, 255, 136, 0.8);
-}
-
-.custom-cursor.cursor-hover .cursor-ring {
-    width: 48px;
-    height: 48px;
+/* 4 Cantos / Brackets */
+.target-bracket {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-color: #B179F2;
     border-style: solid;
-    border-color: rgba(145, 57, 229, 0.8);
-    transform: translate(-50%, -50%) rotate(45deg);
-    box-shadow: 0 0 25px rgba(145, 57, 229, 0.6), inset 0 0 10px rgba(177, 121, 242, 0.2);
+    transition: all 0.3s ease;
 }
 
-.custom-cursor.cursor-hover .crosshair-bracket {
+.bracket-tl { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
+.bracket-tr { top: -2px; right: -2px; border-width: 2px 2px 0 0; }
+.bracket-bl { bottom: -2px; left: -2px; border-width: 0 0 2px 2px; }
+.bracket-br { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
+
+/* Micro-badge de telemetria HUD */
+.target-badge {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #00ff88;
+    background: rgba(11, 4, 21, 0.9);
+    border: 1px solid rgba(0, 255, 136, 0.5);
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Estado de Hover (Target Locked) */
+.custom-cursor-target.cursor-hover .target-circle {
+    border: 1.5px solid #00ff88;
+    transform: rotate(45deg) scale(1.3);
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.8), inset 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.custom-cursor-target.cursor-hover .target-cross {
+    background: #00ff88;
+}
+
+.custom-cursor-target.cursor-hover .target-bracket {
+    border-color: #9139E5;
+    width: 9px;
+    height: 9px;
+}
+
+.custom-cursor-target.cursor-hover .target-badge {
+    opacity: 1;
+    transform: translateX(-50%) translateY(6px);
+}
+
+.custom-cursor-target.cursor-click .target-circle {
+    transform: scale(0.85);
     border-color: #00ff88;
-    width: 8px;
-    height: 8px;
+    box-shadow: 0 0 35px #00ff88;
 }
 
-/* Estado de Clique */
-.custom-cursor.cursor-click .cursor-ring {
-    transform: translate(-50%, -50%) scale(0.85);
-    border-color: #00ff88;
-    box-shadow: 0 0 30px #00ff88;
-}
-
-/* Desabilita cursor customizado em touchscreens (mobile/tablet) */
+/* Desativa cursor customizado em touchscreens */
 @media (hover: none) or (pointer: coarse) {
-    .custom-cursor {
+    .custom-cursor-dot,
+    .custom-cursor-target {
         display: none !important;
     }
 }
