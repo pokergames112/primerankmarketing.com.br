@@ -222,4 +222,207 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // --- 9. CURSOR TECNOLÓGICO FUTURISTA COM MIRA/TARGET (DESKTOP) ---
+    const customCursor = document.getElementById('customCursor');
+    if (customCursor && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let ringX = mouseX;
+        let ringY = mouseY;
+        let isCursorActive = false;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!isCursorActive) {
+                isCursorActive = true;
+                customCursor.classList.add('is-active');
+            }
+        }, { passive: true });
+
+        document.addEventListener('mouseleave', () => {
+            customCursor.classList.remove('is-active');
+            isCursorActive = false;
+        });
+
+        document.addEventListener('mouseenter', () => {
+            customCursor.classList.add('is-active');
+            isCursorActive = true;
+        });
+
+        // Efeito de trava de mira (Target Lock) em elementos interativos
+        const interactiveElements = 'a, button, input, select, textarea, .btn, .servico-card, .diferencial-card, .step-card, .review-box, .platform-pill, .btn-leia-mais, .hamburger-btn, .modal-close';
+        
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest(interactiveElements)) {
+                customCursor.classList.add('cursor-hover');
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest(interactiveElements)) {
+                customCursor.classList.remove('cursor-hover');
+            }
+        });
+
+        document.addEventListener('mousedown', () => {
+            customCursor.classList.add('cursor-click');
+        });
+
+        document.addEventListener('mouseup', () => {
+            customCursor.classList.remove('cursor-click');
+        });
+
+        // Loop de interpolação suave (Lerp) para a mira acompanhar com precisão e fluidez
+        const renderCursor = () => {
+            // Suavização do anel externo (retículo)
+            ringX += (mouseX - ringX) * 0.18;
+            ringY += (mouseY - ringY) * 0.18;
+
+            customCursor.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+
+            requestAnimationFrame(renderCursor);
+        };
+        renderCursor();
+    }
+
+    // --- 10. FUNDO TECNOLÓGICO INTERATIVO COM SCROLL (CYBER MESH MATRIX) ---
+    const canvas = document.getElementById('tech-bg-canvas');
+    if (canvas && canvas.getContext) {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        const resizeCanvas = () => {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            ctx.scale(dpr, dpr);
+        };
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas, { passive: true });
+
+        // Gerador de partículas cibernéticas
+        const particleCount = width < 768 ? 28 : 55;
+        const particles = [];
+        const colors = [
+            'rgba(145, 57, 229, ', // Neon Violet (#9139E5)
+            'rgba(177, 121, 242, ', // Purple Soft (#B179F2)
+            'rgba(0, 255, 136, ',   // Neon Cyber Accent (#00ff88)
+            'rgba(237, 229, 249, '  // Light Lavender (#EDE5F9)
+        ];
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                z: Math.random() * 0.8 + 0.2, // Profundidade 3D
+                radius: Math.random() * 2 + 1,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                colorPrefix: colors[Math.floor(Math.random() * colors.length)],
+                pulse: Math.random() * Math.PI * 2,
+                pulseSpeed: 0.02 + Math.random() * 0.03
+            });
+        }
+
+        let lastScrollY = window.scrollY || window.pageYOffset;
+        let scrollVelocity = 0;
+        let currentMouse = { x: -1000, y: -1000 };
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY || window.pageYOffset;
+            scrollVelocity = (currentScroll - lastScrollY) * 0.4;
+            lastScrollY = currentScroll;
+        }, { passive: true });
+
+        window.addEventListener('mousemove', (e) => {
+            currentMouse.x = e.clientX;
+            currentMouse.y = e.clientY;
+        }, { passive: true });
+
+        // Loop de Renderização e Animação Cibernética
+        let isTabActive = true;
+        document.addEventListener('visibilitychange', () => {
+            isTabActive = !document.hidden;
+        });
+
+        const maxConnectionDist = width < 768 ? 100 : 140;
+
+        const animateTechCanvas = () => {
+            if (!isTabActive) {
+                requestAnimationFrame(animateTechCanvas);
+                return;
+            }
+
+            ctx.clearRect(0, 0, width, height);
+
+            // Suaviza velocidade de scroll
+            scrollVelocity *= 0.92;
+
+            // Desenha conexões cibernéticas (Neural Cyber Grid)
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < maxConnectionDist) {
+                        const alpha = (1 - dist / maxConnectionDist) * 0.18 * particles[i].z;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(145, 57, 229, ${alpha})`;
+                        ctx.lineWidth = 0.8 * particles[i].z;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Atualiza e desenha partículas com Parallax de Scroll
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+
+                // Movimento orgânico base + distorção com a velocidade do scroll (profundidade 3D)
+                p.x += p.vx;
+                p.y += p.vy - (scrollVelocity * p.z * 0.6);
+
+                // Interação sutil de proximidade com o cursor do mouse
+                const mdx = currentMouse.x - p.x;
+                const mdy = currentMouse.y - p.y;
+                const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (mDist < 120) {
+                    const force = (1 - mDist / 120) * 1.5;
+                    p.x -= (mdx / mDist) * force;
+                    p.y -= (mdy / mDist) * force;
+                }
+
+                // Loop infinito nas bordas da tela
+                if (p.x < -20) p.x = width + 20;
+                if (p.x > width + 20) p.x = -20;
+                if (p.y < -20) p.y = height + 20;
+                if (p.y > height + 20) p.y = -20;
+
+                // Pulso de brilho tecnológico
+                p.pulse += p.pulseSpeed;
+                const currentAlpha = 0.35 + Math.sin(p.pulse) * 0.25;
+
+                // Desenho do nó / partícula
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius * p.z, 0, Math.PI * 2);
+                ctx.fillStyle = `${p.colorPrefix}${currentAlpha})`;
+                ctx.shadowBlur = 8 * p.z;
+                ctx.shadowColor = 'rgba(145, 57, 229, 0.6)';
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            requestAnimationFrame(animateTechCanvas);
+        };
+
+        requestAnimationFrame(animateTechCanvas);
+    }
 });

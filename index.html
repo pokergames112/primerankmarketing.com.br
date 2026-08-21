@@ -27,9 +27,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Syne:wght@700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-</head>
-
 <body>
+
+    <!-- CANVAS DE FUNDO TECNOLÓGICO INTERATIVO COM SCROLL -->
+    <canvas id="tech-bg-canvas" class="tech-bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- CURSOR FUTURISTA TARGET COM MIRA (DESKTOP) -->
+    <div class="custom-cursor" id="customCursor" aria-hidden="true">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring">
+            <span class="crosshair-bracket cross-tl"></span>
+            <span class="crosshair-bracket cross-tr"></span>
+            <span class="crosshair-bracket cross-bl"></span>
+            <span class="crosshair-bracket cross-br"></span>
+        </div>
+    </div>
 
     <header class="header">
         <div class="container navbar">
