@@ -5,9 +5,9 @@
    - Neon Violet Accent: #9139E5 (RGB 145, 57, 229)
    - Medium Purple Soft: #B179F2 (RGB 177, 121, 242)
    - Lavender Surface Light: #EDE5F9 (RGB 237, 229, 249)
-   Typography (Brand Manual):
+    Typography (Brand Manual):
    - Primary Font: Integral CF (Bold / ExtraBold / Heavy)
-   - Secondary Font: Acumin / Montserrat
+   - Secondary Font: Acumin Variable Concept / Montserrat
    ========================================================================== */
 
 @font-face {
@@ -19,6 +19,16 @@
          url('fonts/IntegralCF.woff') format('woff'),
          url('fonts/IntegralCF.otf') format('opentype');
     font-weight: 400 900;
+    font-style: normal;
+    font-display: block; /* Evita o piscar (FOUT) ao carregar a página */
+}
+
+@font-face {
+    font-family: 'Acumin Variable Concept';
+    src: local('Acumin Variable Concept'),
+         local('AcuminPro-Regular'),
+         local('Acumin Pro');
+    font-weight: 300 900;
     font-style: normal;
     font-display: swap;
 }
@@ -34,7 +44,7 @@
     --text-white: #ffffff;
     --text-muted: #d4cbe8;
     --font-heading: 'Integral CF', 'Syne', 'Montserrat', sans-serif;
-    --font-body: 'Montserrat', sans-serif;
+    --font-body: 'Acumin Variable Concept', 'Acumin Pro', 'Montserrat', sans-serif;
     --border-glow: rgba(145, 57, 229, 0.4);
     --shadow-glow: 0 10px 30px rgba(145, 57, 229, 0.25);
 }
