@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animateCircle();
     }
 
-    // --- 10. FUNDO TECNOLÓGICO INTERATIVO COM SCROLL (CYBER MESH MATRIX) ---
+    // --- 10. REDE NEURAL INTERATIVA ESTILO OBSIDIAN GRAPH (COM NÓS LATERAIS & IMPULSOS ELÉTRICOS) ---
     const canvas = document.getElementById('tech-bg-canvas');
     if (canvas && canvas.getContext) {
         const ctx = canvas.getContext('2d');
@@ -316,38 +316,122 @@ document.addEventListener('DOMContentLoaded', () => {
             canvas.width = width * dpr;
             canvas.height = height * dpr;
             ctx.scale(dpr, dpr);
+            initNeuralNetwork();
         };
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas, { passive: true });
 
-        // Gerador de partículas cibernéticas e nós de dados
-        const particleCount = width < 768 ? 30 : 65;
-        const particles = [];
-        const colors = [
-            'rgba(145, 57, 229, ', // Neon Violet (#9139E5)
-            'rgba(177, 121, 242, ', // Purple Soft (#B179F2)
-            'rgba(0, 255, 136, ',   // Neon Emerald (#00ff88)
-            'rgba(0, 229, 255, ',   // Cyan Cyber (#00e5ff)
-            'rgba(237, 229, 249, '  // Light Lavender (#EDE5F9)
+        // Estrutura de Nós Neurais (Obsidian Graph Nodes)
+        let nodes = [];
+        let springs = [];
+        let synapticSparks = [];
+        let backgroundStars = [];
+
+        const nodeColors = [
+            { base: '#9139E5', glow: 'rgba(145, 57, 229, 0.8)', rgb: '145, 57, 229' },
+            { base: '#B179F2', glow: 'rgba(177, 121, 242, 0.8)', rgb: '177, 121, 242' },
+            { base: '#00ff88', glow: 'rgba(0, 255, 136, 0.9)', rgb: '0, 255, 136' },
+            { base: '#00e5ff', glow: 'rgba(0, 229, 255, 0.9)', rgb: '0, 229, 255' }
         ];
 
-        for (let i = 0; i < particleCount; i++) {
-            particles.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                z: Math.random() * 0.85 + 0.15,
-                radius: Math.random() * 2 + 1.2,
-                vx: (Math.random() - 0.5) * 0.45,
-                vy: (Math.random() - 0.5) * 0.45,
-                colorPrefix: colors[Math.floor(Math.random() * colors.length)],
-                pulse: Math.random() * Math.PI * 2,
-                pulseSpeed: 0.02 + Math.random() * 0.03
-            });
+        function initNeuralNetwork() {
+            nodes = [];
+            springs = [];
+            synapticSparks = [];
+            backgroundStars = [];
+
+            // 1. Chuviscos de Fundo (Estrelas / Micro-partículas)
+            const starCount = width < 768 ? 40 : 85;
+            for (let i = 0; i < starCount; i++) {
+                backgroundStars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    alpha: Math.random() * 0.5 + 0.2,
+                    speedY: (Math.random() - 0.5) * 0.3,
+                    speedX: (Math.random() - 0.5) * 0.3,
+                    pulse: Math.random() * Math.PI * 2,
+                    pulseSpeed: 0.02 + Math.random() * 0.03
+                });
+            }
+
+            // 2. Neurônios Principais posicionados estrategicamente nas LATERAIS e fundo (Clusters Obsidian)
+            const isMobile = width < 768;
+            const lateralNodeCount = isMobile ? 18 : 42;
+
+            for (let i = 0; i < lateralNodeCount; i++) {
+                // Distribuição com maior densidade nas bordas esquerda e direita (0% a 25% e 75% a 100%)
+                const isLeft = Math.random() < 0.5;
+                let x;
+                if (!isMobile) {
+                    x = isLeft ? Math.random() * (width * 0.28) + 20 : width - (Math.random() * (width * 0.28) + 20);
+                } else {
+                    x = Math.random() * width;
+                }
+                const y = Math.random() * height;
+
+                const isCore = Math.random() < 0.25; // Neurônio principal maior (Hub Soma)
+                const colorObj = nodeColors[Math.floor(Math.random() * nodeColors.length)];
+
+                nodes.push({
+                    x: x,
+                    y: y,
+                    origX: x,
+                    origY: y,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    radius: isCore ? Math.random() * 2.5 + 3.5 : Math.random() * 1.5 + 1.8,
+                    isCore: isCore,
+                    color: colorObj,
+                    mass: isCore ? 2.5 : 1,
+                    pulse: Math.random() * Math.PI * 2,
+                    pulseSpeed: 0.03 + Math.random() * 0.04,
+                    connections: []
+                });
+            }
+
+            // 3. Conexões de Axônios e Sinapses (Molas elásticas estilo Obsidian Graph)
+            const maxConnectDist = isMobile ? 120 : 180;
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < maxConnectDist) {
+                        springs.push({
+                            nodeA: nodes[i],
+                            nodeB: nodes[j],
+                            length: dist * 0.9,
+                            strength: 0.0008,
+                            dist: dist
+                        });
+                        nodes[i].connections.push(nodes[j]);
+                        nodes[j].connections.push(nodes[i]);
+                    }
+                }
+            }
+
+            // 4. Criação dos Impulsos Elétricos Sinápticos (Sparks)
+            const sparkCount = isMobile ? 8 : 22;
+            for (let i = 0; i < sparkCount; i++) {
+                if (springs.length > 0) {
+                    const randomSpring = springs[Math.floor(Math.random() * springs.length)];
+                    synapticSparks.push({
+                        spring: randomSpring,
+                        progress: Math.random(),
+                        speed: 0.008 + Math.random() * 0.015,
+                        color: Math.random() < 0.6 ? '#00ff88' : '#ffffff'
+                    });
+                }
+            }
         }
+
+        initNeuralNetwork();
+        window.addEventListener('resize', resizeCanvas, { passive: true });
 
         let lastScrollY = window.scrollY || window.pageYOffset;
         let scrollVelocity = 0;
-        let currentMouse = { x: -1000, y: -1000 };
+        let mouseX = -1000, mouseY = -1000;
+        let isMouseDown = false;
 
         window.addEventListener('scroll', () => {
             const currentScroll = window.scrollY || window.pageYOffset;
@@ -356,95 +440,210 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
 
         window.addEventListener('mousemove', (e) => {
-            currentMouse.x = e.clientX;
-            currentMouse.y = e.clientY;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         }, { passive: true });
+
+        window.addEventListener('mousedown', () => {
+            isMouseDown = true;
+            // Explosão de impulsos neurais no clique
+            if (springs.length > 0) {
+                for (let i = 0; i < 6; i++) {
+                    const randomSpring = springs[Math.floor(Math.random() * springs.length)];
+                    synapticSparks.push({
+                        spring: randomSpring,
+                        progress: 0,
+                        speed: 0.02 + Math.random() * 0.02,
+                        color: '#00ff88'
+                    });
+                }
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isMouseDown = false;
+        });
 
         let isTabActive = true;
         document.addEventListener('visibilitychange', () => {
             isTabActive = !document.hidden;
         });
 
-        const maxConnectionDist = width < 768 ? 100 : 140;
-
-        const animateTechCanvas = () => {
+        // Loop de Renderização e Física Elástica Obsidian
+        const animateNeuralGraph = () => {
             if (!isTabActive) {
-                requestAnimationFrame(animateTechCanvas);
+                requestAnimationFrame(animateNeuralGraph);
                 return;
             }
 
             ctx.clearRect(0, 0, width, height);
 
             scrollVelocity *= 0.92;
-            const absSpeed = Math.abs(scrollVelocity);
 
-            // Conexões neurais entre nós próximos
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
+            // --- A. DESENHO DOS CHUVISCOS / ESTRELAS DE FUNDO ---
+            for (let i = 0; i < backgroundStars.length; i++) {
+                const s = backgroundStars[i];
+                s.x += s.speedX;
+                s.y += s.speedY - (scrollVelocity * 0.3);
 
-                    if (dist < maxConnectionDist) {
-                        const alpha = (1 - dist / maxConnectionDist) * (0.18 + Math.min(absSpeed * 0.02, 0.25)) * particles[i].z;
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(177, 121, 242, ${alpha})`;
-                        ctx.lineWidth = 0.8 * particles[i].z;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
+                if (s.x < 0) s.x = width;
+                if (s.x > width) s.x = 0;
+                if (s.y < 0) s.y = height;
+                if (s.y > height) s.y = 0;
 
-            // Atualiza e desenha partículas com reação ao scroll e mouse
-            for (let i = 0; i < particles.length; i++) {
-                const p = particles[i];
-
-                p.x += p.vx;
-                const scrollOffset = scrollVelocity * p.z * 0.7;
-                p.y += p.vy - scrollOffset;
-
-                // Interação com o mouse
-                const mdx = currentMouse.x - p.x;
-                const mdy = currentMouse.y - p.y;
-                const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
-                if (mDist < 120) {
-                    const force = (1 - mDist / 120) * 1.6;
-                    p.x -= (mdx / mDist) * force;
-                    p.y -= (mdy / mDist) * force;
-                }
-
-                if (p.x < -20) p.x = width + 20;
-                if (p.x > width + 20) p.x = -20;
-                if (p.y < -20) p.y = height + 20;
-                if (p.y > height + 20) p.y = -20;
-
-                p.pulse += p.pulseSpeed;
-                const currentAlpha = 0.4 + Math.sin(p.pulse) * 0.3;
-
-                // Rastro de dobra espacial no scroll rápido
-                if (absSpeed > 1.5) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `${p.colorPrefix}${Math.min(currentAlpha, 0.6)})`;
-                    ctx.lineWidth = p.radius * p.z * 0.7;
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p.x, p.y + scrollOffset * 2);
-                    ctx.stroke();
-                }
+                s.pulse += s.pulseSpeed;
+                const starAlpha = s.alpha * (0.6 + Math.sin(s.pulse) * 0.4);
 
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius * p.z, 0, Math.PI * 2);
-                ctx.fillStyle = `${p.colorPrefix}${currentAlpha})`;
-                ctx.shadowBlur = 8 * p.z;
-                ctx.shadowColor = 'rgba(145, 57, 229, 0.7)';
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(177, 121, 242, ${starAlpha})`;
+                ctx.shadowBlur = 4;
+                ctx.shadowColor = 'rgba(145, 57, 229, 0.5)';
                 ctx.fill();
                 ctx.shadowBlur = 0;
             }
 
-            requestAnimationFrame(animateTechCanvas);
+            // --- B. FÍSICA DAS MOLAS E CONEXÕES OBSIDIAN GRAPH ---
+            for (let i = 0; i < springs.length; i++) {
+                const sp = springs[i];
+                const na = sp.nodeA;
+                const nb = sp.nodeB;
+
+                const dx = nb.x - na.x;
+                const dy = nb.y - na.y;
+                const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+                // Força de atração / repulsão da mola (Hooke's Law)
+                const force = (dist - sp.length) * sp.strength;
+                const fx = (dx / dist) * force;
+                const fy = (dy / dist) * force;
+
+                na.vx += fx / na.mass;
+                na.vy += fy / na.mass;
+                nb.vx -= fx / nb.mass;
+                nb.vy -= fy / nb.mass;
+
+                // Desenho dos Axônios / Sinapses com transparência dinâmica
+                const maxD = width < 768 ? 140 : 200;
+                if (dist < maxD) {
+                    const alpha = Math.max(0, (1 - dist / maxD) * 0.35);
+                    ctx.beginPath();
+                    ctx.moveTo(na.x, na.y);
+                    ctx.lineTo(nb.x, nb.y);
+                    ctx.strokeStyle = `rgba(177, 121, 242, ${alpha})`;
+                    ctx.lineWidth = sp.nodeA.isCore || sp.nodeB.isCore ? 1.2 : 0.75;
+                    ctx.stroke();
+                }
+            }
+
+            // --- C. IMPULSOS ELÉTRICOS SINÁPTICOS (SPARKS TRAVESSANDO AXÔNIOS) ---
+            for (let i = synapticSparks.length - 1; i >= 0; i--) {
+                const spark = synapticSparks[i];
+                spark.progress += spark.speed;
+
+                if (spark.progress > 1) {
+                    // Escolhe uma nova conexão vizinha aleatória
+                    const nextNode = spark.spring.nodeB;
+                    if (nextNode.connections && nextNode.connections.length > 0) {
+                        const nextTarget = nextNode.connections[Math.floor(Math.random() * nextNode.connections.length)];
+                        spark.spring = { nodeA: nextNode, nodeB: nextTarget };
+                        spark.progress = 0;
+                    } else {
+                        spark.progress = 0;
+                    }
+                }
+
+                const na = spark.spring.nodeA;
+                const nb = spark.spring.nodeB;
+                const sx = na.x + (nb.x - na.x) * spark.progress;
+                const sy = na.y + (nb.y - na.y) * spark.progress;
+
+                // Desenha faísca/impulso elétrico brilhante
+                ctx.beginPath();
+                ctx.arc(sx, sy, 2, 0, Math.PI * 2);
+                ctx.fillStyle = spark.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = spark.color;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            // --- D. ATUALIZAÇÃO E INTERAÇÃO COM O MOUSE NOS NÓS NEURAIS ---
+            const mouseRadius = isMouseDown ? 240 : 160;
+
+            for (let i = 0; i < nodes.length; i++) {
+                const node = nodes[i];
+
+                // Movimento do scroll
+                node.y -= scrollVelocity * 0.65;
+
+                // Interação Magnética com o Mouse (Puxar / Empurrar estilo Obsidian)
+                const mdx = mouseX - node.x;
+                const mdy = mouseY - node.y;
+                const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+
+                if (mDist < mouseRadius && mDist > 0) {
+                    // Gravidade Obsidian: atrai suavemente o nó na direção do cursor e move o cluster
+                    const factor = (1 - mDist / mouseRadius);
+                    const force = isMouseDown ? factor * 4.5 : factor * 2.2;
+                    node.vx += (mdx / mDist) * force;
+                    node.vy += (mdy / mDist) * force;
+
+                    // Conexão direta de energia com o ponteiro do mouse
+                    ctx.beginPath();
+                    ctx.moveTo(node.x, node.y);
+                    ctx.lineTo(mouseX, mouseY);
+                    ctx.strokeStyle = `rgba(0, 255, 136, ${factor * 0.45})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+                }
+
+                // Amortecimento / Fricção
+                node.vx *= 0.94;
+                node.vy *= 0.94;
+
+                // Retorno elástico suave para a posição de origem lateral
+                const returnX = (node.origX - node.x) * 0.008;
+                const returnY = (node.origY - node.y) * 0.008;
+                node.vx += returnX;
+                node.vy += returnY;
+
+                node.x += node.vx;
+                node.y += node.vy;
+
+                // Limites de tela infinitos
+                if (node.x < -40) node.x = width + 40;
+                if (node.x > width + 40) node.x = -40;
+                if (node.y < -40) node.y = height + 40;
+                if (node.y > height + 40) node.y = -40;
+
+                // Pulso biológico do neurônio
+                node.pulse += node.pulseSpeed;
+                const currentRadius = node.radius + Math.sin(node.pulse) * (node.isCore ? 1.2 : 0.5);
+
+                // Desenho do Neurônio (Soma)
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, currentRadius, 0, Math.PI * 2);
+                ctx.fillStyle = node.color.base;
+                ctx.shadowBlur = node.isCore ? 14 : 8;
+                ctx.shadowColor = node.color.glow;
+                ctx.fill();
+
+                // Anel externo pulsante para nós principais (Hubs)
+                if (node.isCore) {
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, currentRadius * 1.8, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(${node.color.rgb}, ${0.35 + Math.sin(node.pulse) * 0.25})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+
+                ctx.shadowBlur = 0;
+            }
+
+            requestAnimationFrame(animateNeuralGraph);
         };
 
-        requestAnimationFrame(animateTechCanvas);
+        requestAnimationFrame(animateNeuralGraph);
     }
 });
