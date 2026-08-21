@@ -678,8 +678,8 @@ document.addEventListener('DOMContentLoaded', () => {
         var feedContainer = document.getElementById('blog-posts-feed');
         if (!feedContainer) return;
 
-        var API_BACKEND = 'https://primerank-blog-agent.vercel.app';
-        var FALLBACK_API_BACKEND = 'https://primerank-blog.vercel.app';
+        var API_BACKEND = 'https://primerank-agente.vercel.app';
+        var FALLBACK_API_BACKEND = 'https://primerank-blog-agent.vercel.app';
 
         function renderPosts(postsList) {
             if (!postsList || postsList.length === 0) return;

@@ -351,8 +351,8 @@
         async function loadArticle() {
             var urlParams = new URLSearchParams(window.location.search);
             var slug = urlParams.get('slug');
-            var API_URL = 'https://primerank-blog-agent.vercel.app';
-            var FALLBACK_API_URL = 'https://primerank-blog.vercel.app';
+            var API_URL = 'https://primerank-agente.vercel.app';
+            var FALLBACK_API_URL = 'https://primerank-blog-agent.vercel.app';
 
             if (!slug) {
                 renderNotFound();
