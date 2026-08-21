@@ -351,7 +351,8 @@
         async function loadArticle() {
             var urlParams = new URLSearchParams(window.location.search);
             var slug = urlParams.get('slug');
-            var API_URL = 'https://primerank-blog.vercel.app';
+            var API_URL = 'https://primerank-blog-agent.vercel.app';
+            var FALLBACK_API_URL = 'https://primerank-blog.vercel.app';
 
             if (!slug) {
                 renderNotFound();
@@ -360,7 +361,7 @@
 
             try {
                 var controller = new AbortController();
-                var timeoutId = setTimeout(function() { controller.abort(); }, 3500);
+                var timeoutId = setTimeout(function() { controller.abort(); }, 10000);
 
                 var res = await fetch(API_URL + '/api/blog/posts/' + encodeURIComponent(slug), { signal: controller.signal });
                 clearTimeout(timeoutId);
@@ -372,8 +373,28 @@
                         return;
                     }
                 }
+
+                var fbRes = await fetch(FALLBACK_API_URL + '/api/blog/posts/' + encodeURIComponent(slug));
+                if (fbRes.ok) {
+                    var fbData = await fbRes.json();
+                    if (fbData && fbData.success && fbData.post) {
+                        renderArticleData(fbData.post);
+                        return;
+                    }
+                }
+
                 renderNotFound();
             } catch (err) {
+                try {
+                    var fbRes2 = await fetch(FALLBACK_API_URL + '/api/blog/posts/' + encodeURIComponent(slug));
+                    if (fbRes2.ok) {
+                        var fbData2 = await fbRes2.json();
+                        if (fbData2 && fbData2.success && fbData2.post) {
+                            renderArticleData(fbData2.post);
+                            return;
+                        }
+                    }
+                } catch (e2) {}
                 renderNotFound();
             }
         }

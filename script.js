@@ -678,7 +678,8 @@ document.addEventListener('DOMContentLoaded', () => {
         var feedContainer = document.getElementById('blog-posts-feed');
         if (!feedContainer) return;
 
-        var API_BACKEND = 'https://primerank-blog.vercel.app';
+        var API_BACKEND = 'https://primerank-blog-agent.vercel.app';
+        var FALLBACK_API_BACKEND = 'https://primerank-blog.vercel.app';
 
         function renderPosts(postsList) {
             if (!postsList || postsList.length === 0) return;
@@ -711,7 +712,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             var controller = new AbortController();
-            var timeoutId = setTimeout(function() { controller.abort(); }, 3500);
+            var timeoutId = setTimeout(function() { controller.abort(); }, 10000);
 
             var res = await fetch(API_BACKEND + '/api/blog/posts?limit=3', { signal: controller.signal });
             clearTimeout(timeoutId);
@@ -721,10 +722,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 var posts = data.posts || [];
                 if (posts.length >= 1) {
                     renderPosts(posts);
+                    return;
+                }
+            }
+
+            var fbRes = await fetch(FALLBACK_API_BACKEND + '/api/blog/posts?limit=3');
+            if (fbRes.ok) {
+                var fbData = await fbRes.json();
+                var fbPosts = fbData.posts || [];
+                if (fbPosts.length >= 1) {
+                    renderPosts(fbPosts);
                 }
             }
         } catch (e) {
-            // Mantém estado amigável nativo da página
+            try {
+                var fbRes2 = await fetch('https://primerank-blog.vercel.app/api/blog/posts?limit=3');
+                if (fbRes2.ok) {
+                    var fbData2 = await fbRes2.json();
+                    if (fbData2.posts && fbData2.posts.length >= 1) {
+                        renderPosts(fbData2.posts);
+                    }
+                }
+            } catch (e2) {}
         }
     }
 
