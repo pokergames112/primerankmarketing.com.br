@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://primerankmarketing.com.br/</loc>
     <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://primerankmarketing.com.br/android-chrome-512x512.png</image:loc>
+      <image:title>Prime Rank Marketing Digital - Tráfego Pago e SEO</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://primerankmarketing.com.br/img/logo-horizontal.png</image:loc>
+      <image:title>Logo Prime Rank Marketing Digital</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://primerankmarketing.com.br/img/service_trafego.jpg</image:loc>
+      <image:title>Gestão de Tráfego Pago Google e Meta Ads</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://primerankmarketing.com.br/img/service_seo.jpg</image:loc>
+      <image:title>SEO e Posicionamento Orgânico no Google</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://primerankmarketing.com.br/img/service_web.jpg</image:loc>
+      <image:title>Criação de Sites e Landing Pages</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://primerankmarketing.com.br/img/service_ia.jpg</image:loc>
+      <image:title>Automações e Inteligência Artificial para Negócios</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://primerankmarketing.com.br/blog.html</loc>
     <lastmod>2026-08-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://primerankmarketing.com.br/img/service_blog.jpg</image:loc>
+      <image:title>Blog de Marketing Digital e SEO Prime Rank</image:title>
+    </image:image>
   </url>
 </urlset>

@@ -6,12 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title id="page-title">Artigo | Prime Rank Marketing Digital</title>
-    <meta id="page-desc" name="description" content="">
+    <meta id="page-desc" name="description" content="Artigos práticos, dados de mercado e os roteiros mais eficientes de SEO e Tráfego Pago da Prime Rank Marketing Digital.">
+    <meta name="author" content="Prime Rank Marketing Digital">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#0b0415">
+
+    <link rel="canonical" id="canonical-url" href="https://primerankmarketing.com.br/post.html">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Prime Rank Marketing Digital">
+    <meta property="og:title" id="og-title" content="Artigo Estratégico | Prime Rank Marketing Digital">
+    <meta property="og:description" id="og-desc" content="Artigos práticos, dados de mercado e roteiros validados de SEO e Tráfego Pago.">
+    <meta property="og:url" id="og-url" content="https://primerankmarketing.com.br/post.html">
+    <meta property="og:image" id="og-image" content="https://primerankmarketing.com.br/android-chrome-512x512.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" id="tw-title" content="Artigo Estratégico | Prime Rank Marketing Digital">
+    <meta name="twitter:description" id="tw-desc" content="Artigos práticos, dados de mercado e roteiros validados de SEO e Tráfego Pago.">
+    <meta name="twitter:image" id="tw-image" content="https://primerankmarketing.com.br/android-chrome-512x512.png">
 
     <link rel="preload" href="fonts/IntegralCF.woff" as="font" type="font/woff" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Syne:wght@700;800&family=Unbounded:wght@700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
     <!-- Favicon & App Icons (Google Search / Browsers / Mobile) -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
@@ -285,7 +309,8 @@
 
         function renderArticleData(post) {
             if (!post) return;
-            document.title = (post.title || 'Artigo') + ' | Prime Rank Marketing';
+            var fullTitle = (post.title || 'Artigo') + ' | Prime Rank Marketing';
+            document.title = fullTitle;
             
             var pageTitle = document.getElementById('page-title');
             if (pageTitle) pageTitle.innerText = post.title;
@@ -296,8 +321,9 @@
             var badge = document.getElementById('article-badge');
             if (badge) badge.innerHTML = '<span class="pulse-dot"></span> ' + (post.category || 'Marketing & SEO');
 
+            var authorName = (post.author && post.author.name) ? post.author.name : (post.author || 'Prime Rank Marketing');
             var author = document.getElementById('article-author');
-            if (author) author.innerText = (post.author && post.author.name) ? post.author.name : (post.author || 'Prime Rank Marketing');
+            if (author) author.innerText = authorName;
 
             var dateElem = document.getElementById('article-date');
             if (dateElem) dateElem.innerText = post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('pt-BR') : (post.date || 'Recente');
@@ -305,11 +331,73 @@
             var timeElem = document.getElementById('article-time');
             if (timeElem) timeElem.innerText = post.readingTime || post.readingTimeMinutes || (post.seo && post.seo.readingTimeMinutes) || 8;
 
+            var postImage = post.featuredImageUrl || post.imageUrl || 'img/service_blog.jpg';
             var img = document.getElementById('article-img');
             if (img) {
-                img.src = post.featuredImageUrl || post.imageUrl || 'img/service_blog.jpg';
+                img.src = postImage;
                 img.alt = post.title;
             }
+
+            var postDescription = post.excerpt || post.summary || (post.seo && post.seo.metaDescription) || 'Confira este artigo completo no Blog da Prime Rank Marketing Digital.';
+            var descElem = document.getElementById('page-desc');
+            if (descElem) descElem.setAttribute('content', postDescription);
+
+            // Atualizar Open Graph & Twitter Cards dinamicamente
+            var ogTitle = document.getElementById('og-title');
+            if (ogTitle) ogTitle.setAttribute('content', fullTitle);
+            var ogDesc = document.getElementById('og-desc');
+            if (ogDesc) ogDesc.setAttribute('content', postDescription);
+            var ogUrl = document.getElementById('og-url');
+            if (ogUrl) ogUrl.setAttribute('content', window.location.href);
+            var ogImg = document.getElementById('og-image');
+            if (ogImg && postImage) ogImg.setAttribute('content', postImage);
+
+            var twTitle = document.getElementById('tw-title');
+            if (twTitle) twTitle.setAttribute('content', fullTitle);
+            var twDesc = document.getElementById('tw-desc');
+            if (twDesc) twDesc.setAttribute('content', postDescription);
+            var twImg = document.getElementById('tw-image');
+            if (twImg && postImage) twImg.setAttribute('content', postImage);
+
+            var canonicalElem = document.getElementById('canonical-url');
+            if (canonicalElem) canonicalElem.setAttribute('href', window.location.href);
+
+            // Injetar Schema JSON-LD do Artigo para o Googlebot
+            var existingScript = document.getElementById('article-schema-jsonld');
+            if (existingScript) existingScript.remove();
+
+            var schemaScript = document.createElement('script');
+            schemaScript.id = 'article-schema-jsonld';
+            schemaScript.type = 'application/ld+json';
+            var schemaData = {
+                "@context": "https://schema.org",
+                "@type": "BlogPosting",
+                "headline": post.title,
+                "description": postDescription,
+                "image": postImage.startsWith('http') ? postImage : ('https://primerankmarketing.com.br/' + postImage),
+                "author": {
+                    "@type": "Organization",
+                    "name": authorName,
+                    "url": "https://primerankmarketing.com.br/"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Prime Rank Marketing Digital",
+                    "url": "https://primerankmarketing.com.br/",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://primerankmarketing.com.br/android-chrome-512x512.png"
+                    }
+                },
+                "datePublished": post.publishedAt || new Date().toISOString(),
+                "dateModified": post.updatedAt || post.publishedAt || new Date().toISOString(),
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": window.location.href
+                }
+            };
+            schemaScript.textContent = JSON.stringify(schemaData);
+            document.head.appendChild(schemaScript);
 
             var contentBody = document.getElementById('article-content-body');
             if (contentBody) {

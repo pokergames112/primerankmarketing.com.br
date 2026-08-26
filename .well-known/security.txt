@@ -1,0 +1,4 @@
+Contact: https://primerankmarketing.com.br/whatsapp.html
+Preferred-Languages: pt-br, en
+Canonical: https://primerankmarketing.com.br/.well-known/security.txt
+Policy: https://primerankmarketing.com.br/

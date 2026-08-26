@@ -1,0 +1,12 @@
+/* TEAM */
+Agency: Prime Rank Marketing Digital
+Location: Recife, PE - Brasil
+Website: https://primerankmarketing.com.br
+Contact: https://wa.me/5581986703728
+Instagram: https://www.instagram.com/primerank_/
+
+/* SITE */
+Standards: HTML5, CSS3, JavaScript ES6+, JSON-LD
+Components: Swiper.js, Marked.js
+Typography: Montserrat, Syne, Unbounded, Space Grotesk
+Optimizations: Generative AI SEO, Google Search Favicon, Schema.org Structured Data

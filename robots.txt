@@ -1,4 +1,23 @@
+# Robots.txt para Prime Rank Marketing Digital
+# https://primerankmarketing.com.br
+
 User-agent: *
+Allow: /
+
+# Permitir rastreadores de imagem explicitamente para Favicons e Imagens
+User-agent: Googlebot-Image
+Allow: /
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.ico$
+Allow: /*.svg$
+Allow: /*.webp$
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
 Allow: /
 
 # Sitemap
