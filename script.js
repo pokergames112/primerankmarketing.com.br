@@ -149,12 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Fixa a altura mínima calculada para CLS zero durante digitação e desdigitação
-            const currentHeight = el.getBoundingClientRect().height;
-            if (currentHeight > 0) {
-                el.style.minHeight = `${currentHeight}px`;
-            }
-
             el.innerHTML = '<span class="typewriter-body"></span><span class="typewriter-cursor">|</span>';
             const bodyEl = el.querySelector('.typewriter-body');
             const cursorEl = el.querySelector('.typewriter-cursor');
@@ -315,14 +309,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Verificação inicial após renderização do DOM
         setTimeout(checkControllers, 200);
 
-        // Ajuste dinâmico responsivo se a tela for redimensionada
-        window.addEventListener('resize', () => {
-            controllers.forEach(ctrl => {
-                ctrl.el.style.minHeight = '';
-                const h = ctrl.el.getBoundingClientRect().height;
-                if (h > 0) ctrl.el.style.minHeight = `${h}px`;
-            });
-        }, { passive: true });
     }
 
     initHeroWordRotator();

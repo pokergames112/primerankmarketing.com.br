@@ -926,7 +926,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 
 .stage-meta .meta-dash {
@@ -950,7 +950,11 @@ body {
     letter-spacing: 1.2px;
     text-transform: uppercase;
     color: #ffffff;
-    margin-bottom: 22px;
+    margin-bottom: 16px;
+}
+
+.stage-title[data-typewriter="true"] {
+    min-height: 2.05em;
 }
 
 /* Digitação mágica no scroll (Typewriter effect) */
@@ -989,7 +993,7 @@ body {
     font-size: 1.12rem;
     color: #d2c7e5;
     line-height: 1.68;
-    margin-bottom: 34px;
+    margin-bottom: 28px;
 }
 
 .stage-pillars-list {
