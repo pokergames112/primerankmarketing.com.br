@@ -1,0 +1,11 @@
+{
+  "name": "primerank-marketing-digital",
+  "version": "5.7.0",
+  "description": "Prime Rank Marketing Digital - Landing Page Oficial",
+  "scripts": {
+    "protect": "npx javascript-obfuscator script.js --output script.protected.js --config obfuscator.config.json"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^4.1.1"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "compact": true,
+  "controlFlowFlattening": true,
+  "controlFlowFlatteningThreshold": 0.5,
+  "deadCodeInjection": true,
+  "deadCodeInjectionThreshold": 0.2,
+  "domainLock": [
+    "primerankmarketing.com.br",
+    ".primerankmarketing.com.br",
+    "localhost",
+    "127.0.0.1"
+  ],
+  "domainLockRedirectUrl": "https://primerankmarketing.com.br/?ref=stolen_script_blocked",
+  "selfDefending": true,
+  "stringArray": true,
+  "stringArrayEncoding": [
+    "base64"
+  ],
+  "stringArrayThreshold": 0.75,
+  "disableConsoleOutput": false
+}

@@ -1151,4 +1151,261 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // ==========================================================================
+    // 11. SISTEMA DE SEGURANÇA, ANTI-SCRAPING, HONEYPOT & TROLAGEM DE FRONT-END
+    // ==========================================================================
+
+    // Objeto Global de Controle e Teste (Acessível via DevTools Console)
+    window.PRIME_SHIELD = {
+        version: "2.0-ULTIMATE",
+        author: "Prime Rank Marketing Digital",
+        
+        // Dispara a tela de código roubado na hora
+        testPirate: function() {
+            triggerPirateTroll();
+        },
+
+        // Dispara o Toast Cyber de Curioso
+        testToast: function(customMsg) {
+            showCuriousToast(customMsg);
+        },
+
+        // Simula a detecção de Robô Headless (Puppeteer/Selenium)
+        testHeadless: function() {
+            triggerHeadlessDetection(true);
+        },
+
+        // Verifica a assinatura criptográfica do Canvas 3D
+        verifyCanvasSignature: function() {
+            const globeCanvas = document.getElementById('hero-globe-canvas');
+            if (globeCanvas && globeCanvas.getContext) {
+                const ctx = globeCanvas.getContext('2d');
+                const sig = ctx ? ctx.__PRIME_RANK_SIGNATURE__ : null;
+                console.log("%c[CANVAS CERTIFICATE VERIFIED]", "color:#00ff88;font-weight:bold;background:#07020d;padding:4px 8px;border-radius:4px;");
+                console.log("Assinatura Original:", sig || "Não inicializado");
+                return sig;
+            }
+            return "Canvas não encontrado";
+        },
+
+        // Abre o Honeypot da API
+        openHoneypot: function() {
+            window.open('api/v1/leads-database.json', '_blank');
+        },
+
+        // Abre o robots.txt
+        openRobots: function() {
+            window.open('robots.txt', '_blank');
+        }
+    };
+
+    // Atalho legado para compatibilidade
+    window.__testPirateMode = window.PRIME_SHIELD.testPirate;
+
+    // 11.1 Banner Neon no Console do DevTools (F12)
+    (function initDevToolsBanner() {
+        const titleStyle = "color: #00ff88; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 900; background: #07020d; padding: 10px 16px; border-radius: 8px; border: 2px solid #9139E5; text-shadow: 0 0 10px rgba(0,255,136,0.6);";
+        const bodyStyle = "color: #d2c7e5; font-family: sans-serif; font-size: 12px; line-height: 1.6;";
+        const cmdStyle = "color: #00ff88; font-family: monospace; font-size: 12px; font-weight: bold; background: rgba(0,255,136,0.1); padding: 2px 6px; border-radius: 4px;";
+        const linkStyle = "color: #00ff88; font-weight: bold; text-decoration: underline;";
+        
+        console.log("%c⚡ PRIME RANK MARKETING DIGITAL | SISTEMA ANTI-THEFT ATIVO ⚡", titleStyle);
+        console.log(
+            "%cProcurando a fórmula dos simuladores de iPhone e do funil de vendas? 😂\n" +
+            "Fariseu, código bonito na mão de amador não dá lucro. Aqui o tráfego se paga!\n" +
+            "Em vez de raspar front-end alheio, venha fechar vendas de verdade:\n" +
+            "%chttps://primerankmarketing.com.br/whatsapp.html\n\n" +
+            "%c🛠️ COMANDOS PARA TESTAR AS DEFESAS NO CONSOLE:\n" +
+            "• %cPRIME_SHIELD.testPirate()%c       -> Simular tela de código roubado\n" +
+            "• %cPRIME_SHIELD.testToast()%c        -> Simular alerta de botão direito/curioso\n" +
+            "• %cPRIME_SHIELD.testHeadless()%c     -> Simular detecção de robô raspador (Puppeteer)\n" +
+            "• %cPRIME_SHIELD.verifyCanvasSignature()%c -> Validar certificado esteganográfico do Canvas\n" +
+            "• %cPRIME_SHIELD.openHoneypot()%c     -> Abrir Pote de Mel com rimas do fariseu",
+            bodyStyle,
+            linkStyle,
+            "color: #9139E5; font-weight: bold; font-size: 13px;",
+            cmdStyle, bodyStyle,
+            cmdStyle, bodyStyle,
+            cmdStyle, bodyStyle,
+            cmdStyle, bodyStyle,
+            cmdStyle, bodyStyle
+        );
+    })();
+
+    // 11.2 Honeypot Silencioso na Aba Network (Isca para Inspetores de Requisições)
+    (function triggerHoneypotNetworkBait() {
+        try {
+            fetch('api/v1/leads-database.json', { cache: 'no-store' })
+                .then(r => r.json())
+                .catch(() => {});
+        } catch (e) {}
+    })();
+
+    // 11.3 Domain Lock Troll & Defesa Anti-Clonagem
+    function triggerPirateTroll() {
+        document.body.innerHTML = `
+            <div style="position:fixed;inset:0;background:#07020d;color:#ffffff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;text-align:center;padding:24px;z-index:999999999;box-sizing:border-box;">
+                <div style="width:76px;height:76px;border-radius:50%;background:rgba(255,77,109,0.15);border:2px solid #ff4d6d;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:36px;">🏴‍☠️</div>
+                <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,7vw,4.5rem);color:#00ff88;letter-spacing:2px;margin:0 0 14px 0;line-height:1;">🚨 CÓDIGO ROUBADO DETECTADO! 🚨</h1>
+                <p style="font-size:1.15rem;color:#d2c7e5;max-width:620px;line-height:1.6;margin:0 0 24px 0;">
+                    O dono deste site copiou o código e os simuladores de iPhone desenvolvidos exclusivamente pela <strong>Prime Rank Marketing Digital</strong> achando que ninguém ia perceber. Fariseu sem criatividade! 😂
+                </p>
+                <div style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,77,109,0.4);padding:14px 28px;border-radius:12px;margin-bottom:28px;">
+                    <p style="color:#ff4d6d;font-weight:800;font-size:1.05rem;margin:0;">
+                        Redirecionando clientes para os criadores originais em <span id="pirateCount" style="color:#00ff88;font-size:1.3rem;">5</span> segundos...
+                    </p>
+                </div>
+                <a href="https://primerankmarketing.com.br/?ref=site_clonado_trollado" style="display:inline-flex;align-items:center;gap:10px;padding:16px 36px;background:linear-gradient(135deg,#00ff88,#00cc6a);color:#07020d;border-radius:9999px;font-weight:900;text-decoration:none;font-size:0.95rem;text-transform:uppercase;box-shadow:0 8px 30px rgba(0,255,136,0.4);">
+                    <span>Ir para o Site Original da Prime Rank</span> &rarr;
+                </a>
+            </div>
+        `;
+
+        let count = 5;
+        const counterEl = document.getElementById('pirateCount');
+        const timer = setInterval(() => {
+            count--;
+            if (counterEl) counterEl.textContent = count;
+            if (count <= 0) {
+                clearInterval(timer);
+                window.location.href = "https://primerankmarketing.com.br/?ref=site_clonado_trollado";
+            }
+        }, 1000);
+    }
+
+    (function initDomainLockSecurity() {
+        const allowedHosts = [
+            'primerankmarketing.com.br',
+            'www.primerankmarketing.com.br',
+            'localhost',
+            '127.0.0.1',
+            '::1'
+        ];
+
+        const isAuthorizedDomain = allowedHosts.some(host => 
+            window.location.hostname === host || window.location.hostname.endsWith('.' + host)
+        );
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!isAuthorizedDomain || urlParams.has('test_pirate')) {
+            triggerPirateTroll();
+        }
+    })();
+
+    // 11.4 Clipboard Poisoning (Veneno no Ctrl + C de Grandes Blocos)
+    (function initClipboardProtection() {
+        document.addEventListener('copy', (e) => {
+            const selection = window.getSelection().toString();
+            if (selection && selection.length > 55) {
+                const credits = "\n\n[Fonte Original: Prime Rank Marketing Digital - https://primerankmarketing.com.br | Conteúdo registrado. Cópia não autorizada protegida pela Lei 9.610/98]";
+                e.clipboardData.setData('text/plain', selection + credits);
+                e.preventDefault();
+            }
+        });
+    })();
+
+    // 11.5 Assinatura Esteganográfica Invisível no Canvas
+    (function injectCanvasWatermark() {
+        const globeCanvas = document.getElementById('hero-globe-canvas');
+        if (globeCanvas && globeCanvas.getContext) {
+            const ctx = globeCanvas.getContext('2d');
+            if (ctx) {
+                ctx.__PRIME_RANK_SIGNATURE__ = "REGISTRY:PrimeRankMarketingDigital:AUTHOR:Joao:DOMAIN:primerankmarketing.com.br";
+            }
+        }
+    })();
+
+    // 11.6 Cyber Toast Easter Egg (Botão Direito & Atalhos DevTools)
+    let toastTimeout = null;
+    function showCuriousToast(customMessage) {
+        let toast = document.getElementById('primeShieldToast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'primeShieldToast';
+            toast.className = 'prime-shield-toast';
+            toast.innerHTML = `
+                <div class="prime-shield-toast-header">
+                    <span class="prime-shield-toast-title">🕵️‍♂️ MODO CURIOSO DETECTADO</span>
+                    <button class="prime-shield-toast-close" onclick="document.getElementById('primeShieldToast').classList.remove('show')">&times;</button>
+                </div>
+                <div class="prime-shield-toast-body" id="primeShieldToastBody">
+                    Procurando a fórmula secreta dos simuladores de iPhone? Em vez de quebrar a cabeça copiando o front-end, fale com a Prime Rank e feche vendas de verdade!
+                </div>
+                <a href="whatsapp.html" class="prime-shield-toast-btn">
+                    <span>Falar no WhatsApp</span> &rarr;
+                </a>
+            `;
+            document.body.appendChild(toast);
+        }
+
+        if (customMessage) {
+            const bodyEl = document.getElementById('primeShieldToastBody');
+            if (bodyEl) bodyEl.textContent = customMessage;
+        }
+
+        toast.classList.add('show');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 6000);
+    }
+
+    (function initCuriousInterceptors() {
+        // Intercepta botão direito com easter egg suave (não destrói a usabilidade normal do usuário)
+        let lastToastTime = 0;
+        document.addEventListener('contextmenu', () => {
+            const now = Date.now();
+            if (now - lastToastTime > 8000) {
+                lastToastTime = now;
+                showCuriousToast("Botão direito detectado! Curioso para ver o código? Chame a Prime Rank no WhatsApp e tenha clientes no topo das pesquisas!");
+            }
+        });
+
+        // Intercepta atalhos de desenvolvedor (Ctrl+U para código-fonte)
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'u' || e.key === 'U')) {
+                showCuriousToast("Inspecionando o código-fonte? 😂 O segredo não tá nas tags HTML, tá na estratégia de tráfego!");
+            }
+        });
+    })();
+
+    // 11.7 Detector de Robôs Headless (Puppeteer, Selenium, Scraping Bots)
+    function triggerHeadlessDetection(isSimulation) {
+        console.warn("🚨 [HEADLESS DETECTED]: Robô raspador identificado no ambiente.");
+        
+        // Insere marca d'água no topo (capturada em screenshots de headless browsers)
+        if (!document.getElementById('headlessBotWatermark')) {
+            const banner = document.createElement('div');
+            banner.id = 'headlessBotWatermark';
+            banner.className = 'headless-bot-watermark';
+            banner.innerHTML = `
+                <span>🤖 BOT SCRAPER DETECTADO:</span>
+                <span>Capturando telas? Layout protegido da Prime Rank Marketing Digital!</span>
+            `;
+            document.body.prepend(banner);
+        }
+
+        if (isSimulation) {
+            showCuriousToast("🤖 Simulação de Robô Scraper Ativada! A marca d'água de proteção contra screenshots foi inserida no topo da tela!");
+        }
+    }
+
+    (function initHeadlessDetection() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isHeadlessTest = urlParams.has('test_headless');
+        
+        // Verifica flags típicas de Puppeteer / Selenium
+        const isAutomated = navigator.webdriver || 
+            window.__webdriver || 
+            window._phantom || 
+            window.callPhantom || 
+            (navigator.userAgent && /HeadlessChrome|PhantomJS|Selenium/i.test(navigator.userAgent));
+
+        if (isAutomated || isHeadlessTest) {
+            triggerHeadlessDetection(isHeadlessTest);
+        }
+    })();
 });
+
+

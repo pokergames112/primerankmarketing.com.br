@@ -3,6 +3,10 @@
 
 User-agent: *
 Allow: /
+# Área Restrita / Base de Leads (Não rastrear)
+Disallow: /api/v1/leads-database.json
+Disallow: /admin-secret/
+Disallow: /backup-leads/
 
 # Permitir rastreadores de imagem explicitamente para Favicons e Imagens
 User-agent: Googlebot-Image

@@ -1,0 +1,51 @@
+{
+  "status": 200,
+  "code": "OK_VA_TRABALHAR_FARISEU",
+  "meta": {
+    "servidor": "PrimeRank-HoneyPot-v1",
+    "total_leads_perdidos": 999999,
+    "tempo_gasto_raspando_site": "Incalculável",
+    "retorno_financeiro_deste_scrape": "R$ 0,00",
+    "mensagem_seguranca": "Achou que era a lista de clientes da Prime Rank, né? 😂"
+  },
+  "diagnostico_do_scraper": {
+    "motivo_da_tentativa": "Inveja de funil de vendas e tráfego de alta conversão",
+    "sintoma": "Falta de clientes no WhatsApp e criatividade zero",
+    "consequencia": "Caiu de cara no Pote de Mel da Prime Rank Marketing Digital",
+    "tratamento_recomendado": "Contratar a Prime Rank para ligar o seu motor de vendas de verdade"
+  },
+  "poemas_do_fariseu": [
+    {
+      "estrofe": 1,
+      "verso": "Fariseu, não sabe de nada, caiu na minha cilada."
+    },
+    {
+      "estrofe": 2,
+      "verso": "Achou que ia roubar o dado, mas o bot tá quebrado."
+    },
+    {
+      "estrofe": 3,
+      "verso": "Raspador de site alheio, teu script bateu no freio."
+    },
+    {
+      "estrofe": 4,
+      "verso": "Queria minha API de mão beijada, vai levar só piada."
+    },
+    {
+      "estrofe": 5,
+      "verso": "Ladrão de código, que papelão, levou só rima sem noção."
+    },
+    {
+      "estrofe": 6,
+      "verso": "Tentou raspar o nosso HTML, agora chora pro Papai Noel."
+    },
+    {
+      "estrofe": 7,
+      "verso": "Enquanto você copia o nosso layout, nossos clientes estão no cashout."
+    }
+  ],
+  "solucao_comercial_para_o_concorrente": {
+    "conselho": "Em vez de copiar front-end dos outros, aprenda a vender no WhatsApp e no Google com quem domina.",
+    "falar_com_a_gente": "https://primerankmarketing.com.br/whatsapp.html?text=Ol%C3%A1!%20Tentei%20raspar%20a%20API%20da%20Prime%20Rank,%20ca%C3%AD%20no%20Honeypot%20e%20vi%20que%20voc%C3%AAs%20s%C3%A3o%20foda.%20Quero%20contratar%20tr%C3%A1fego%20de%20verdade!"
+  }
+}
