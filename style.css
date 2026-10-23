@@ -1138,38 +1138,39 @@ body {
    SIMULADOR INTERATIVO DE WHATSAPP (IPHONE TITANIUM)
    ========================================================================== */
 /* ==========================================================================
-   CHASSI DO IPHONE 15 PRO MAX (DIMENSÕES PRO MAX: 418px / TELA 6.7" / TITANIUM)
+   CHASSI DO IPHONE 15 PRO MAX (DIMENSÕES FÍSICAS REAIS APPLE: 76,7mm x 159,9mm x 8,25mm)
+   Proporção Exata: 76.7 / 159.9 (~ 1 : 2.0847) | Espessura: 8.25mm Titanium
    ========================================================================== */
 .iphone-sim-wrapper {
     position: relative;
     width: 100%;
-    max-width: 418px;
+    max-width: 360px; /* Largura padrão mantendo a proporção milimétrica de 76,7mm x 159,9mm */
     margin: 0 auto;
 }
 
-/* Botões Físicos Laterais do iPhone 15 Pro Max (Titanium) */
+/* Botões Físicos Laterais do iPhone 15 Pro Max (Titanium - Espessura de 8,25mm) */
 .iphone-sim-wrapper::before {
     content: '';
     position: absolute;
-    top: 115px;
+    top: 15%;
     left: -4px;
     width: 4px;
     height: 32px; /* Botão de Ação */
     background: #4a3e5c;
     border-radius: 2px 0 0 2px;
     box-shadow: 
-        0 46px 0 0 #4a3e5c, /* Volume Mais */
-        0 92px 0 0 #4a3e5c; /* Volume Menos */
+        0 52px 0 0 #4a3e5c, /* Volume Mais */
+        0 106px 0 0 #4a3e5c; /* Volume Menos */
     z-index: 1;
 }
 
 .iphone-sim-wrapper::after {
     content: '';
     position: absolute;
-    top: 155px;
+    top: 21%;
     right: -4px;
     width: 4px;
-    height: 60px; /* Botão Lateral Liga/Desliga */
+    height: 72px; /* Botão Lateral Liga/Desliga */
     background: #4a3e5c;
     border-radius: 0 2px 2px 0;
     z-index: 1;
@@ -1192,13 +1193,15 @@ body {
     position: relative;
     z-index: 2;
     width: 100%;
+    aspect-ratio: 76.7 / 159.9; /* Proporção Física Exata Apple iPhone 15 Pro Max (76,7 mm x 159,9 mm) */
     background: #090611;
     border-radius: 54px; /* Curvatura anatômica exata do iPhone 15 Pro Max */
     border: 4px solid #3d354a; /* Acabamento Titanium Black / Natural */
     outline: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 
-        0 0 0 1px rgba(0, 0, 0, 0.8),
-        0 25px 65px rgba(0, 0, 0, 0.9),
+        0 0 0 2px #1f182b,
+        0 0 0 6px #4a3f5c, /* Simulação da espessura física de 8,25 mm do Titanium */
+        0 25px 65px rgba(0, 0, 0, 0.95),
         0 0 45px rgba(145, 57, 229, 0.18);
     overflow: hidden;
     display: flex;
@@ -1207,6 +1210,7 @@ body {
 
 /* Barra de Status do iOS e Dynamic Island do iPhone 15 Pro Max */
 .iphone-status-bar {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1290,6 +1294,7 @@ body {
 
 /* Barra Home Indicator do iOS (iPhone 15 Pro Max) */
 .iphone-home-indicator {
+    flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1317,6 +1322,7 @@ body {
 
 /* Header do WhatsApp */
 .wa-sim-nav {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1410,7 +1416,8 @@ body {
 /* Área de Conversa do WhatsApp */
 .wa-sim-chat-area {
     position: relative;
-    height: 440px; /* Proporção iPhone 15 Pro Max (6.7" Super Retina XDR 19.5:9) */
+    flex: 1 1 0;
+    min-height: 0;
     padding: 16px 14px;
     background-color: #0b141a;
     background-image: 
@@ -1639,6 +1646,7 @@ body {
 
 /* Sugestões de Resposta Rápida (Pills de Toque Único) */
 .wa-sim-quick-replies {
+    flex-shrink: 0;
     padding: 6px 14px 10px;
     background: #110c1c;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -1683,6 +1691,7 @@ body {
 
 /* Barra de Input do WhatsApp */
 .wa-sim-input-bar {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -1766,6 +1775,7 @@ body {
 }
 
 .google-browser-bar {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1795,7 +1805,8 @@ body {
 
 .google-screen-area {
     position: relative;
-    height: 440px; /* Proporção iPhone 15 Pro Max */
+    flex: 1 1 0;
+    min-height: 0;
     background: #0d0818;
     overflow-y: auto;
     overflow-x: hidden;
@@ -3226,7 +3237,7 @@ body {
     }
 
     .iphone-sim-wrapper {
-        max-width: min(390px, 100%);
+        max-width: min(340px, 92vw);
         margin: 0 auto;
         padding: 0;
     }
@@ -3242,6 +3253,7 @@ body {
         border-width: 3.5px;
         box-shadow: 
             0 0 0 1px rgba(0, 0, 0, 0.8),
+            0 0 0 4px #4a3f5c,
             0 18px 45px rgba(0, 0, 0, 0.85),
             0 0 35px rgba(145, 57, 229, 0.16);
     }
@@ -3265,9 +3277,12 @@ body {
         height: 4px;
     }
 
+    /* Preserva a proporção exata física do iPhone 15 Pro Max (76,7mm x 159,9mm) */
     .wa-sim-chat-area,
     .google-screen-area {
-        height: 380px; /* Ergonomia ideal para visualização em telas mobile sem rolagem infinita */
+        flex: 1 1 0;
+        min-height: 0;
+        height: auto;
     }
 
     /* Previne o auto-zoom do Safari no iOS */
@@ -3352,12 +3367,16 @@ body {
     }
 
     .iphone-sim-wrapper {
-        max-width: 100%;
+        max-width: min(315px, 90vw);
     }
 
     .iphone-device {
         border-radius: 36px;
         border-width: 2.5px;
+        box-shadow: 
+            0 0 0 1px rgba(0, 0, 0, 0.8),
+            0 0 0 3px #4a3f5c,
+            0 14px 35px rgba(0, 0, 0, 0.85);
     }
 
     .iphone-status-bar {
@@ -3377,7 +3396,9 @@ body {
 
     .wa-sim-chat-area,
     .google-screen-area {
-        height: 350px;
+        flex: 1 1 0;
+        min-height: 0;
+        height: auto;
     }
 
     .wa-sim-nav {
