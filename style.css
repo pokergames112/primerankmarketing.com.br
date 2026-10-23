@@ -1137,11 +1137,42 @@ body {
 /* ==========================================================================
    SIMULADOR INTERATIVO DE WHATSAPP (IPHONE TITANIUM)
    ========================================================================== */
+/* ==========================================================================
+   CHASSI DO IPHONE 15 PRO MAX (DIMENSÕES PRO MAX: 418px / TELA 6.7" / TITANIUM)
+   ========================================================================== */
 .iphone-sim-wrapper {
     position: relative;
     width: 100%;
-    max-width: 390px;
+    max-width: 418px;
     margin: 0 auto;
+}
+
+/* Botões Físicos Laterais do iPhone 15 Pro Max (Titanium) */
+.iphone-sim-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 115px;
+    left: -4px;
+    width: 4px;
+    height: 32px; /* Botão de Ação */
+    background: #4a3e5c;
+    border-radius: 2px 0 0 2px;
+    box-shadow: 
+        0 46px 0 0 #4a3e5c, /* Volume Mais */
+        0 92px 0 0 #4a3e5c; /* Volume Menos */
+    z-index: 1;
+}
+
+.iphone-sim-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 155px;
+    right: -4px;
+    width: 4px;
+    height: 60px; /* Botão Lateral Liga/Desliga */
+    background: #4a3e5c;
+    border-radius: 0 2px 2px 0;
+    z-index: 1;
 }
 
 .iphone-ambient-glow {
@@ -1149,10 +1180,10 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 110%;
-    height: 110%;
-    background: radial-gradient(circle, rgba(0, 255, 136, 0.14) 0%, rgba(145, 57, 229, 0.12) 50%, transparent 70%);
-    filter: blur(40px);
+    width: 112%;
+    height: 112%;
+    background: radial-gradient(circle, rgba(0, 255, 136, 0.14) 0%, rgba(145, 57, 229, 0.14) 50%, transparent 70%);
+    filter: blur(42px);
     pointer-events: none;
     z-index: 1;
 }
@@ -1161,27 +1192,28 @@ body {
     position: relative;
     z-index: 2;
     width: 100%;
-    background: #0d0a14;
-    border-radius: 46px;
-    border: 3.5px solid #2f2545;
+    background: #090611;
+    border-radius: 54px; /* Curvatura anatômica exata do iPhone 15 Pro Max */
+    border: 4px solid #3d354a; /* Acabamento Titanium Black / Natural */
+    outline: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 
-        0 0 0 1px rgba(255, 255, 255, 0.1),
-        0 25px 60px rgba(0, 0, 0, 0.85),
-        0 0 45px rgba(0, 255, 136, 0.15);
+        0 0 0 1px rgba(0, 0, 0, 0.8),
+        0 25px 65px rgba(0, 0, 0, 0.9),
+        0 0 45px rgba(145, 57, 229, 0.18);
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
-/* Barra de Status do iOS e Dynamic Island */
+/* Barra de Status do iOS e Dynamic Island do iPhone 15 Pro Max */
 .iphone-status-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 22px 6px;
+    padding: 14px 24px 8px;
     background: #110c1c;
     color: #ffffff;
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     font-weight: 700;
     user-select: none;
 }
@@ -1191,22 +1223,33 @@ body {
 }
 
 .iphone-island {
-    width: 86px;
-    height: 22px;
+    width: 116px;
+    height: 28px;
     background: #000000;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 8px;
+    padding-right: 10px;
+    box-shadow: inset 0 0 3px rgba(255, 255, 255, 0.12);
 }
 
 .island-camera {
-    width: 9px;
-    height: 9px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: #0f1626;
     border: 1px solid #1a2744;
+    position: relative;
+}
+
+.island-camera::after {
+    content: '';
+    position: absolute;
+    top: 2px; right: 2px;
+    width: 3px; height: 3px;
+    background: #2b4b7e;
+    border-radius: 50%;
 }
 
 .iphone-status-icons {
@@ -1243,6 +1286,33 @@ body {
     height: 100%;
     background: #00ff88;
     border-radius: 1px;
+}
+
+/* Barra Home Indicator do iOS (iPhone 15 Pro Max) */
+.iphone-home-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0 10px;
+    background: #171026;
+    width: 100%;
+    user-select: none;
+}
+
+.iphone-google .iphone-home-indicator {
+    background: #140e24;
+}
+
+.home-bar {
+    width: 136px;
+    height: 4.5px;
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 100px;
+    transition: background 0.2s ease;
+}
+
+.iphone-device:hover .home-bar {
+    background: rgba(255, 255, 255, 0.7);
 }
 
 /* Header do WhatsApp */
@@ -1340,7 +1410,7 @@ body {
 /* Área de Conversa do WhatsApp */
 .wa-sim-chat-area {
     position: relative;
-    height: 380px;
+    height: 440px; /* Proporção iPhone 15 Pro Max (6.7" Super Retina XDR 19.5:9) */
     padding: 16px 14px;
     background-color: #0b141a;
     background-image: 
@@ -1683,10 +1753,11 @@ body {
    SIMULADOR DO GOOGLE SEARCH NO IPHONE (NÍVEL 02 - ESCALA NO GOOGLE)
    ========================================================================== */
 .iphone-google {
-    border-color: #241c3a;
+    border-color: #3d354a; /* Titanium Black / Natural */
+    outline: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 
-        0 0 0 1px rgba(255, 255, 255, 0.1),
-        0 25px 60px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(0, 0, 0, 0.8),
+        0 25px 65px rgba(0, 0, 0, 0.9),
         0 0 45px rgba(66, 133, 244, 0.22);
 }
 
@@ -1724,7 +1795,7 @@ body {
 
 .google-screen-area {
     position: relative;
-    height: 388px;
+    height: 440px; /* Proporção iPhone 15 Pro Max */
     background: #0d0818;
     overflow-y: auto;
     overflow-x: hidden;
@@ -3145,5 +3216,207 @@ body {
     .footer-content {
         flex-direction: column;
         gap: 26px;
+    }
+
+    /* ==========================================================================
+       OTIMIZAÇÃO DO CHASSI IPHONE 15 PRO MAX NO MOBILE (NÍVEL 01 & NÍVEL 02)
+       ========================================================================== */
+    .section-level-stage {
+        padding: 70px 0;
+    }
+
+    .iphone-sim-wrapper {
+        max-width: min(390px, 100%);
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    /* Oculta os botões físicos externos nas bordas no mobile para eliminar risco de scroll horizontal */
+    .iphone-sim-wrapper::before,
+    .iphone-sim-wrapper::after {
+        display: none !important;
+    }
+
+    .iphone-device {
+        border-radius: 44px;
+        border-width: 3.5px;
+        box-shadow: 
+            0 0 0 1px rgba(0, 0, 0, 0.8),
+            0 18px 45px rgba(0, 0, 0, 0.85),
+            0 0 35px rgba(145, 57, 229, 0.16);
+    }
+
+    .iphone-status-bar {
+        padding: 12px 20px 6px;
+        font-size: 0.74rem;
+    }
+
+    .iphone-island {
+        width: 100px;
+        height: 25px;
+    }
+
+    .iphone-home-indicator {
+        padding: 6px 0 8px;
+    }
+
+    .home-bar {
+        width: 120px;
+        height: 4px;
+    }
+
+    .wa-sim-chat-area,
+    .google-screen-area {
+        height: 380px; /* Ergonomia ideal para visualização em telas mobile sem rolagem infinita */
+    }
+
+    /* Previne o auto-zoom do Safari no iOS */
+    .wa-sim-input,
+    .google-search-input {
+        font-size: 16px !important;
+    }
+
+    .wa-input-plus {
+        width: 36px;
+        height: 36px;
+    }
+
+    .wa-input-send-btn {
+        width: 38px;
+        height: 38px;
+    }
+
+    .btn-wa-card-action,
+    .shock-btn {
+        min-height: 44px;
+        font-size: 0.88rem;
+    }
+
+    .stage-actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 14px;
+    }
+
+    .stage-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .stage-scroll-next {
+        justify-content: center;
+        text-align: center;
+        padding: 6px 0;
+    }
+
+    .stage-heading-title {
+        font-size: clamp(2rem, 7.5vw, 2.7rem);
+        line-height: 1.08;
+    }
+
+    .stage-lead {
+        font-size: 1rem;
+        line-height: 1.55;
+        margin-bottom: 22px;
+    }
+
+    .stage-pillar-item {
+        gap: 14px;
+        padding-bottom: 14px;
+    }
+
+    .pillar-num {
+        font-size: 1.35rem;
+    }
+
+    .pillar-info h3 {
+        font-size: 0.98rem;
+    }
+
+    .pillar-info p {
+        font-size: 0.85rem;
+    }
+}
+
+/* ==========================================================================
+   DISPOSITIVOS MOBILE PEQUENOS (< 480px: iPhone SE, Galaxy, etc.)
+   ========================================================================== */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .section-level-stage {
+        padding: 55px 0;
+    }
+
+    .iphone-sim-wrapper {
+        max-width: 100%;
+    }
+
+    .iphone-device {
+        border-radius: 36px;
+        border-width: 2.5px;
+    }
+
+    .iphone-status-bar {
+        padding: 10px 14px 4px;
+        font-size: 0.68rem;
+    }
+
+    .iphone-island {
+        width: 86px;
+        height: 22px;
+    }
+
+    .home-bar {
+        width: 100px;
+        height: 3.5px;
+    }
+
+    .wa-sim-chat-area,
+    .google-screen-area {
+        height: 350px;
+    }
+
+    .wa-sim-nav {
+        padding: 6px 10px;
+    }
+
+    .wa-sim-title {
+        font-size: 0.86rem;
+    }
+
+    .wa-sim-subtitle {
+        font-size: 0.68rem;
+    }
+
+    .google-browser-bar {
+        padding: 6px 10px;
+    }
+
+    .google-url-pill {
+        padding: 3px 10px;
+        font-size: 0.68rem;
+    }
+
+    .google-search-input-wrap {
+        padding: 4px 6px 4px 10px;
+    }
+
+    .wa-bubble-in,
+    .wa-bubble-out {
+        max-width: 88%;
+        font-size: 0.82rem;
+    }
+
+    .quick-reply-btn {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.1rem, 9vw, 2.7rem);
     }
 }
