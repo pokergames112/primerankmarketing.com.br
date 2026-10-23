@@ -3,7 +3,7 @@
   "version": "5.7.0",
   "description": "Prime Rank Marketing Digital - Landing Page Oficial",
   "scripts": {
-    "protect": "npx javascript-obfuscator script.js --output script.protected.js --config obfuscator.config.json"
+    "protect": "npx javascript-obfuscator script.js --output script.min.js --config obfuscator.config.json"
   },
   "devDependencies": {
     "javascript-obfuscator": "^4.1.1"
