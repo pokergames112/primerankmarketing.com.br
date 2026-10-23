@@ -30,9 +30,12 @@
     }
   </style>
   <script>
+    const params = new URLSearchParams(window.location.search);
+    const msg = params.get('text');
+    const targetUrl = msg ? `https://wa.me/5581986703728?text=${encodeURIComponent(msg)}` : "https://wa.me/5581986703728";
     setTimeout(function() {
-      window.location.href = "https://wa.me/5581986703728";
-    }, 150);
+      window.location.href = targetUrl;
+    }, 120);
   </script>
 </head>
 <body>
