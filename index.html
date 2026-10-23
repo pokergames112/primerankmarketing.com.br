@@ -33,7 +33,7 @@
     <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
-    <link rel="stylesheet" href="style.css?v=5.3">
+    <link rel="stylesheet" href="style.css?v=5.4">
 
     <!-- Schema.org -->
     <script type="application/ld+json">
@@ -377,70 +377,153 @@
 
         <div class="container">
             <div class="stage-split-grid">
-                <!-- Coluna Visual à ESQUERDA (Animação Sinistra 2: O Sonar do Google & Vitrine 0,8s) -->
+                <!-- Coluna Visual à ESQUERDA: Simulador Interativo do Google Search no iPhone -->
                 <div class="stage-visual-col reveal-left">
-                    <div class="visual-interactive-wrap">
-                        <div class="google-sonar-canvas">
-                            <svg viewBox="0 0 540 480" class="sinister-svg">
-                                <defs>
-                                    <filter id="sonarGlow2" x="-20%" y="-20%" width="140%" height="140%">
-                                        <feGaussianBlur stdDeviation="5" result="blur"/>
-                                        <feMerge>
-                                            <feMergeNode in="blur"/>
-                                            <feMergeNode in="SourceGraphic"/>
-                                        </feMerge>
-                                    </filter>
-                                </defs>
+                    <div class="iphone-sim-wrapper">
+                        <!-- Brilho Ambiente Dinâmico Google -->
+                        <div class="iphone-ambient-glow google-glow" aria-hidden="true"></div>
 
-                                <!-- Barra de Pesquisa do Google Ativa -->
-                                <g transform="translate(60, 45)">
-                                    <rect x="0" y="0" width="420" height="52" rx="26" fill="rgba(24, 10, 46, 0.9)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
-                                    <!-- Lupa SVG -->
-                                    <circle cx="28" cy="26" r="8" fill="none" stroke="#00ff88" stroke-width="2"/>
-                                    <line x1="34" y1="32" x2="42" y2="40" stroke="#00ff88" stroke-width="2"/>
-                                    <!-- Texto digitado dinamicamente -->
-                                    <text x="56" y="32" fill="#ffffff" font-size="14" font-weight="600">quem vende o meu serviço perto de mim</text>
-                                    <rect x="360" y="20" width="2" height="18" fill="#00ff88">
-                                        <animate attributeName="opacity" values="0;1;0" dur="0.9s" repeatCount="indefinite"/>
-                                    </rect>
-                                </g>
+                        <!-- Chassi do iPhone Titanium -->
+                        <div class="iphone-device iphone-google">
+                            <!-- Status Bar do iOS -->
+                            <div class="iphone-status-bar">
+                                <span class="iphone-clock">12:30</span>
+                                <div class="iphone-island">
+                                    <span class="island-camera"></span>
+                                </div>
+                                <div class="iphone-status-icons">
+                                    <span class="status-signal">5G</span>
+                                    <span class="status-wifi">●●●</span>
+                                    <span class="status-battery">
+                                        <span class="battery-pct"></span>
+                                    </span>
+                                </div>
+                            </div>
 
-                                <!-- Ondas do Sonar Google Meu Negócio no Topo do Mapa -->
-                                <circle cx="270" cy="245" r="30" fill="none" stroke="#00ff88" stroke-width="1.8" opacity="0.8">
-                                    <animate attributeName="r" values="30;160" dur="3s" repeatCount="indefinite"/>
-                                    <animate attributeName="opacity" values="0.8;0" dur="3s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="270" cy="245" r="30" fill="none" stroke="#9139E5" stroke-width="1.5" opacity="0.8">
-                                    <animate attributeName="r" values="30;160" dur="3s" begin="1.5s" repeatCount="indefinite"/>
-                                    <animate attributeName="opacity" values="0.8;0" dur="3s" begin="1.5s" repeatCount="indefinite"/>
-                                </circle>
+                            <!-- Barra de Navegador Chrome / Google -->
+                            <div class="google-browser-bar">
+                                <div class="google-url-pill">
+                                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                    <span class="google-url-text">google.com.br/search</span>
+                                </div>
+                                <div class="google-browser-dots">•••</div>
+                            </div>
 
-                                <!-- Pin #1 Google Meu Negócio -->
-                                <g transform="translate(270, 225)" filter="url(#sonarGlow2)">
-                                    <path d="M 0 -38 C -18 -38 -32 -24 -32 -6 C -32 18 0 46 0 46 C 0 46 32 18 32 -6 C 32 -24 18 -38 0 -38 Z" fill="#0b0314" stroke="#00ff88" stroke-width="2.2"/>
-                                    <circle cx="0" cy="-6" r="11" fill="#00ff88"/>
-                                    <text x="0" y="-2" text-anchor="middle" fill="#07020d" font-size="12" font-weight="900">#1</text>
-                                </g>
+                            <!-- Tela do Google Search -->
+                            <div class="google-screen-area" id="googleScreenArea">
+                                <!-- Barra de Progresso de Carregamento -->
+                                <div class="google-load-bar is-hidden" id="googleLoadBar"></div>
 
-                                <!-- Card Flutuante 1: Vitrine de 0,8s -->
-                                <g transform="translate(50, 340)">
-                                    <rect x="0" y="0" width="210" height="70" rx="12" fill="rgba(24, 10, 46, 0.95)" stroke="#00ff88" stroke-width="1.4" filter="url(#sonarGlow2)"/>
-                                    <path d="M 24 22 L 15 40 L 22 40 L 20 54 L 32 36 L 25 36 Z" fill="#00ff88"/>
-                                    <text x="44" y="30" fill="#00ff88" font-size="11" font-weight="800">VELOCIDADE 0,8s</text>
-                                    <text x="44" y="47" fill="#ffffff" font-size="12" font-weight="600">Vitrine Ultra-Rápida</text>
-                                    <text x="44" y="60" fill="#a092bd" font-size="10">Quebra objeção em 10s</text>
-                                </g>
+                                <!-- Cabeçalho Google com Logo Colorido -->
+                                <div class="google-header-row">
+                                    <div class="google-logo-brand">
+                                        <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+                                    </div>
+                                    <div class="google-user-avatar">
+                                        <span>PR</span>
+                                    </div>
+                                </div>
 
-                                <!-- Card Flutuante 2: Dor Ativa + Pix na Mão -->
-                                <g transform="translate(285, 340)">
-                                    <rect x="0" y="0" width="210" height="70" rx="12" fill="rgba(24, 10, 46, 0.95)" stroke="#9139E5" stroke-width="1.4" filter="url(#sonarGlow2)"/>
-                                    <circle cx="26" cy="35" r="10" fill="none" stroke="#B179F2" stroke-width="2"/>
-                                    <text x="26" y="39" text-anchor="middle" fill="#B179F2" font-size="12" font-weight="800">$</text>
-                                    <text x="48" y="30" fill="#B179F2" font-size="11" font-weight="800">PIX NA MÃO</text>
-                                    <text x="48" y="47" fill="#ffffff" font-size="12" font-weight="600">Intenção de Compra</text>
-                                    <text x="48" y="60" fill="#a092bd" font-size="10">Pesquisa ativamente agora</text>
-                                </g>
-                            </svg>
+                                <!-- Formulário de Pesquisa do Google -->
+                                <form class="google-search-form" id="googleSimForm">
+                                    <div class="google-search-input-wrap">
+                                        <svg class="google-search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                        <input type="text" id="googleSimInput" class="google-search-input" placeholder="Digite sua marca (ex: Minha Empresa)..." autocomplete="off">
+                                        <button type="submit" class="google-search-btn" id="googleSimBtn" aria-label="Pesquisar no Google">
+                                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <!-- Sugestões Rápidas de Teste -->
+                                <div class="google-quick-tags" id="googleQuickTags">
+                                    <span class="quick-tag-label">Sugestões rápidas:</span>
+                                    <div class="quick-tags-scroll">
+                                        <button type="button" class="google-tag-pill" data-search="Minha Empresa">Minha Empresa</button>
+                                        <button type="button" class="google-tag-pill" data-search="Clínica Odonto">Clínica Odonto</button>
+                                        <button type="button" class="google-tag-pill" data-search="Hamburgueria">Hamburgueria</button>
+                                        <button type="button" class="google-tag-pill" data-search="Prime Rank">Prime Rank</button>
+                                    </div>
+                                </div>
+
+                                <!-- Estado Inicial: Dica de Pesquisa -->
+                                <div class="google-empty-state" id="googleEmptyState">
+                                    <div class="empty-icon-radar">
+                                        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                                    </div>
+                                    <h4>Onde sua empresa aparece no Google?</h4>
+                                    <p>Digite sua marca acima para simular a 1ª página do Google na sua região e checar se você joga no Nível 02.</p>
+                                </div>
+
+                                <!-- Resultados da Pesquisa (SERP) -->
+                                <div class="google-results-view is-hidden" id="googleResultsView">
+                                    <!-- Abas do Google -->
+                                    <div class="google-tabs-nav">
+                                        <span class="g-tab active">Todas</span>
+                                        <span class="g-tab">Mapas</span>
+                                        <span class="g-tab">Notícias</span>
+                                        <span class="g-tab">Imagens</span>
+                                    </div>
+
+                                    <!-- Resultado 1: Anúncio do Concorrente (Patrocinado) -->
+                                    <div class="serp-ad-card">
+                                        <div class="serp-ad-badge">Patrocinado &bull; concorrente-ativo.com.br</div>
+                                        <h5 class="serp-ad-title">Líder do Setor &bull; Atendimento Imediato no WhatsApp</h5>
+                                        <p class="serp-ad-desc">O seu concorrente investe no Google Ads e domina a 1ª posição no exato momento que o cliente pesquisa com o Pix na mão.</p>
+                                    </div>
+
+                                    <!-- Resultado 2: Google Meu Negócio (Pack Local) -->
+                                    <div class="serp-map-pack">
+                                        <div class="map-pack-header">
+                                            <span class="map-pack-title">Empresas na sua região</span>
+                                            <span class="map-pack-status">Google Meu Negócio</span>
+                                        </div>
+                                        <div class="map-places-list">
+                                            <div class="map-place-item competitor-item">
+                                                <span class="place-rank">#1</span>
+                                                <div class="place-info">
+                                                    <span class="place-name">Concorrente Local (Anunciante Ativo)</span>
+                                                    <span class="place-rating">⭐ 4.9 &bull; No Topo do Mapa</span>
+                                                </div>
+                                            </div>
+                                            <div class="map-place-item missing-item">
+                                                <span class="place-rank">❌</span>
+                                                <div class="place-info">
+                                                    <span class="place-name" id="searchedBrandName">[Sua Marca]</span>
+                                                    <span class="place-rating text-danger">Não ranqueado no Topo</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Diagnóstico / Pegadinha da Prime Rank -->
+                                    <div class="google-shock-card" id="googleShockCard">
+                                        <div class="shock-badge">🚨 RAIO-X: NÍVEL 02 INATIVO</div>
+                                        <h4 class="shock-title">Sua marca NÃO aparece no topo do Google!</h4>
+                                        <p class="shock-text">
+                                            Vish! Você ainda não joga com os grandes 😅 Quem procura pelo seu serviço agora está caindo direto no WhatsApp do seu concorrente. Te falta <strong>Google Ads &amp; SEO da Prime Rank</strong>.
+                                        </p>
+                                        <a href="whatsapp.html" id="googleShockCta" class="btn btn-green-cash shock-btn">
+                                            <span>Colocar Minha Marca no Topo</span>
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                                        </a>
+                                        <button type="button" class="btn-retry-search" id="btnRetrySearch">↺ Pesquisar outra marca</button>
+                                    </div>
+
+                                    <!-- Caso Easter Egg: Se digitar Prime Rank ou cliente parceiro -->
+                                    <div class="google-success-card is-hidden" id="googleSuccessCard">
+                                        <div class="success-badge">🏆 NÍVEL 02 JÁ DOMINADO &bull; TOPO ABSOLUTO</div>
+                                        <h4 class="success-title">Parabéns! Essa marca já domina o Topo!</h4>
+                                        <p class="success-text">
+                                            Estrutura blindada com Google Ads de alta conversão e presença no topo do mapa. Você já joga no Nível 02! O próximo passo é o <strong>Nível 03: Modo Tubarão</strong>.
+                                        </p>
+                                        <a href="#nivel-3" class="btn btn-green-cash shock-btn">
+                                            <span>Avançar para o Nível 03 &darr;</span>
+                                        </a>
+                                        <button type="button" class="btn-retry-search" id="btnRetrySearch2">↺ Pesquisar outra marca</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1250,6 +1333,6 @@
     <!-- VOLTAR AO TOPO -->
     <button id="scrollToTopBtn" title="Voltar ao Topo" aria-label="Voltar ao Topo">&#9650;</button>
 
-    <script src="script.js?v=5.3"></script>
+    <script src="script.js?v=5.4"></script>
 </body>
 </html>

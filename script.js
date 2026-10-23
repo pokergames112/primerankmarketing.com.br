@@ -412,6 +412,108 @@ document.addEventListener('DOMContentLoaded', () => {
     initWhatsAppSimulator();
 
     // ==========================================================================
+    // 0.3.1 SIMULADOR INTERATIVO DE PESQUISA GOOGLE (NÍVEL 02 - ESCALA NO GOOGLE)
+    // ==========================================================================
+    function initGoogleSimulator() {
+        const form = document.getElementById('googleSimForm');
+        const input = document.getElementById('googleSimInput');
+        const loadBar = document.getElementById('googleLoadBar');
+        const emptyState = document.getElementById('googleEmptyState');
+        const resultsView = document.getElementById('googleResultsView');
+        const searchedBrandName = document.getElementById('searchedBrandName');
+        const shockCard = document.getElementById('googleShockCard');
+        const successCard = document.getElementById('googleSuccessCard');
+        const shockCta = document.getElementById('googleShockCta');
+        const screenArea = document.getElementById('googleScreenArea');
+        const quickTags = document.querySelectorAll('.google-tag-pill');
+        const btnRetry = document.getElementById('btnRetrySearch');
+        const btnRetry2 = document.getElementById('btnRetrySearch2');
+
+        if (!form || !input || !resultsView) return;
+
+        let isSearching = false;
+
+        function runSearch(query) {
+            if (isSearching) return;
+            const term = (query || input.value || '').trim() || 'Minha Empresa';
+            input.value = term;
+            isSearching = true;
+
+            // 1. Ativa barra de progresso azul Google
+            if (loadBar) {
+                loadBar.classList.remove('is-hidden');
+                loadBar.style.animation = 'none';
+                void loadBar.offsetWidth; // trigger reflow
+                loadBar.style.animation = 'googleProgress 0.75s ease forwards';
+            }
+
+            // 2. Renderiza SERP do Google com a pegadinha / diagnóstico do Nível 02
+            setTimeout(() => {
+                if (loadBar) loadBar.classList.add('is-hidden');
+                if (emptyState) emptyState.classList.add('is-hidden');
+                resultsView.classList.remove('is-hidden');
+
+                const lower = term.toLowerCase();
+                const isPrimeRankOrClient = lower.includes('prime rank') || lower.includes('klim') || lower.includes('betânia') || lower.includes('aline marques') || lower.includes('concept loc');
+
+                if (isPrimeRankOrClient) {
+                    if (shockCard) shockCard.classList.add('is-hidden');
+                    if (successCard) successCard.classList.remove('is-hidden');
+                } else {
+                    if (successCard) successCard.classList.add('is-hidden');
+                    if (shockCard) shockCard.classList.remove('is-hidden');
+                    if (searchedBrandName) searchedBrandName.textContent = term;
+
+                    // Personaliza link e mensagem oficial do WhatsApp com a marca digitada
+                    if (shockCta) {
+                        const encodedText = encodeURIComponent(`Olá! Fiz a simulação de pesquisa no Google com a marca "${term}" no site da Prime Rank e quero colocar minha empresa no topo da minha região!`);
+                        shockCta.href = `whatsapp.html?text=${encodedText}`;
+                    }
+                }
+
+                if (screenArea) {
+                    screenArea.scrollTo({ top: screenArea.scrollHeight, behavior: 'smooth' });
+                }
+
+                if (navigator.vibrate) {
+                    try { navigator.vibrate([30, 60]); } catch (e) {}
+                }
+
+                isSearching = false;
+            }, 700);
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            runSearch(input.value);
+        });
+
+        quickTags.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const searchVal = pill.getAttribute('data-search') || pill.textContent;
+                runSearch(searchVal);
+            });
+        });
+
+        function resetToSearch() {
+            if (emptyState) emptyState.classList.remove('is-hidden');
+            if (resultsView) resultsView.classList.add('is-hidden');
+            if (input) {
+                input.value = '';
+                input.focus();
+            }
+            if (screenArea) {
+                screenArea.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        if (btnRetry) btnRetry.addEventListener('click', resetToSearch);
+        if (btnRetry2) btnRetry2.addEventListener('click', resetToSearch);
+    }
+
+    initGoogleSimulator();
+
+    // ==========================================================================
     // 1. BARRA DE PROGRESSO DE SCROLL NO TOPO
     // ==========================================================================
     const progressBar = document.getElementById('scroll-progress-bar');
