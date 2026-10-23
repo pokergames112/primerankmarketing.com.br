@@ -1225,13 +1225,23 @@ body {
 
 .wa-sim-avatar {
     position: relative;
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     background: #281d3d;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+}
+
+.wa-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
 }
 
 .wa-sim-online-dot {
@@ -1246,13 +1256,20 @@ body {
     box-shadow: 0 0 6px #00ff88;
 }
 
+.wa-back-count {
+    font-size: 0.76rem;
+    color: #00ff88;
+    font-weight: 700;
+    margin-left: 2px;
+}
+
 .wa-sim-user {
     display: flex;
     flex-direction: column;
 }
 
 .wa-sim-title {
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     font-weight: 700;
     color: #ffffff;
     line-height: 1.2;
@@ -1260,33 +1277,39 @@ body {
 
 .wa-sim-subtitle {
     font-size: 0.72rem;
-    color: #00ff88;
+    color: #8696a0;
     font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.wa-sim-subtitle.is-typing {
+    color: #00ff88 !important;
+    font-weight: 700;
 }
 
 .wa-sim-nav-right {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     color: #00ff88;
 }
 
 /* Área de Conversa do WhatsApp */
 .wa-sim-chat-area {
     position: relative;
-    height: 360px;
+    height: 380px;
     padding: 16px 14px;
-    background-color: #0c0814;
+    background-color: #0b141a;
     background-image: 
-        radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0),
-        radial-gradient(rgba(145, 57, 229, 0.05) 1px, transparent 0);
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
+        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 20%),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.03) 0%, transparent 25%),
+        radial-gradient(circle at 50% 50%, rgba(145, 57, 229, 0.03) 0%, transparent 30%);
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     overflow-y: auto;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 .wa-sim-date-pill {
@@ -1297,8 +1320,8 @@ body {
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.5px;
-    color: #8c7ea8;
-    background: rgba(255, 255, 255, 0.06);
+    color: #8696a0;
+    background: #182229;
     padding: 3px 10px;
     border-radius: 6px;
     display: inline-block;
@@ -1310,9 +1333,9 @@ body {
 
 .wa-sim-security-note span {
     font-size: 0.65rem;
-    color: #6d6184;
-    background: rgba(255, 230, 0, 0.04);
-    border: 1px solid rgba(255, 230, 0, 0.1);
+    color: #ffd279;
+    background: rgba(255, 210, 121, 0.07);
+    border: 1px solid rgba(255, 210, 121, 0.15);
     padding: 3px 8px;
     border-radius: 6px;
     display: inline-block;
@@ -1332,48 +1355,44 @@ body {
 }
 
 .wa-bubble-in {
-    background: #1e1533;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    color: #ffffff;
-    padding: 10px 12px;
-    border-radius: 14px 14px 14px 4px;
+    background: #202c33;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #e9edef;
+    padding: 9px 12px;
+    border-radius: 12px 12px 12px 3px;
     max-width: 86%;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
     position: relative;
     animation: bubblePopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.wa-lead-tag {
-    font-size: 0.68rem;
-    font-weight: 800;
-    color: #00ff88;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
+.wa-bubble-shock {
+    border-left: 3px solid #00ff88;
+    background: #232d36;
 }
 
 .wa-bubble-in p,
 .wa-bubble-out p {
     font-size: 0.84rem;
-    line-height: 1.45;
-    margin: 0 0 4px 0;
+    line-height: 1.42;
+    margin: 0 0 3px 0;
     word-break: break-word;
 }
 
 .wa-bubble-in .wa-time {
     font-size: 0.66rem;
-    color: #9284ad;
+    color: #8696a0;
     display: block;
     text-align: right;
 }
 
 .wa-bubble-out {
     background: #005c4b;
-    color: #ffffff;
-    padding: 10px 12px;
-    border-radius: 14px 14px 4px 14px;
+    color: #e9edef;
+    padding: 9px 12px;
+    border-radius: 12px 12px 3px 12px;
     max-width: 86%;
-    box-shadow: 0 4px 14px rgba(0, 255, 136, 0.15);
+    box-shadow: 0 3px 10px rgba(0, 255, 136, 0.15);
     position: relative;
     animation: bubblePopIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1384,16 +1403,16 @@ body {
     justify-content: flex-end;
     gap: 4px;
     font-size: 0.66rem;
-    color: #90ddcf;
+    color: #8696a0;
 }
 
 .wa-double-checks {
-    color: #34b7f1;
+    color: #53bdeb;
     font-weight: 800;
 }
 
 @keyframes bubblePopIn {
-    0% { opacity: 0; transform: scale(0.9) translateY(8px); }
+    0% { opacity: 0; transform: scale(0.92) translateY(6px); }
     100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
@@ -1408,12 +1427,14 @@ body {
     align-items: center;
     gap: 4px;
     padding: 8px 14px;
+    background: #202c33;
+    border-radius: 12px;
 }
 
 .typing-dot {
     width: 6px;
     height: 6px;
-    background: #a448fa;
+    background: #00ff88;
     border-radius: 50%;
     animation: typingWave 1.4s infinite ease-in-out;
 }
@@ -1422,112 +1443,86 @@ body {
 .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
 @keyframes typingWave {
-    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
     30% { transform: translateY(-4px); opacity: 1; }
 }
 
-/* Overlay Glassmorphic de Choque de Realidade */
-.wa-shock-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(9, 4, 16, 0.88);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    animation: shockFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes shockFadeIn {
-    0% { opacity: 0; transform: scale(0.96); }
-    100% { opacity: 1; transform: scale(1); }
-}
-
-.shock-glass-card {
-    background: linear-gradient(135deg, rgba(34, 15, 60, 0.95) 0%, rgba(14, 5, 26, 0.98) 100%);
+/* Card de Ação Interativo do WhatsApp Business */
+.wa-chat-action-card {
+    width: 100%;
+    max-width: 94%;
+    background: #202c33;
+    border-radius: 14px;
     border: 1.5px solid rgba(0, 255, 136, 0.45);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 255, 136, 0.25);
-    border-radius: 20px;
-    padding: 22px 18px;
-    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 255, 136, 0.15);
+    animation: bubblePopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.shock-flash-badge {
+.action-card-header {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.action-card-badge {
     display: inline-block;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #07020d;
-    background: #00ff88;
-    padding: 3px 10px;
-    border-radius: 9999px;
-    margin-bottom: 12px;
-    box-shadow: 0 0 14px rgba(0, 255, 136, 0.6);
-}
-
-.shock-card-title {
-    font-family: var(--font-display-bebas);
-    font-size: 1.45rem;
-    line-height: 1.05;
     letter-spacing: 0.8px;
-    color: #ffffff;
-    margin-bottom: 10px;
-}
-
-.shock-card-desc {
-    font-size: 0.84rem;
-    line-height: 1.45;
-    color: #d1c5e4;
-    margin-bottom: 10px;
-}
-
-.shock-card-desc strong {
     color: #00ff88;
+    text-transform: uppercase;
+    margin-bottom: 4px;
 }
 
-.shock-sub-cta {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: #c4b5fd;
-    margin-bottom: 16px;
+.action-card-header strong {
+    display: block;
+    font-size: 0.86rem;
+    color: #ffffff;
+    line-height: 1.35;
 }
 
-.shock-btn-group {
+.action-card-buttons {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
-.btn-shock-whatsapp {
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 0.84rem;
-    font-weight: 800;
+.btn-wa-card-action {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
+    padding: 12px 14px;
+    background: #00a884;
+    color: #ffffff;
+    font-size: 0.84rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.btn-reset-sim {
-    background: transparent;
-    border: none;
-    color: #9284ad;
-    font-size: 0.78rem;
-    display: inline-flex;
+.btn-wa-card-action:hover {
+    background: #00ff88;
+    color: #07020d;
+}
+
+.btn-wa-card-reset {
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
+    padding: 9px 14px;
+    background: transparent;
+    border: none;
+    color: #8696a0;
+    font-size: 0.76rem;
     cursor: pointer;
-    padding: 6px;
     transition: color 0.2s ease;
 }
 
-.btn-reset-sim:hover {
+.btn-wa-card-reset:hover {
+    color: #ffffff;
+}
     color: #ffffff;
 }
 

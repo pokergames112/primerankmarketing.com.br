@@ -140,37 +140,75 @@ document.addEventListener('DOMContentLoaded', () => {
         const msgOut = document.getElementById('waMsgOut');
         const msgOutText = document.getElementById('waMsgOutText');
         const typingRow = document.getElementById('waTypingRow');
-        const shockOverlay = document.getElementById('waShockOverlay');
+        const statusEl = document.getElementById('waSimStatus');
+        const msgReaction1 = document.getElementById('waMsgReaction1');
+        const msgReaction2 = document.getElementById('waMsgReaction2');
+        const msgCard = document.getElementById('waMsgCard');
         const resetBtn = document.getElementById('waSimResetBtn');
         const chatArea = document.getElementById('waSimChatArea');
 
         if (!form || !chatArea) return;
 
+        let isRunning = false;
+
         function sendMessage(text) {
+            if (isRunning) return;
+            isRunning = true;
+
             const replyText = (text && text.trim().length > 0) ? text.trim() : 'Com certeza! Atendemos sim no seu raio. Qual o seu pedido?';
             if (msgOutText) msgOutText.textContent = replyText;
 
-            // Mostra mensagem enviada
+            // 1. Mostra a mensagem do visitante
             if (msgOut) msgOut.classList.remove('is-hidden');
             if (input) input.value = '';
             if (quickRepliesWrap) quickRepliesWrap.style.display = 'none';
 
-            chatArea.scrollTop = chatArea.scrollHeight;
+            chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
 
-            // Simula digitação da resposta do lead por 600ms
+            // 2. Camila entra em "digitando..."
             setTimeout(() => {
+                if (statusEl) {
+                    statusEl.textContent = 'digitando...';
+                    statusEl.classList.add('is-typing');
+                }
                 if (typingRow) typingRow.classList.remove('is-hidden');
-                chatArea.scrollTop = chatArea.scrollHeight;
+                chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
 
-                // Em seguida entra o Choque de Realidade
+                // 3. Camila manda a primeira reação (Choque no chat)
                 setTimeout(() => {
                     if (typingRow) typingRow.classList.add('is-hidden');
-                    if (shockOverlay) shockOverlay.classList.remove('is-hidden');
-                    if (navigator.vibrate) {
-                        try { navigator.vibrate([40, 80, 40]); } catch (e) {}
-                    }
-                }, 850);
-            }, 550);
+                    if (msgReaction1) msgReaction1.classList.remove('is-hidden');
+                    chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
+
+                    // Continua digitando...
+                    setTimeout(() => {
+                        if (typingRow) typingRow.classList.remove('is-hidden');
+                        chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
+
+                        // 4. Camila manda a explicação da Prime Rank
+                        setTimeout(() => {
+                            if (typingRow) typingRow.classList.add('is-hidden');
+                            if (msgReaction2) msgReaction2.classList.remove('is-hidden');
+                            chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
+
+                            // 5. Surge o Card de Ação Interativo do WhatsApp Business
+                            setTimeout(() => {
+                                if (statusEl) {
+                                    statusEl.textContent = 'online';
+                                    statusEl.classList.remove('is-typing');
+                                }
+                                if (msgCard) msgCard.classList.remove('is-hidden');
+                                chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
+
+                                if (navigator.vibrate) {
+                                    try { navigator.vibrate([40, 80, 40]); } catch (e) {}
+                                }
+                                isRunning = false;
+                            }, 700);
+                        }, 1100);
+                    }, 400);
+                }, 1000);
+            }, 500);
         }
 
         // Submissão pelo formulário ou Enter
@@ -189,16 +227,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Botão de reiniciar simulação
-        if (resetBtn) {
-            resetBtn.addEventListener('click', () => {
-                if (shockOverlay) shockOverlay.classList.add('is-hidden');
-                if (msgOut) msgOut.classList.add('is-hidden');
-                if (typingRow) typingRow.classList.add('is-hidden');
-                if (quickRepliesWrap) quickRepliesWrap.style.display = 'block';
-                if (input) input.value = '';
-                chatArea.scrollTop = 0;
-            });
+        function resetSimulation() {
+            isRunning = false;
+            if (msgOut) msgOut.classList.add('is-hidden');
+            if (typingRow) typingRow.classList.add('is-hidden');
+            if (msgReaction1) msgReaction1.classList.add('is-hidden');
+            if (msgReaction2) msgReaction2.classList.add('is-hidden');
+            if (msgCard) msgCard.classList.add('is-hidden');
+            if (statusEl) {
+                statusEl.textContent = 'online';
+                statusEl.classList.remove('is-typing');
+            }
+            if (quickRepliesWrap) quickRepliesWrap.style.display = 'block';
+            if (input) input.value = '';
+            chatArea.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // Delegação de evento para o botão de reset (que pode ser renderizado no chat)
+        chatArea.addEventListener('click', (e) => {
+            if (e.target.closest('#waSimResetBtn')) {
+                resetSimulation();
+            }
+        });
     }
 
     initWhatsAppSimulator();
