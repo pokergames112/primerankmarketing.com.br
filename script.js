@@ -126,8 +126,92 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2500);
     }
 
+    // ==========================================================================
+    // 0.2.1 DIGITAÇÃO MÁGICA NO SCROLL (TYPEWRITER EFFECT EM ESTÁGIOS / TÍTULOS)
+    // ==========================================================================
+    function initScrollTypewriter() {
+        const typewriterEls = document.querySelectorAll('[data-typewriter="true"]');
+        if (!typewriterEls.length) return;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        typewriterEls.forEach(el => {
+            const rawText = el.getAttribute('data-typewriter-text') || el.textContent;
+            const fullText = rawText.replace(/\s+/g, ' ').trim();
+            el.setAttribute('data-typewriter-text', fullText);
+
+            if (prefersReducedMotion) {
+                el.textContent = fullText;
+                return;
+            }
+
+            // Preserva a altura para evitar pulo no layout durante o scroll
+            const currentHeight = el.getBoundingClientRect().height;
+            if (currentHeight > 0) {
+                el.style.minHeight = `${currentHeight}px`;
+            }
+
+            el.innerHTML = '<span class="typewriter-body"></span><span class="typewriter-cursor">|</span>';
+            const bodyEl = el.querySelector('.typewriter-body');
+            const cursorEl = el.querySelector('.typewriter-cursor');
+
+            let hasStarted = false;
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasStarted) {
+                        hasStarted = true;
+                        obs.unobserve(entry.target);
+
+                        // Pequeno atraso para sincronizar com a entrada da seção
+                        setTimeout(() => {
+                            let charIdx = 0;
+                            const totalChars = fullText.length;
+
+                            function typeNext() {
+                                if (charIdx < totalChars) {
+                                    bodyEl.textContent = fullText.slice(0, charIdx + 1);
+                                    const c = fullText[charIdx];
+                                    charIdx++;
+
+                                    let delay = 22;
+                                    if (c === ':' || c === '—' || c === '-') {
+                                        delay = 85;
+                                    } else if (c === ' ') {
+                                        delay = 30;
+                                    }
+
+                                    setTimeout(typeNext, delay);
+                                } else {
+                                    // Digitação concluída
+                                    el.style.minHeight = '';
+                                    setTimeout(() => {
+                                        if (cursorEl) {
+                                            cursorEl.classList.add('is-hidden');
+                                            setTimeout(() => {
+                                                if (cursorEl.parentNode) cursorEl.remove();
+                                            }, 500);
+                                        }
+                                    }, 1400);
+                                }
+                            }
+
+                            typeNext();
+                        }, 180);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            observer.observe(el);
+        });
+    }
+
     initHeroWordRotator();
     initSharkWordRotator();
+    initScrollTypewriter();
 
     // ==========================================================================
     // 0.3 SIMULADOR INTERATIVO DE WHATSAPP (NÍVEL 01 - SETUP INICIAL)
