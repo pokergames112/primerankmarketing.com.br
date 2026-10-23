@@ -1210,27 +1210,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const cmdStyle = "color: #00ff88; font-family: monospace; font-size: 12px; font-weight: bold; background: rgba(0,255,136,0.1); padding: 2px 6px; border-radius: 4px;";
         const linkStyle = "color: #00ff88; font-weight: bold; text-decoration: underline;";
         
-        console.log("%c⚡ PRIME RANK MARKETING DIGITAL | SISTEMA ANTI-THEFT ATIVO ⚡", titleStyle);
+        console.log("%c⚡ PRIME RANK MARKETING DIGITAL ⚡", titleStyle);
         console.log(
             "%cProcurando a fórmula dos simuladores de iPhone e do funil de vendas? 😂\n" +
             "Fariseu, código bonito na mão de amador não dá lucro. Aqui o tráfego se paga!\n" +
             "Em vez de raspar front-end alheio, venha fechar vendas de verdade:\n" +
-            "%chttps://primerankmarketing.com.br/whatsapp.html\n\n" +
-            "%c🛠️ COMANDOS PARA TESTAR AS DEFESAS NO CONSOLE:\n" +
-            "• %cPRIME_SHIELD.testPirate()%c       -> Simular tela de código roubado\n" +
-            "• %cPRIME_SHIELD.testToast()%c        -> Simular alerta de botão direito/curioso\n" +
-            "• %cPRIME_SHIELD.testHeadless()%c     -> Simular detecção de robô raspador (Puppeteer)\n" +
-            "• %cPRIME_SHIELD.verifyCanvasSignature()%c -> Validar certificado esteganográfico do Canvas\n" +
-            "• %cPRIME_SHIELD.openHoneypot()%c     -> Abrir Pote de Mel com rimas do fariseu",
+            "%chttps://primerankmarketing.com.br/whatsapp.html",
             bodyStyle,
-            linkStyle,
-            "color: #9139E5; font-weight: bold; font-size: 13px;",
-            cmdStyle, bodyStyle,
-            cmdStyle, bodyStyle,
-            cmdStyle, bodyStyle,
-            cmdStyle, bodyStyle,
-            cmdStyle, bodyStyle
+            linkStyle
         );
+
+        // Exibe o menu de testes apenas se o desenvolvedor passar explicitamente ?test=1 na URL
+        const isDevTestMode = new URLSearchParams(window.location.search).has('test');
+        if (isDevTestMode) {
+            console.log(
+                "%c\n🛠️ [MODO TESTE ATIVADO - COMANDOS]:\n" +
+                "• %cPRIME_SHIELD.testPirate()%c       -> Simular tela de código roubado\n" +
+                "• %cPRIME_SHIELD.testToast()%c        -> Simular alerta de botão direito/curioso\n" +
+                "• %cPRIME_SHIELD.testHeadless()%c     -> Simular detecção de robô raspador (Puppeteer)\n" +
+                "• %cPRIME_SHIELD.verifyCanvasSignature()%c -> Validar certificado esteganográfico do Canvas\n" +
+                "• %cPRIME_SHIELD.openHoneypot()%c     -> Abrir Pote de Mel com rimas do fariseu",
+                "color: #9139E5; font-weight: bold; font-size: 13px;",
+                cmdStyle, bodyStyle,
+                cmdStyle, bodyStyle,
+                cmdStyle, bodyStyle,
+                cmdStyle, bodyStyle,
+                cmdStyle, bodyStyle
+            );
+        }
     })();
 
     // 11.2 Honeypot Silencioso na Aba Network (Isca para Inspetores de Requisições)
