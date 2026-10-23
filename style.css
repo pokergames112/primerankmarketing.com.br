@@ -2270,16 +2270,30 @@ body {
     display: none !important;
 }
 
-/* Responsividade Mobile */
+/* Responsividade Mobile para Seções de Nível */
 @media (max-width: 992px) {
+    /* Desativa deslocamento lateral nos reveals para impedir transbordamento horizontal */
+    .reveal-left,
+    .reveal-right {
+        transform: translateY(16px) !important;
+    }
+
+    .reveal-left.is-revealed,
+    .reveal-right.is-revealed {
+        transform: translateY(0) !important;
+    }
+
     .section-level-stage {
-        padding: 85px 0;
+        padding: 70px 0;
+        overflow: hidden;
     }
 
     .stage-split-grid,
     .stage-reversed .stage-split-grid {
         grid-template-columns: 1fr;
-        gap: 44px;
+        gap: 36px;
+        width: 100%;
+        max-width: 100%;
     }
 
     .stage-reversed .stage-visual-col {
@@ -2288,6 +2302,23 @@ body {
 
     .stage-reversed .stage-content-col {
         order: 1;
+    }
+
+    .stage-content-col {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .stage-visual-col {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        text-align: center;
     }
 
     .visual-interactive-wrap {
@@ -3184,30 +3215,86 @@ body {
         display: none;
     }
 
+    .hero-container-vitruvian {
+        padding: 0 16px !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
     .hero-section {
-        padding: 110px 0 50px 0;
+        padding: 105px 0 45px 0;
+        overflow: hidden !important;
     }
 
     .hero-title {
-        font-size: clamp(2.4rem, 10vw, 3.4rem);
+        font-size: clamp(2.2rem, 9.2vw, 3.2rem) !important;
+        line-height: 1.02 !important;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     .hero-subtitle {
-        font-size: 1.02rem;
+        font-size: 0.98rem;
+        line-height: 1.55;
+        margin-bottom: 22px;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     .hero-actions {
         flex-direction: column;
-        width: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
     }
 
-    .hero-actions .btn {
-        width: 100%;
-        justify-content: center;
+    .hero-actions .btn,
+    .btn-green-cash {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 15px 14px !important;
+        font-size: 0.86rem !important;
+        letter-spacing: 0.3px !important;
+        justify-content: center !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+        white-space: normal !important;
+    }
+
+    .hero-scroll-cue {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: 18px !important;
+        box-sizing: border-box !important;
+    }
+
+    .scroll-cue-loose {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        gap: 8px !important;
+        padding: 4px 0 !important;
+    }
+
+    .scroll-cue-text {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        font-size: 0.80rem !important;
+        line-height: 1.35 !important;
+        text-align: left !important;
+    }
+
+    .scroll-arrow-svg {
+        flex-shrink: 0 !important;
+        width: 14px !important;
+        height: 14px !important;
     }
 
     .hero-globe-col {
-        min-height: 300px;
+        min-height: 280px;
     }
 
     .vitruvian-sol-item {
@@ -3231,15 +3318,21 @@ body {
 
     /* ==========================================================================
        OTIMIZAÇÃO DO CHASSI IPHONE 15 PRO MAX NO MOBILE (NÍVEL 01 & NÍVEL 02)
+       Diminuição proporcional solicitada (largura 285px / altura 594px)
+       Centralização perfeita em ambas as seções
        ========================================================================== */
     .section-level-stage {
-        padding: 70px 0;
+        padding: 60px 0;
+        overflow: hidden !important;
     }
 
     .iphone-sim-wrapper {
-        max-width: min(340px, 92vw);
-        margin: 0 auto;
-        padding: 0;
+        max-width: 285px !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding: 0 !important;
+        display: block !important;
     }
 
     /* Oculta os botões físicos externos nas bordas no mobile para eliminar risco de scroll horizontal */
@@ -3248,33 +3341,40 @@ body {
         display: none !important;
     }
 
+    /* Suaviza o brilho externo no mobile para evitar overflow horizontal */
+    .iphone-ambient-glow {
+        width: 100% !important;
+        height: 100% !important;
+        filter: blur(20px) !important;
+    }
+
     .iphone-device {
-        border-radius: 44px;
-        border-width: 3.5px;
+        border-radius: 40px;
+        border-width: 3px;
         box-shadow: 
             0 0 0 1px rgba(0, 0, 0, 0.8),
-            0 0 0 4px #4a3f5c,
-            0 18px 45px rgba(0, 0, 0, 0.85),
-            0 0 35px rgba(145, 57, 229, 0.16);
+            0 0 0 3px #4a3f5c,
+            0 16px 40px rgba(0, 0, 0, 0.85),
+            0 0 28px rgba(145, 57, 229, 0.16);
     }
 
     .iphone-status-bar {
-        padding: 12px 20px 6px;
-        font-size: 0.74rem;
+        padding: 10px 16px 4px;
+        font-size: 0.70rem;
     }
 
     .iphone-island {
-        width: 100px;
-        height: 25px;
+        width: 86px;
+        height: 22px;
     }
 
     .iphone-home-indicator {
-        padding: 6px 0 8px;
+        padding: 5px 0 7px;
     }
 
     .home-bar {
-        width: 120px;
-        height: 4px;
+        width: 98px;
+        height: 3.5px;
     }
 
     /* Preserva a proporção exata física do iPhone 15 Pro Max (76,7mm x 159,9mm) */
@@ -3283,6 +3383,71 @@ body {
         flex: 1 1 0;
         min-height: 0;
         height: auto;
+        padding: 10px;
+    }
+
+    .wa-sim-nav {
+        padding: 6px 10px;
+    }
+
+    .wa-sim-avatar {
+        width: 32px;
+        height: 32px;
+    }
+
+    .wa-sim-title {
+        font-size: 0.82rem;
+    }
+
+    .wa-sim-subtitle {
+        font-size: 0.65rem;
+    }
+
+    .wa-bubble-in,
+    .wa-bubble-out {
+        max-width: 90%;
+        font-size: 0.76rem;
+        padding: 8px 10px;
+    }
+
+    .quick-reply-btn {
+        font-size: 0.68rem;
+        padding: 3px 7px;
+    }
+
+    .google-browser-bar {
+        padding: 5px 10px;
+    }
+
+    .google-url-pill {
+        padding: 3px 8px;
+        font-size: 0.65rem;
+    }
+
+    .google-logo-brand {
+        font-size: 1.2rem;
+    }
+
+    .google-tag-pill {
+        font-size: 0.66rem;
+        padding: 3px 7px;
+    }
+
+    .google-search-input-wrap {
+        padding: 3px 6px 3px 8px;
+    }
+
+    .google-empty-state h4 {
+        font-size: 0.86rem;
+    }
+
+    .google-empty-state p {
+        font-size: 0.72rem;
+    }
+
+    .serp-shock-card,
+    .google-success-card {
+        padding: 10px 8px;
     }
 
     /* Previne o auto-zoom do Safari no iOS */
@@ -3292,65 +3457,94 @@ body {
     }
 
     .wa-input-plus {
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
     }
 
     .wa-input-send-btn {
-        width: 38px;
-        height: 38px;
+        width: 34px;
+        height: 34px;
     }
 
     .btn-wa-card-action,
     .shock-btn {
-        min-height: 44px;
-        font-size: 0.88rem;
+        min-height: 42px;
+        font-size: 0.82rem;
     }
 
     .stage-actions {
         flex-direction: column;
         align-items: stretch;
-        width: 100%;
-        gap: 14px;
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 12px;
     }
 
     .stage-actions .btn {
-        width: 100%;
-        justify-content: center;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 15px 14px !important;
+        font-size: 0.86rem !important;
+        letter-spacing: 0.3px !important;
+        justify-content: center !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+        white-space: normal !important;
     }
 
     .stage-scroll-next {
         justify-content: center;
         text-align: center;
         padding: 6px 0;
+        font-size: 0.82rem;
     }
 
+    .stage-title,
+    .stage-title-shark,
     .stage-heading-title {
-        font-size: clamp(2rem, 7.5vw, 2.7rem);
-        line-height: 1.08;
+        font-size: clamp(1.85rem, 6.8vw, 2.35rem) !important;
+        line-height: 1.05 !important;
+        letter-spacing: 0.8px !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        max-width: 100% !important;
     }
 
     .stage-lead {
-        font-size: 1rem;
-        line-height: 1.55;
-        margin-bottom: 22px;
+        font-size: 0.95rem !important;
+        line-height: 1.52 !important;
+        margin-bottom: 20px !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        max-width: 100% !important;
     }
 
     .stage-pillar-item {
-        gap: 14px;
-        padding-bottom: 14px;
+        gap: 12px;
+        padding-bottom: 12px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .pillar-info {
+        flex: 1 1 auto;
+        min-width: 0;
     }
 
     .pillar-num {
-        font-size: 1.35rem;
+        font-size: 1.25rem;
     }
 
     .pillar-info h3 {
-        font-size: 0.98rem;
+        font-size: 0.94rem;
+        line-height: 1.3;
     }
 
     .pillar-info p {
-        font-size: 0.85rem;
+        font-size: 0.84rem;
+        line-height: 1.45;
     }
 }
 
@@ -3359,15 +3553,15 @@ body {
    ========================================================================== */
 @media (max-width: 480px) {
     .container {
-        padding: 0 16px;
+        padding: 0 14px !important;
     }
 
     .section-level-stage {
-        padding: 55px 0;
+        padding: 50px 0;
     }
 
     .iphone-sim-wrapper {
-        max-width: min(315px, 90vw);
+        max-width: 270px !important;
     }
 
     .iphone-device {
@@ -3380,64 +3574,21 @@ body {
     }
 
     .iphone-status-bar {
-        padding: 10px 14px 4px;
-        font-size: 0.68rem;
+        padding: 8px 12px 3px;
+        font-size: 0.66rem;
     }
 
     .iphone-island {
-        width: 86px;
-        height: 22px;
+        width: 78px;
+        height: 20px;
     }
 
     .home-bar {
-        width: 100px;
-        height: 3.5px;
-    }
-
-    .wa-sim-chat-area,
-    .google-screen-area {
-        flex: 1 1 0;
-        min-height: 0;
-        height: auto;
-    }
-
-    .wa-sim-nav {
-        padding: 6px 10px;
-    }
-
-    .wa-sim-title {
-        font-size: 0.86rem;
-    }
-
-    .wa-sim-subtitle {
-        font-size: 0.68rem;
-    }
-
-    .google-browser-bar {
-        padding: 6px 10px;
-    }
-
-    .google-url-pill {
-        padding: 3px 10px;
-        font-size: 0.68rem;
-    }
-
-    .google-search-input-wrap {
-        padding: 4px 6px 4px 10px;
-    }
-
-    .wa-bubble-in,
-    .wa-bubble-out {
-        max-width: 88%;
-        font-size: 0.82rem;
-    }
-
-    .quick-reply-btn {
-        font-size: 0.7rem;
-        padding: 4px 8px;
+        width: 88px;
+        height: 3px;
     }
 
     .hero-title {
-        font-size: clamp(2.1rem, 9vw, 2.7rem);
+        font-size: clamp(2rem, 8.8vw, 2.6rem) !important;
     }
 }

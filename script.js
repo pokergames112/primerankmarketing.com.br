@@ -197,9 +197,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             this.charIdx++;
                             this.bodyEl.textContent = this.fullText.slice(0, this.charIdx);
                             const c = this.fullText[this.charIdx - 1];
-                            let delay = 20;
-                            if (c === ':' || c === '—' || c === '-') delay = 75;
-                            else if (c === ' ') delay = 28;
+                            let delay = 12;
+                            if (c === ':' || c === '—' || c === '-') delay = 40;
+                            else if (c === ' ') delay = 18;
                             this.timer = setTimeout(step, delay);
                         } else {
                             this.mode = 'typed';
