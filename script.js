@@ -135,16 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function initWhatsAppSimulator() {
         const form = document.getElementById('waSimForm');
         const input = document.getElementById('waSimInput');
-        const quickPills = document.querySelectorAll('.quick-reply-btn');
-        const quickRepliesWrap = document.getElementById('waSimQuickReplies');
         const msgOut = document.getElementById('waMsgOut');
         const msgOutText = document.getElementById('waMsgOutText');
         const typingRow = document.getElementById('waTypingRow');
         const statusEl = document.getElementById('waSimStatus');
         const msgReaction1 = document.getElementById('waMsgReaction1');
-        const msgReaction2 = document.getElementById('waMsgReaction2');
         const msgCard = document.getElementById('waMsgCard');
-        const resetBtn = document.getElementById('waSimResetBtn');
         const chatArea = document.getElementById('waSimChatArea');
 
         if (!form || !chatArea) return;
@@ -155,13 +151,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isRunning) return;
             isRunning = true;
 
-            const replyText = (text && text.trim().length > 0) ? text.trim() : 'Com certeza! Atendemos sim no seu raio. Qual o seu pedido?';
+            const replyText = (text && text.trim().length > 0) ? text.trim() : 'Boa tarde! Atendemos sim na sua região.';
             if (msgOutText) msgOutText.textContent = replyText;
 
-            // 1. Mostra a mensagem do visitante
+            // 1. Mostra a mensagem enviada pelo visitante
             if (msgOut) msgOut.classList.remove('is-hidden');
             if (input) input.value = '';
-            if (quickRepliesWrap) quickRepliesWrap.style.display = 'none';
 
             chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
 
@@ -174,40 +169,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typingRow) typingRow.classList.remove('is-hidden');
                 chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
 
-                // 3. Camila manda a primeira reação (Choque no chat)
+                // 3. Camila manda a resposta de choque no chat
                 setTimeout(() => {
                     if (typingRow) typingRow.classList.add('is-hidden');
                     if (msgReaction1) msgReaction1.classList.remove('is-hidden');
                     chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
 
-                    // Continua digitando...
+                    // 4. Surge o Card de Ação com o botão para o WhatsApp real
                     setTimeout(() => {
-                        if (typingRow) typingRow.classList.remove('is-hidden');
+                        if (statusEl) {
+                            statusEl.textContent = 'online';
+                            statusEl.classList.remove('is-typing');
+                        }
+                        if (msgCard) msgCard.classList.remove('is-hidden');
                         chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
 
-                        // 4. Camila manda a explicação da Prime Rank
-                        setTimeout(() => {
-                            if (typingRow) typingRow.classList.add('is-hidden');
-                            if (msgReaction2) msgReaction2.classList.remove('is-hidden');
-                            chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
-
-                            // 5. Surge o Card de Ação Interativo do WhatsApp Business
-                            setTimeout(() => {
-                                if (statusEl) {
-                                    statusEl.textContent = 'online';
-                                    statusEl.classList.remove('is-typing');
-                                }
-                                if (msgCard) msgCard.classList.remove('is-hidden');
-                                chatArea.scrollTo({ top: chatArea.scrollHeight, behavior: 'smooth' });
-
-                                if (navigator.vibrate) {
-                                    try { navigator.vibrate([40, 80, 40]); } catch (e) {}
-                                }
-                                isRunning = false;
-                            }, 700);
-                        }, 1100);
-                    }, 400);
-                }, 1000);
+                        if (navigator.vibrate) {
+                            try { navigator.vibrate([40, 80, 40]); } catch (e) {}
+                        }
+                        isRunning = false;
+                    }, 800);
+                }, 1200);
             }, 500);
         }
 
@@ -218,32 +200,22 @@ document.addEventListener('DOMContentLoaded', () => {
             sendMessage(text);
         });
 
-        // Clique nos botões de resposta rápida
-        quickPills.forEach(pill => {
-            pill.addEventListener('click', () => {
-                const text = pill.getAttribute('data-text') || pill.textContent;
-                sendMessage(text);
-            });
-        });
-
         // Botão de reiniciar simulação
         function resetSimulation() {
             isRunning = false;
             if (msgOut) msgOut.classList.add('is-hidden');
             if (typingRow) typingRow.classList.add('is-hidden');
             if (msgReaction1) msgReaction1.classList.add('is-hidden');
-            if (msgReaction2) msgReaction2.classList.add('is-hidden');
             if (msgCard) msgCard.classList.add('is-hidden');
             if (statusEl) {
                 statusEl.textContent = 'online';
                 statusEl.classList.remove('is-typing');
             }
-            if (quickRepliesWrap) quickRepliesWrap.style.display = 'block';
             if (input) input.value = '';
             chatArea.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Delegação de evento para o botão de reset (que pode ser renderizado no chat)
+        // Delegação de evento para o botão de reset
         chatArea.addEventListener('click', (e) => {
             if (e.target.closest('#waSimResetBtn')) {
                 resetSimulation();

@@ -33,7 +33,7 @@
     <link rel="icon" type="image/png" sizes="48x48" href="favicon-48x48.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
-    <link rel="stylesheet" href="style.css?v=4.0">
+    <link rel="stylesheet" href="style.css?v=4.5">
 
     <!-- Schema.org -->
     <script type="application/ld+json">
@@ -302,7 +302,7 @@
                                 <!-- Mensagem 1: Cliente Camila (Lead) -->
                                 <div class="wa-msg-row wa-msg-in" id="waMsgIn">
                                     <div class="wa-bubble-in">
-                                        <p>Boa tarde! Vi o anúncio de vocês no Reels agora pouco. Vocês atendem na minha região? Quero fechar com urgência!</p>
+                                        <p>Boa tarde! Vi o anúncio de vocês agora pouco. Vocês atendem na minha região? Quero fechar com urgência!</p>
                                         <span class="wa-time">14:32</span>
                                     </div>
                                 </div>
@@ -310,7 +310,7 @@
                                 <!-- Mensagem 2: Visitante Responde (Inicialmente Oculta) -->
                                 <div class="wa-msg-row wa-msg-out is-hidden" id="waMsgOut">
                                     <div class="wa-bubble-out">
-                                        <p id="waMsgOutText">Com certeza! Atendemos sim no seu raio. Qual o seu pedido?</p>
+                                        <p id="waMsgOutText">Boa tarde! Atendemos sim na sua região, qual o seu pedido?</p>
                                         <div class="wa-time-checks">
                                             <span class="wa-time" id="waMsgOutTime">14:33</span>
                                             <span class="wa-double-checks">✓✓</span>
@@ -335,15 +335,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Mensagem 4: Explicação Matadora de Negócio -->
-                                <div class="wa-msg-row wa-msg-in is-hidden" id="waMsgReaction2">
-                                    <div class="wa-bubble-in">
-                                        <p>Hoje o seu WhatsApp está em silêncio. Mas com a <strong>Prime Rank</strong>, essa mensagem chega todo santo dia no seu bolso com clientes prontos para pagar.</p>
-                                        <span class="wa-time" id="waTimeReaction2">14:34</span>
-                                    </div>
-                                </div>
-
-                                <!-- Mensagem 5: Card de Ação Interativo do WhatsApp Business -->
+                                <!-- Mensagem 4: Card de Ação Interativo do WhatsApp Business -->
                                 <div class="wa-msg-row wa-msg-in is-hidden" id="waMsgCard">
                                     <div class="wa-chat-action-card">
                                         <div class="action-card-header">
@@ -364,20 +356,11 @@
                                 </div>
                             </div>
 
-                            <!-- Sugestões de Resposta Rápida (Toque Único) -->
-                            <div class="wa-sim-quick-replies" id="waSimQuickReplies">
-                                <span class="quick-reply-label">Toque para responder e fechar:</span>
-                                <div class="quick-reply-pills">
-                                    <button type="button" class="quick-reply-btn" data-text="Com certeza! Atendemos sim no seu raio. Qual o seu pedido?">"Com certeza! Atendemos sim!"</button>
-                                    <button type="button" class="quick-reply-btn" data-text="Olá! Temos pronta entrega e horário hoje. Vamos fechar?">"Temos pronta entrega! Vamos?"</button>
-                                </div>
-                            </div>
-
                             <!-- Barra de Input do WhatsApp -->
                             <form class="wa-sim-input-bar" id="waSimForm">
                                 <button type="button" class="wa-input-plus" aria-label="Anexo">+</button>
                                 <div class="wa-input-field-wrap">
-                                    <input type="text" id="waSimInput" placeholder="Digite uma resposta para fechar a venda..." autocomplete="off">
+                                    <input type="text" id="waSimInput" placeholder="Digite sua resposta (ex: Boa tarde, atendemos sim!)..." autocomplete="off">
                                 </div>
                                 <button type="submit" class="wa-input-send-btn" id="waSimSendBtn" aria-label="Enviar Mensagem">
                                     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
@@ -1274,6 +1257,6 @@
     <!-- VOLTAR AO TOPO -->
     <button id="scrollToTopBtn" title="Voltar ao Topo" aria-label="Voltar ao Topo">&#9650;</button>
 
-    <script src="script.js?v=4.0"></script>
+    <script src="script.js?v=4.5"></script>
 </body>
 </html>
