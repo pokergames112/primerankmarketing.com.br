@@ -130,6 +130,80 @@ document.addEventListener('DOMContentLoaded', () => {
     initSharkWordRotator();
 
     // ==========================================================================
+    // 0.3 SIMULADOR INTERATIVO DE WHATSAPP (NÍVEL 01 - SETUP INICIAL)
+    // ==========================================================================
+    function initWhatsAppSimulator() {
+        const form = document.getElementById('waSimForm');
+        const input = document.getElementById('waSimInput');
+        const quickPills = document.querySelectorAll('.quick-reply-btn');
+        const quickRepliesWrap = document.getElementById('waSimQuickReplies');
+        const msgOut = document.getElementById('waMsgOut');
+        const msgOutText = document.getElementById('waMsgOutText');
+        const typingRow = document.getElementById('waTypingRow');
+        const shockOverlay = document.getElementById('waShockOverlay');
+        const resetBtn = document.getElementById('waSimResetBtn');
+        const chatArea = document.getElementById('waSimChatArea');
+
+        if (!form || !chatArea) return;
+
+        function sendMessage(text) {
+            const replyText = (text && text.trim().length > 0) ? text.trim() : 'Com certeza! Atendemos sim no seu raio. Qual o seu pedido?';
+            if (msgOutText) msgOutText.textContent = replyText;
+
+            // Mostra mensagem enviada
+            if (msgOut) msgOut.classList.remove('is-hidden');
+            if (input) input.value = '';
+            if (quickRepliesWrap) quickRepliesWrap.style.display = 'none';
+
+            chatArea.scrollTop = chatArea.scrollHeight;
+
+            // Simula digitação da resposta do lead por 600ms
+            setTimeout(() => {
+                if (typingRow) typingRow.classList.remove('is-hidden');
+                chatArea.scrollTop = chatArea.scrollHeight;
+
+                // Em seguida entra o Choque de Realidade
+                setTimeout(() => {
+                    if (typingRow) typingRow.classList.add('is-hidden');
+                    if (shockOverlay) shockOverlay.classList.remove('is-hidden');
+                    if (navigator.vibrate) {
+                        try { navigator.vibrate([40, 80, 40]); } catch (e) {}
+                    }
+                }, 850);
+            }, 550);
+        }
+
+        // Submissão pelo formulário ou Enter
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = input ? input.value : '';
+            sendMessage(text);
+        });
+
+        // Clique nos botões de resposta rápida
+        quickPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const text = pill.getAttribute('data-text') || pill.textContent;
+                sendMessage(text);
+            });
+        });
+
+        // Botão de reiniciar simulação
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                if (shockOverlay) shockOverlay.classList.add('is-hidden');
+                if (msgOut) msgOut.classList.add('is-hidden');
+                if (typingRow) typingRow.classList.add('is-hidden');
+                if (quickRepliesWrap) quickRepliesWrap.style.display = 'block';
+                if (input) input.value = '';
+                chatArea.scrollTop = 0;
+            });
+        }
+    }
+
+    initWhatsAppSimulator();
+
+    // ==========================================================================
     // 1. BARRA DE PROGRESSO DE SCROLL NO TOPO
     // ==========================================================================
     const progressBar = document.getElementById('scroll-progress-bar');
