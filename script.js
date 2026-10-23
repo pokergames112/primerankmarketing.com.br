@@ -1413,6 +1413,16 @@ document.addEventListener('DOMContentLoaded', () => {
             triggerHeadlessDetection(isHeadlessTest);
         }
     })();
+
+    // 11.8 Proteção Anti-Snipping Tool / Anti-Print (Efeito Estilo Netflix ao Perder Foco)
+    (function initAntiCaptureGuard() {
+        window.addEventListener('blur', () => {
+            document.body.classList.add('screen-capture-protected');
+        });
+        window.addEventListener('focus', () => {
+            document.body.classList.remove('screen-capture-protected');
+        });
+    })();
 });
 
 

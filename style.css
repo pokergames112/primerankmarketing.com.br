@@ -3713,3 +3713,53 @@ body {
     0%, 100% { transform: translateX(-50%) scale(1); }
     50% { transform: translateX(-50%) scale(1.03); }
 }
+
+/* ==========================================================================
+   BLINDAGEM ANTI-SCREENSHOT & ANTI-PRINT (ESTILO NETFLIX)
+   ========================================================================== */
+
+/* 1. Efeito Anti-Snipping Tool: Quando a janela perde o foco para captura (Win+Shift+S) */
+body.screen-capture-protected #hero-globe-canvas,
+body.screen-capture-protected .iphone-device {
+    filter: blur(28px) grayscale(90%) !important;
+    opacity: 0.12 !important;
+    transition: filter 0.12s ease, opacity 0.12s ease !important;
+}
+
+/* 2. Blackout Total em Ctrl + P (Impressão e Exportação para PDF) */
+@media print {
+    html, body {
+        background: #07020d !important;
+        color: #00ff88 !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
+
+    body * {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    body::before {
+        display: flex !important;
+        visibility: visible !important;
+        content: "🚨 CÓDIGO E LAYOUT PROTEGIDOS 🚨\A\A A exportação desta página para PDF ou impressão foi bloqueada pelo sistema Prime Shield.\A O design, a matemática do Globo 3D e os simuladores de iPhone são de propriedade intelectual exclusiva da Prime Rank Marketing Digital.\A\A Acesse o site oficial: https://primerankmarketing.com.br";
+        white-space: pre-wrap;
+        font-family: 'Montserrat', sans-serif, monospace;
+        font-size: 22pt;
+        font-weight: 800;
+        text-align: center;
+        line-height: 1.6;
+        color: #00ff88 !important;
+        background: #07020d !important;
+        height: 100vh !important;
+        width: 100vw !important;
+        justify-content: center;
+        align-items: center;
+        padding: 50pt;
+        box-sizing: border-box;
+        border: 5pt solid #9139E5;
+    }
+}
