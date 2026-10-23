@@ -501,10 +501,7 @@ body {
 }
 
 .meta-dash {
-    display: inline-block;
-    width: 32px;
-    height: 1px;
-    background: var(--purple-accent);
+    display: none !important;
 }
 
 .meta-text {

@@ -127,13 +127,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================================================
-    // 0.2.1 DIGITAÇÃO MÁGICA NO SCROLL (TYPEWRITER EFFECT EM ESTÁGIOS / TÍTULOS)
+    // ==========================================================================
+    // 0.2.1 DIGITAÇÃO & DESDIGITAÇÃO MÁGICA NO SCROLL (BIDIRECTIONAL TYPEWRITER)
     // ==========================================================================
     function initScrollTypewriter() {
         const typewriterEls = document.querySelectorAll('[data-typewriter="true"]');
         if (!typewriterEls.length) return;
 
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Estrutura de controladores de digitação/desdigitação
+        const controllers = [];
 
         typewriterEls.forEach(el => {
             const rawText = el.getAttribute('data-typewriter-text') || el.textContent;
@@ -145,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Preserva a altura para evitar pulo no layout durante o scroll
+            // Fixa a altura mínima calculada para CLS zero durante digitação e desdigitação
             const currentHeight = el.getBoundingClientRect().height;
             if (currentHeight > 0) {
                 el.style.minHeight = `${currentHeight}px`;
@@ -155,58 +159,170 @@ document.addEventListener('DOMContentLoaded', () => {
             const bodyEl = el.querySelector('.typewriter-body');
             const cursorEl = el.querySelector('.typewriter-cursor');
 
-            let hasStarted = false;
+            const ctrl = {
+                el,
+                fullText,
+                bodyEl,
+                cursorEl,
+                charIdx: 0,
+                mode: 'idle_empty', // 'typing' | 'typed' | 'untyping' | 'idle_empty'
+                timer: null,
+                cursorFadeTimer: null,
 
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !hasStarted) {
-                        hasStarted = true;
-                        obs.unobserve(entry.target);
-
-                        // Pequeno atraso para sincronizar com a entrada da seção
-                        setTimeout(() => {
-                            let charIdx = 0;
-                            const totalChars = fullText.length;
-
-                            function typeNext() {
-                                if (charIdx < totalChars) {
-                                    bodyEl.textContent = fullText.slice(0, charIdx + 1);
-                                    const c = fullText[charIdx];
-                                    charIdx++;
-
-                                    let delay = 22;
-                                    if (c === ':' || c === '—' || c === '-') {
-                                        delay = 85;
-                                    } else if (c === ' ') {
-                                        delay = 30;
-                                    }
-
-                                    setTimeout(typeNext, delay);
-                                } else {
-                                    // Digitação concluída
-                                    el.style.minHeight = '';
-                                    setTimeout(() => {
-                                        if (cursorEl) {
-                                            cursorEl.classList.add('is-hidden');
-                                            setTimeout(() => {
-                                                if (cursorEl.parentNode) cursorEl.remove();
-                                            }, 500);
-                                        }
-                                    }, 1400);
-                                }
-                            }
-
-                            typeNext();
-                        }, 180);
+                showCursor() {
+                    if (this.cursorFadeTimer) {
+                        clearTimeout(this.cursorFadeTimer);
+                        this.cursorFadeTimer = null;
                     }
-                });
-            }, {
-                threshold: 0.15,
-                rootMargin: '0px 0px -40px 0px'
+                    if (this.cursorEl) {
+                        this.cursorEl.classList.remove('is-hidden');
+                    }
+                },
+
+                hideCursorLater(delay = 1400) {
+                    if (this.cursorFadeTimer) clearTimeout(this.cursorFadeTimer);
+                    this.cursorFadeTimer = setTimeout(() => {
+                        if (this.cursorEl) {
+                            this.cursorEl.classList.add('is-hidden');
+                        }
+                    }, delay);
+                },
+
+                typeForward() {
+                    if (this.mode === 'typing' || this.mode === 'typed') return;
+                    this.mode = 'typing';
+                    if (this.timer) {
+                        clearTimeout(this.timer);
+                        this.timer = null;
+                    }
+                    this.showCursor();
+
+                    const step = () => {
+                        if (this.mode !== 'typing') return;
+                        if (this.charIdx < this.fullText.length) {
+                            this.charIdx++;
+                            this.bodyEl.textContent = this.fullText.slice(0, this.charIdx);
+                            const c = this.fullText[this.charIdx - 1];
+                            let delay = 20;
+                            if (c === ':' || c === '—' || c === '-') delay = 75;
+                            else if (c === ' ') delay = 28;
+                            this.timer = setTimeout(step, delay);
+                        } else {
+                            this.mode = 'typed';
+                            this.hideCursorLater(1400);
+                        }
+                    };
+                    step();
+                },
+
+                untype() {
+                    if (this.mode === 'untyping' || this.mode === 'idle_empty') return;
+                    this.mode = 'untyping';
+                    if (this.timer) {
+                        clearTimeout(this.timer);
+                        this.timer = null;
+                    }
+                    this.showCursor();
+
+                    const step = () => {
+                        if (this.mode !== 'untyping') return;
+                        if (this.charIdx > 0) {
+                            this.charIdx--;
+                            this.bodyEl.textContent = this.fullText.slice(0, this.charIdx);
+                            // Efeito de backspace rápido e suave (~11ms por caractere)
+                            this.timer = setTimeout(step, 11);
+                        } else {
+                            this.mode = 'idle_empty';
+                            this.bodyEl.textContent = '';
+                        }
+                    };
+                    step();
+                },
+
+                resetEmpty() {
+                    if (this.timer) {
+                        clearTimeout(this.timer);
+                        this.timer = null;
+                    }
+                    this.mode = 'idle_empty';
+                    this.charIdx = 0;
+                    this.bodyEl.textContent = '';
+                    this.showCursor();
+                }
+            };
+
+            controllers.push(ctrl);
+        });
+
+        if (prefersReducedMotion || !controllers.length) return;
+
+        // ======================================================================
+        // RASTREAMENTO INTELIGENTE DE NAVEGAÇÃO & SENTIDO DO SCROLL DO USUÁRIO
+        // ======================================================================
+        let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+        let ticking = false;
+
+        function checkControllers() {
+            const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollDir = currentScrollY > lastScrollY ? 'down' : (currentScrollY < lastScrollY ? 'up' : 'none');
+            lastScrollY = currentScrollY;
+
+            const vh = window.innerHeight;
+
+            controllers.forEach(ctrl => {
+                const rect = ctrl.el.getBoundingClientRect();
+
+                // 1. O usuário está DESCENDO a página
+                if (scrollDir === 'down') {
+                    // Quando a seção entra na faixa de leitura (a partir de 82% da altura da tela)
+                    if (rect.top < vh * 0.82 && rect.bottom > 80) {
+                        ctrl.typeForward();
+                    }
+                    // Quando a seção já passou completamente e sumiu pelo topo
+                    if (rect.bottom < -60) {
+                        ctrl.resetEmpty();
+                    }
+                } 
+                // 2. O usuário está VOLTANDO (subindo a página em direção ao topo)
+                else if (scrollDir === 'up') {
+                    // Se o usuário está descendo de volta para esta seção vindo de baixo
+                    if (rect.bottom > vh * 0.25 && rect.top < vh * 0.70) {
+                        ctrl.typeForward();
+                    }
+                    // Se o usuário está subindo em direção ao topo (Hero) e a seção está descendo para sair:
+                    // Quando o topo da seção ultrapassa 32% da tela descendo, o usuário vê as letras se desdigitando!
+                    if (rect.top > vh * 0.32) {
+                        ctrl.untype();
+                    }
+                } else {
+                    // Caso neutro / primeiro carregamento da página
+                    if (rect.top < vh * 0.80 && rect.bottom > vh * 0.20) {
+                        ctrl.typeForward();
+                    }
+                }
             });
 
-            observer.observe(el);
-        });
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(checkControllers);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Verificação inicial após renderização do DOM
+        setTimeout(checkControllers, 200);
+
+        // Ajuste dinâmico responsivo se a tela for redimensionada
+        window.addEventListener('resize', () => {
+            controllers.forEach(ctrl => {
+                ctrl.el.style.minHeight = '';
+                const h = ctrl.el.getBoundingClientRect().height;
+                if (h > 0) ctrl.el.style.minHeight = `${h}px`;
+            });
+        }, { passive: true });
     }
 
     initHeroWordRotator();
