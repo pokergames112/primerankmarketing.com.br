@@ -58,6 +58,11 @@
     box-sizing: border-box;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
